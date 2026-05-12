@@ -1,17 +1,14 @@
-<%-- 
-    Document   : gestionUsuariosAdmin
-    Created on : 29/03/2026, 5:40:32 p. m.
-    Author     : garfi
---%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Gestión de Usuarios - Ecommerce</title>
-        <link rel="stylesheet" type="text/css" href="../assets/stylesAdmin.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssAdmin/common.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssAdmin/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssAdmin/gestionUsuarios.css">
     </head>
     <body>
         <header class="barra-superior">

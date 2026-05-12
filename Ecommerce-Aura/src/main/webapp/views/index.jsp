@@ -1,11 +1,6 @@
-<%-- 
-    Document   : index
-    Created on : 29/03/2026, 5:41:23 p. m.
-    Author     : garfi
---%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -14,7 +9,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Proyecto ECommerce</title>
-        <link rel="stylesheet" type="text/css" href="../assets/styles.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/common.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/home.css">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" rel="stylesheet">
     </head>
 
