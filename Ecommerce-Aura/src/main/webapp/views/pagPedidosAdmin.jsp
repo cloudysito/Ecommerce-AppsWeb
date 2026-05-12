@@ -1,24 +1,14 @@
-<%-- 
-    Document   : pagPedidosAdmin
-    Created on : 29/03/2026, 5:43:24 p. m.
-    Author     : garfi
---%>
 
-<%@page import="java.util.List"%>
-<%@page import="modelo.Pedido"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    List<Pedido> listaPedidos = (List<Pedido>) request.getAttribute("listaPedidos");
-    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pedidos Admin - Ecommerce</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/stylesAdmin.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/common.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/gestionPedidos.css">
     </head>
     <body>
         <header class="barra-superior">

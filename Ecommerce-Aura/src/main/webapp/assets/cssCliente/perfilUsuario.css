@@ -1,0 +1,90 @@
+/* Perfil Usuario */
+.pantalla-centrada {
+    display: flex;
+    justify-content: center;
+    background-color: #f8f9fa;
+    padding: 40px 20px;
+}
+
+.contenedor-perfil {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.tarjeta-perfil {
+    background-color: white;
+    width: 100%;
+    max-width: 700px;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.cabecera-perfil {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cabecera-perfil h2 {
+    font-size: 28px;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.cabecera-perfil p {
+    font-size: 14px;
+    color: #4A90E2;
+    margin: 0;
+}
+
+.formulario-perfil {
+    gap: 0 20px;
+}
+
+.formulario-perfil .grupo-formulario input,
+.formulario-perfil .grupo-formulario textarea {
+    width: 100%;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 14px;
+    color: #202124;
+    outline: none;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.formulario-perfil .grupo-formulario input::placeholder,
+.formulario-perfil .grupo-formulario textarea::placeholder {
+    color: #9aa0a6;
+}
+
+.formulario-perfil .grupo-formulario textarea {
+    resize: vertical;
+}
+
+.boton-guardar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.btn-guardar {
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.perfil-fondo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 20px;
+}

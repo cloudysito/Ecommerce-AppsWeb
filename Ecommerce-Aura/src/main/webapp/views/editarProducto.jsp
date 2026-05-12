@@ -1,25 +1,14 @@
-<%-- 
-    Document   : editarProducto
-    Created on : 29/03/2026, 5:37:14 p. m.
-    Author     : garfi
---%>
 
-<%@page import="modelo.Producto"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    Producto producto = (Producto) request.getAttribute("producto");
-    if (producto == null) {
-        response.sendRedirect("../ProductoServlet?accion=listar");
-        return;
-    }
-%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Editar Producto - Ecommerce</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/stylesAdmin.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/common.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/editarProducto.css">
     </head>
     <body>
         <header class="barra-superior">
