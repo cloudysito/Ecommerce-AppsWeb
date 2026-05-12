@@ -6,7 +6,7 @@ package PersistenciaDAOImpl;
 
 import Config.MongoClientProvider;
 import com.mongodb.MongoException;
-import static com.mongodb.client.model.Filters.eq;
+
 import static com.mongodb.client.model.Updates.set;
 import java.util.ArrayList;
 import java.util.List;
