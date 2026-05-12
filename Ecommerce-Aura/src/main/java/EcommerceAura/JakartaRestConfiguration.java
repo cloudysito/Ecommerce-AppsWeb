@@ -1,4 +1,4 @@
-package com.mycompany.ecommerce.aura;
+package EcommerceAura;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

@@ -1,4 +1,4 @@
-package com.mycompany.ecommerce.aura.resources;
+package EcommerceAuraResources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
