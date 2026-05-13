@@ -1,4 +1,4 @@
-
+﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,7 +21,7 @@
             </div>
             <div class="header-right">
                 <a href="perfilUsuario.jsp" class="icon" title="Perfil"><img src="../imgs/perfil.png" alt="Perfil"></a>
-                <a href="#cerrar-sesion" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png"
+                <a href="../UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png"
                                                                                  alt="Cerrar sesión"></a>
             </div>
         </header>
@@ -95,7 +95,8 @@
         </div>
     </body>
     <footer class="pie-pagina">
-        <p>Aplicaciones Web – Unidad 2</p>
+            <p>Aplicaciones Web</p>
     </footer>
 
 </html>
+

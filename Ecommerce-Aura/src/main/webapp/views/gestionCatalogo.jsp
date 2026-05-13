@@ -1,4 +1,4 @@
-
+﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -121,7 +121,8 @@
         </div>
 
         <footer class="pie-pagina">
-            <p>Aplicaciones Web – Unidad 2</p>
+            <p>Aplicaciones Web</p>
         </footer>
     </body>
 </html>
+
