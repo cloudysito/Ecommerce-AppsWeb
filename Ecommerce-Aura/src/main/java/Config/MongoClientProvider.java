@@ -12,7 +12,7 @@ import com.mongodb.client.MongoDatabase;
 public enum MongoClientProvider {
     INSTANCE;
     private MongoClient client;
-    private String dbName = "Ecommerse";
+    private String dbName = "Ecommerce";
     private String uri = "mongodb://localhost:27017/";
 
     public synchronized void init() {

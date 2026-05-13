@@ -1,6 +1,6 @@
-package BOS;
+package BOs;
 
-import BOS.interfaces.IDetallePedidoBO;
+import BOs.interfaces.IDetallePedidoBO;
 import java.util.List;
 import modelo.DetallePedido;
 import org.bson.types.ObjectId;

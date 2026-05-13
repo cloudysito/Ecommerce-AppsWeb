@@ -1,7 +1,7 @@
 package controllers;
 
-import BOS.PedidoBO;
-import BOS.interfaces.IPedidoBO;
+import BOs.PedidoBO;
+import BOs.interfaces.IPedidoBO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

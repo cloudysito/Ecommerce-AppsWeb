@@ -4,9 +4,9 @@
  */
 package controllers;
 
-import BOS.ResenaBO;
-import BOS.UsuarioBO;
-import BOS.interfaces.IResenaBO;
+import BOs.ResenaBO;
+import BOs.UsuarioBO;
+import BOs.interfaces.IResenaBO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

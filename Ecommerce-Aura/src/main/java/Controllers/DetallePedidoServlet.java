@@ -4,8 +4,8 @@
  */
 package controllers;
 
-import BOS.DetallePedidoBO;
-import BOS.interfaces.IDetallePedidoBO;
+import BOs.DetallePedidoBO;
+import BOs.interfaces.IDetallePedidoBO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
