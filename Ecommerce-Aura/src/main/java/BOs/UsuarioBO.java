@@ -13,29 +13,25 @@ import PersistenciaDAOImpl.UsuarioDAO;
  *
  * @author USER
  */
-public class UsuarioBO implements IUsuarioBO{
+public class UsuarioBO implements IUsuarioBO {
 
-    private final IUsuarioDAO usuarioDAO;
+    private final IUsuarioDAO usuarioDAO = new UsuarioDAO();
 
     public UsuarioBO() {
-        this.usuarioDAO = new UsuarioDAO();
     }
+    
     public void crearAdmin(){
         try {
-            // Primero intenta buscar con el rol correcto
             Usuario admin = usuarioDAO.autentificar("admin@gmail.com", "mitens", "Admin");
             
             if(admin == null){
-                // Si no existe con "Admin", busca con el rol incorrecto "admin"
                 Usuario adminViejo = usuarioDAO.autentificar("admin@gmail.com", "mitens", "admin");
                 
                 if(adminViejo != null){
-                    // Actualizar el rol del admin existente
                     adminViejo.setRol("Admin");
                     usuarioDAO.actualizar(adminViejo);
                     System.out.println("admin actualizado correctamente con el rol correcto");
                 } else {
-                    // Si no existe, crear uno nuevo
                     Usuario nuevoAdmin = new Usuario();
                     nuevoAdmin.setNombreCompleto("admnistrador principal");
                     nuevoAdmin.setCorreo("admin@gmail.com");
@@ -52,6 +48,7 @@ public class UsuarioBO implements IUsuarioBO{
             System.out.println("error al crear/actualizar al admin: " + e.getMessage());
         }
     }
+    
     @Override
     public Usuario iniciarSesion(String correo, String password) throws Exception {
         if (correo == null || correo.trim().isEmpty()) {
@@ -65,5 +62,40 @@ public class UsuarioBO implements IUsuarioBO{
             throw new Exception("credenciales incorrectas o no tienes permisos de administrador");
         }
         return usuarioEncontrado;
+    }
+    
+    @Override
+    public Usuario registrarUsuario(Usuario usuario) throws Exception {
+        if (usuario.getNombreCompleto() == null || usuario.getNombreCompleto().trim().isEmpty()) {
+            throw new Exception("El nombre es obligatorio.");
+        }
+        if (usuario.getCorreo() == null || usuario.getCorreo().trim().isEmpty()) {
+            throw new Exception("El correo es obligatorio.");
+        }
+        if (usuario.getContrasenia() == null || usuario.getContrasenia().trim().isEmpty()) {
+            throw new Exception("Debes ingresar una contraseña.");
+        }
+        
+        Usuario existente = usuarioDAO.encontrarPorCorreo(usuario.getCorreo());
+        if (existente != null) {
+            throw new Exception("Este correo ya está registrado.");
+        }
+        
+        usuario.setRol("Cliente");
+        return usuarioDAO.insertar(usuario);
+    }
+    
+    @Override
+    public Usuario actualizarPerfil(Usuario usuario) throws Exception {
+        if (usuario.getNombreCompleto() == null || usuario.getNombreCompleto().trim().isEmpty()) {
+            throw new Exception("El nombre es obligatorio y no puede estar vacio.");
+        }
+        
+        boolean exito = usuarioDAO.actualizar(usuario);
+        
+        if (!exito) {
+            throw new Exception("No se pudo actualizar el perfil.");
+        }
+        return usuario;
     }
 }

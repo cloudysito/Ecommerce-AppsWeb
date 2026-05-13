@@ -21,15 +21,14 @@ import PersistenciaDAO.IUsuarioDAO;
  *
  * @author USER
  */
-public class UsuarioDAO implements IUsuarioDAO{
+public class UsuarioDAO implements IUsuarioDAO {
     
     private final MongoCollection<Usuario> col;
 
     public UsuarioDAO() {
         this.col = MongoClientProvider.INSTANCE.getcCollection("usuario", Usuario.class);
     }
-    
-    
+
     @Override
     public ObjectId registrarUsuario(Usuario entidad, String rol) {
         try {
@@ -75,6 +74,29 @@ public class UsuarioDAO implements IUsuarioDAO{
         }
     }
 
+    @Override
+    public Usuario insertar(Usuario usuario){
+        try {
+            if(usuario.getId() == null){
+                usuario.setId(new ObjectId());
+            }
+            col.insertOne(usuario);
+            return usuario;
+        } catch (MongoException e) {
+            throw new MongoException("error al insertar al usuario" + e);
+        }
+    }
+
+    @Override
+    public Usuario encontrarPorCorreo(String correo){
+        try {
+            return col.find(com.mongodb.client.model.Filters.eq("correo", correo)).first();
+        } catch (MongoException e) {
+            System.err.println("Error al buscar al usuario por su correo: " + e.getMessage());
+            return null;
+        }
+    }
+    
     @Override
     public boolean actualizar(Usuario entidad) {
         try {

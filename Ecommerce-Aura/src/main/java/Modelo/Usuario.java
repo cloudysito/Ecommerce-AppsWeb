@@ -2,8 +2,6 @@ package modelo;
 
 
 import org.bson.types.ObjectId;
-import PersistenciaDAO.IUsuarioDAO;
-import PersistenciaDAOImpl.UsuarioDAO;
 
 public class Usuario  {
 
@@ -18,8 +16,6 @@ public class Usuario  {
     public Usuario() {
     }
 
-
-    
     public Usuario(String nombreCompleto, String correo, String contrasenia, String direccion, String telefono, String rol) {
         this.nombreCompleto = nombreCompleto;
         this.correo = correo;
@@ -27,11 +23,8 @@ public class Usuario  {
         this.direccion = direccion;
         this.telefono = telefono;
         this.rol = rol;
-       
-
     }
 
-    //geters y setters
     public ObjectId getId() {
         return id;
     }

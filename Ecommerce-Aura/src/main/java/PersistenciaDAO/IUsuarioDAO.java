@@ -21,6 +21,6 @@ public interface IUsuarioDAO {
     boolean actualizar(Usuario entidad);
     boolean eliminarPorId(ObjectId _id);
     Optional<Usuario> encontrarPorNombre(String nombre);
-    
-    
+    Usuario insertar(Usuario usuario);
+    Usuario encontrarPorCorreo(String correo);
 }
