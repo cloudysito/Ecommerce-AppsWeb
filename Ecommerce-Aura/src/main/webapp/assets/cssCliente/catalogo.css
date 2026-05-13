@@ -10,17 +10,17 @@
     margin-bottom: 25px;
 }
 
-.filtros-container {
-    background-color: white;
+ .filtros-container {
+    background-color: var(--card-bg);
     padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.35);
     margin-bottom: 30px;
-}
+ }
 
 .filtros-container h2 {
     font-size: 16px;
-    color: #333;
+    color: var(--text);
     margin-bottom: 20px;
 }
 
@@ -46,15 +46,15 @@
 .input-con-icono {
     display: flex;
     align-items: center;
-    border: 1px solid #dadce0;
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 8px 12px;
-    background-color: white;
+    background-color: var(--card-bg);
     width: 300px;
 }
 
 .input-con-icono span {
-    color: #888;
+    color: var(--muted);
     margin-right: 8px;
     font-size: 14px;
 }
@@ -84,15 +84,15 @@
 .input-con-icono-izq {
     display: flex;
     align-items: center;
-    border: 1px solid #dadce0;
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 8px 12px;
-    background-color: white;
+    background-color: var(--card-bg);
 }
 
 .input-con-icono-izq span {
     margin-right: 5px;
-    color: #555;
+    color: var(--muted);
     font-size: 14px;
 }
 
@@ -104,8 +104,8 @@
 }
 
 .btn-aplicar {
-    background-color: #1a73e8;
-    color: white;
+    background-color: var(--primary);
+    color: var(--card-bg);
     border: none;
     padding: 10px 20px;
     border-radius: 6px;
@@ -140,7 +140,7 @@
 }
 
 .tabla-catalogo td {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--border);
 }
 
 .tabla-catalogo tbody tr:last-child td {
@@ -149,7 +149,7 @@
 
 .fw-bold {
     font-weight: 600;
-    color: #333;
+    color: var(--text);
 }
 
 .img-catalogo {
@@ -157,7 +157,7 @@
     height: 45px;
     object-fit: cover;
     border-radius: 6px;
-    background-color: #f0f0f0;
+    background-color: rgba(255,255,255,0.03);
 }
 
 .img-placeholder {
@@ -171,7 +171,7 @@
 }
 
 .link-detalles {
-    color: #1a73e8;
+    color: var(--primary);
     text-decoration: none;
     font-size: 13px;
     font-weight: 600;
@@ -195,17 +195,17 @@
 }
 
 .btn-agregar {
-    background-color: #1a73e8;
-    color: white;
+    background-color: var(--primary);
+    color: var(--card-bg);
     border: none;
 }
 
 .btn-resena {
-    background-color: white;
-    color: #333;
-    border: 1px solid #dadce0;
+    background-color: var(--card-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
 }
 
 .btn-resena:hover {
-    background-color: #f8f9fa;
+    background-color: var(--card-hover);
 }

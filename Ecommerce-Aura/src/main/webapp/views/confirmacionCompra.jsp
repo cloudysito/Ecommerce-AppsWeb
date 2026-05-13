@@ -21,7 +21,8 @@
         </div>
         <div class="header-right">
             <a href="#perfil" class="icon" title="Perfil"><img src="../imgs/perfil.png" alt="Perfil"></a>
-            <a href="#cerrar-sesion" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png" alt="Cerrar sesión"></a>
+            <a href="../UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png" alt="Cerrar sesión"></a>
+            <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
         </div>
     </header>
 
@@ -98,6 +99,7 @@
             </div>
         </main>
     </div>
+    <script src="../assets/js/theme.js"></script>
 </body>
 
 </html>

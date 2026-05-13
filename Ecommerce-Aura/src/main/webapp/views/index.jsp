@@ -25,6 +25,7 @@
                 <a href="perfilUsuario.jsp" class="icon" title="Perfil"><img src="../imgs/perfil.png" alt="Perfil"></a>
                 <a href="../UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png"
                                                                                  alt="Cerrar sesión"></a>
+                <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
             </div>
         </header>
 
@@ -108,6 +109,7 @@
         <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
         </footer>
+        <script src="../assets/js/theme.js"></script>
     </body>
 
 </html>

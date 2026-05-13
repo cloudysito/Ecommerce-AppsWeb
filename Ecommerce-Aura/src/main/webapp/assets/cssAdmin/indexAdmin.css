@@ -6,12 +6,12 @@
     margin-top: 30px;
 }
 
-.admin-card {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
+ .admin-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
     padding: 30px;
     text-align: center;
-}
+ }
 
 .card-icon {
     width: 64px;
@@ -20,32 +20,32 @@
     object-fit: contain;
 }
 
-.admin-card h3 {
+ .admin-card h3 {
     font-size: 16px;
     font-weight: 600;
-    color: #333;
+    color: var(--text);
     margin-bottom: 12px;
-}
+ }
 
-.admin-card p {
-    color: #666;
+ .admin-card p {
+    color: var(--muted);
     font-size: 13px;
     margin-bottom: 15px;
     line-height: 1.4;
-}
+ }
 
-.admin-card a {
-    color: #007bff;
+ .admin-card a {
+    color: var(--primary);
     text-decoration: none;
     font-size: 13px;
     font-weight: 500;
-}
+ }
 
-.subtitulo {
-    color: #999;
+ .subtitulo {
+    color: var(--muted);
     font-size: 14px;
     margin-bottom: 30px;
-}
+ }
 
 @media (max-width: 768px) {
     .menu-lateral {

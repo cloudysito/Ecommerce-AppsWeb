@@ -3,26 +3,26 @@
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    background-color: #fff;
+    background-color: var(--panel-bg);
 }
 
 .hero {
     text-align: center;
     margin-bottom: 40px;
     padding: 40px 20px;
-    background-color: #f8f9fa;
+    background-color: var(--panel-bg);
     border-radius: 8px;
 }
 
 .hero h1 {
     font-size: 2.5em;
-    color: #333;
+    color: var(--text);
     margin-bottom: 10px;
 }
 
 .hero p {
     font-size: 1.2em;
-    color: #666;
+    color: var(--muted);
 }
 
 .productos-destacados {
@@ -31,7 +31,7 @@
 
 .productos-destacados h2 {
     font-size: 2em;
-    color: #333;
+    color: var(--text);
     margin-bottom: 90px;
     text-align: center;
 }
@@ -45,10 +45,10 @@
 }
 
 .producto {
-    background-color: #FFFFFF;
+    background-color: var(--card-bg);
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
     max-width: 800px;
     margin: 0 auto;
 }
@@ -67,13 +67,13 @@
 
 .producto h3 {
     font-size: 30px;
-    color: #333;
+    color: var(--text);
     margin-bottom: 10px;
 }
 
 .producto p {
     font-size: 20px;
-    color: #007bff;
+    color: var(--primary);
     font-weight: bold;
 }
 
@@ -120,7 +120,7 @@
 .h1 {
     font-family: 'Inter', sans-serif;
     font-weight: 800;
-    color: #000000;
+    color: var(--text);
     letter-spacing: -0.02em;
 }
 
@@ -128,20 +128,20 @@
     font-weight: 800;
     text-align: left;
     font-size: 50px;
-    color: #1A1A1A;
+    color: var(--text);
     margin-bottom: 5px;
 }
 
 .subtitulo-principal {
     text-align: left;
-    color: #666666;
+    color: var(--muted);
     margin-bottom: 40px;
     font-family: 'Inter', sans-serif;
 }
 
 .texto-desarrollo h3 {
     font-size: 20px;
-    color: #333333;
+    color: var(--text);
     padding-bottom: 10px;
     border-bottom: 1px solid #EAEAEA;
     margin-bottom: 20px;
@@ -164,8 +164,8 @@
 .tarjeta-desarrollador {
     display: flex;
     align-items: center;
-    background-color: #FBFBFB;
-    border: 1px solid #EAEAEA;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 15px 20px;
     gap: 15px;
@@ -179,14 +179,14 @@
 }
 
 .nombre-dev {
-    -webkit-text-fill-color: black;
+    -webkit-text-fill-color: var(--text);
     font-weight: 600;
     font-size: 15px;
     margin: 0;
 }
 
 .id-dev {
-    -webkit-text-fill-color: #888888;
+    -webkit-text-fill-color: var(--muted);
     font-weight: normal;
     font-size: 12px;
     margin: 0;
@@ -194,15 +194,15 @@
 
 .info-proyecto {
     grid-column: 1 / -1;
-    background-color: #F0F6FF;
-    border: 1px solid #D6E4F5;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 20px;
     margin-top: 10px;
 }
 
 .info-proyecto h3 {
-    color: #0052CC;
+    color: var(--primary);
     font-size: 14px;
     margin: 0 0 10px 0;
     display: flex;
@@ -211,7 +211,7 @@
 }
 
 .info-proyecto p {
-    color: #0052CC;
+    color: var(--primary);
     font-size: 13px;
     line-height: 1.5;
     margin: 0;

@@ -1,3 +1,36 @@
+/* Theme variables: default = dark theme */
+:root {
+    /* Tonos de modo oscuro menos agresivos y con mejor contraste */
+    --bg: #0f1419;        /* fondo principal */
+    --panel-bg: #131922;  /* superficie/paneles */
+    --card-bg: #161b20;   /* tarjetas y inputs (un poco más claro que panel) */
+    --card-hover: rgba(255,255,255,0.03); /* hover ligero para tarjetas en oscuro */
+    --header-bg: #0f1419; /* cabeceras/pie */
+    --menu-bg: #11161a;
+    --border: #20292f;
+
+    /* Colores de texto y acento (alto contraste pero menos agresivo que blanco puro) */
+    --text: #e6eef8;      /* texto principal: un blanco suave */
+    --muted: #9aa7b3;     /* texto secundario */
+    --primary: #3b82f6;   /* color principal (botones, enlaces) */
+    --accent: #3b82f6;
+}
+
+/* Light theme override */
+.light-theme {
+    --bg: #ffffff;
+    --panel-bg: #ffffff;
+    --text: #222222;
+    --muted: #6b7280;
+    --primary: #007bff;
+    --header-bg: #f5f5f5;
+    --menu-bg: #f9f9f9;
+    --card-bg: #ffffff;
+    --card-hover: rgba(0,0,0,0.04);
+    --border: #e6e6e6;
+    --accent: #1a73e8;
+}
+
 /* Estilos generales y reset */
 * {
     margin: 0;
@@ -10,6 +43,8 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-color: var(--bg);
+    color: var(--text);
 }
 
 /* Contenedor principal */
@@ -17,34 +52,34 @@ body {
     display: flex;
     flex: 1;
     overflow: hidden;
-    background-color: #fff;
+    background-color: var(--panel-bg);
 }
 
 .contenido {
     flex: 1;
     padding: 30px;
     overflow-y: auto;
-    background-color: #fff;
+    background-color: var(--panel-bg);
 }
 
 .contenido h1 {
-    color: #333;
+    color: var(--text);
     margin-bottom: 20px;
     text-align: center;
 }
 
 .subtitulo {
-    color: #999;
+    color: var(--muted);
     font-size: 14px;
     margin-bottom: 30px;
     text-align: center;
 }
 
 .pie-pagina {
-    background-color: #f5f5f5;
-    border-top: 2px solid #ccc;
+    background-color: var(--header-bg);
+    border-top: 1px solid var(--border);
     padding: 15px;
     text-align: center;
     font-size: 14px;
-    color: #666;
+    color: var(--muted);
 }

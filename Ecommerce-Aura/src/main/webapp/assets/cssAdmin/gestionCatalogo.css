@@ -12,31 +12,31 @@
     margin-bottom: 30px;
 }
 
-.catalogo-header h1 {
+ .catalogo-header h1 {
     font-size: 24px;
-    color: #333;
-}
+    color: var(--text);
+ }
 
-.btn-crear-producto {
+ .btn-crear-producto {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--primary);
+    color: var(--card-bg);
     text-decoration: none;
     border-radius: 6px;
     font-size: 14px;
     font-weight: 500;
-}
+ }
 
 .btn-crear-producto:hover {
     background-color: #0056b3;
 }
 
-.tabla-catalogo-container {
-    background-color: white;
+ .tabla-catalogo-container {
+    background-color: var(--card-bg);
     border-radius: 4px;
     overflow: hidden;
-}
+ }
 
 .tabla-catalogo {
     width: 100%;
@@ -44,33 +44,33 @@
     font-size: 14px;
 }
 
-.tabla-catalogo thead {
-    border-bottom: 2px solid #eee;
-}
+ .tabla-catalogo thead {
+    border-bottom: 2px solid var(--border);
+ }
 
-.tabla-catalogo th {
+ .tabla-catalogo th {
     padding: 16px 15px;
     text-align: left;
     font-weight: 500;
-    color: #666;
+    color: var(--muted);
     font-size: 13px;
-}
+ }
 
-.tabla-catalogo td {
+ .tabla-catalogo td {
     padding: 18px 15px;
-    border-bottom: 1px solid #f0f0f0;
-    color: #333;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
     vertical-align: middle;
-}
+ }
 
-.tabla-catalogo tbody tr:hover {
-    background-color: #f9f9f9;
-}
+ .tabla-catalogo tbody tr:hover {
+    background-color: var(--card-hover);
+ }
 
-.categoria-link {
-    color: #007bff;
+ .categoria-link {
+    color: var(--primary);
     text-decoration: none;
-}
+ }
 
 .categoria-link:hover {
     text-decoration: underline;

@@ -2,7 +2,7 @@
 .pantalla-centrada {
     display: flex;
     justify-content: center;
-    background-color: #f8f9fa;
+    background-color: var(--panel-bg);
     padding: 40px 20px;
 }
 
@@ -12,14 +12,14 @@
     justify-content: center;
 }
 
-.tarjeta-perfil {
-    background-color: white;
+ .tarjeta-perfil {
+    background-color: var(--card-bg);
     width: 100%;
     max-width: 700px;
     padding: 50px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
+    box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+ }
 
 .cabecera-perfil {
     text-align: center;
@@ -28,13 +28,13 @@
 
 .cabecera-perfil h2 {
     font-size: 28px;
-    color: #1a1a1a;
+    color: var(--text);
     margin-bottom: 8px;
 }
 
 .cabecera-perfil p {
     font-size: 14px;
-    color: #4A90E2;
+    color: var(--primary);
     margin: 0;
 }
 
@@ -45,11 +45,11 @@
 .formulario-perfil .grupo-formulario input,
 .formulario-perfil .grupo-formulario textarea {
     width: 100%;
-    border: 1px solid #dadce0;
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 12px;
     font-size: 14px;
-    color: #202124;
+    color: var(--text);
     outline: none;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
@@ -57,7 +57,7 @@
 
 .formulario-perfil .grupo-formulario input::placeholder,
 .formulario-perfil .grupo-formulario textarea::placeholder {
-    color: #9aa0a6;
+    color: var(--muted);
 }
 
 .formulario-perfil .grupo-formulario textarea {
@@ -71,8 +71,8 @@
 }
 
 .btn-guardar {
-    background-color: #4A90E2;
-    color: white;
+    background-color: var(--primary);
+    color: var(--card-bg);
     border: none;
     padding: 12px 30px;
     border-radius: 6px;
@@ -85,6 +85,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f8f9fa;
+    background-color: var(--panel-bg);
     padding: 20px;
 }

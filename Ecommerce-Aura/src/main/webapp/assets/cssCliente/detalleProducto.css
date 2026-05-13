@@ -1,6 +1,6 @@
 /* Detalles del Producto */
 .fondo-claro {
-    background-color: #f8f9fa;
+    background-color: var(--panel-bg);
 }
 
 .detalles-wrapper {
@@ -23,15 +23,15 @@
     color: #1a73e8;
 }
 
-.producto-principal-card {
-    background-color: white;
+ .producto-principal-card {
+    background-color: var(--card-bg);
     border-radius: 12px;
     padding: 40px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.45);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 50px;
-}
+ }
 
 .producto-galeria {
     display: flex;
@@ -42,7 +42,7 @@
 .imagen-destacada {
     width: 100%;
     aspect-ratio: 1 / 1;
-    background-color: #f0f4f8;
+    background-color: rgba(255,255,255,0.03);
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -63,7 +63,7 @@
 
 .categoria-badge {
     font-size: 12px;
-    color: #1a73e8;
+    color: var(--primary);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -72,7 +72,7 @@
 
 .producto-info-detalle h1 {
     font-size: 28px;
-    color: #202124;
+    color: var(--text);
     margin-bottom: 10px;
     line-height: 1.3;
     text-align: left;
@@ -85,20 +85,20 @@
 }
 
 .calificacion-estrellas span {
-    color: #80868b;
+    color: var(--muted);
     margin-left: 5px;
 }
 
 .precio-detalle {
     font-size: 32px;
     font-weight: bold;
-    color: #1a1a1a;
+    color: var(--text);
     margin-bottom: 20px;
 }
 
 .descripcion-corta {
     font-size: 15px;
-    color: #5f6368;
+    color: var(--muted);
     line-height: 1.6;
     margin-bottom: 25px;
 }
@@ -126,21 +126,21 @@
     gap: 20px;
     margin-bottom: 40px;
     padding-bottom: 30px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--border);
 }
 
 .grupo-cantidad label {
     display: block;
     font-size: 12px;
-    color: #5f6368;
+    color: var(--muted);
     margin-bottom: 8px;
     font-weight: bold;
 }
 
 .btn-agregar-grande {
     flex: 1;
-    background-color: #1a73e8;
-    color: white;
+    background-color: var(--primary);
+    color: var(--card-bg);
     border: none;
     padding: 14px 24px;
     border-radius: 6px;
@@ -156,7 +156,7 @@
 
 .detalles-tecnicos h3 {
     font-size: 16px;
-    color: #202124;
+    color: var(--text);
     margin-bottom: 15px;
 }
 
@@ -167,7 +167,7 @@
 
 .detalles-tecnicos li {
     font-size: 14px;
-    color: #5f6368;
+    color: var(--muted);
     margin-bottom: 10px;
     padding-left: 20px;
     position: relative;
@@ -175,7 +175,7 @@
 
 .detalles-tecnicos li::before {
     content: "•";
-    color: #1a73e8;
+    color: var(--primary);
     font-weight: bold;
     position: absolute;
     left: 0;

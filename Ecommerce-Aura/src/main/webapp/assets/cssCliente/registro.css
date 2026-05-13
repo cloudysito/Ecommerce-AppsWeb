@@ -1,19 +1,19 @@
 /* Registro */
 .fondo-login {
-    background-color: #f8f9fa;
+    background-color: var(--panel-bg);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.tarjeta-registro {
-    background-color: white;
+ .tarjeta-registro {
+    background-color: var(--card-bg);
     width: 100%;
     max-width: 700px;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
+    box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+ }
 
 .cabecera-registro {
     text-align: center;
@@ -22,13 +22,13 @@
 
 .cabecera-registro h2 {
     font-size: 28px;
-    color: #1a1a1a;
+    color: var(--text);
     margin-bottom: 8px;
 }
 
 .cabecera-registro p {
     font-size: 14px;
-    color: #4A90E2;
+    color: var(--primary);
     margin: 0;
 }
 
@@ -41,11 +41,11 @@
 .formulario-registro .grupo-formulario input,
 .formulario-registro .grupo-formulario textarea {
     width: 100%;
-    border: 1px solid #dadce0;
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 12px;
     font-size: 14px;
-    color: #202124;
+    color: var(--text);
     outline: none;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
@@ -53,7 +53,7 @@
 
 .formulario-registro .grupo-formulario input::placeholder,
 .formulario-registro .grupo-formulario textarea::placeholder {
-    color: #9aa0a6;
+    color: var(--muted);
 }
 
 .formulario-registro .grupo-formulario textarea {
@@ -70,11 +70,11 @@
 
 .grupo-checkbox label {
     font-size: 13px;
-    color: #5f6368;
+    color: var(--muted);
 }
 
 .grupo-checkbox a {
-    color: #4A90E2;
+    color: var(--primary);
     text-decoration: none;
 }
 
@@ -85,8 +85,8 @@
 }
 
 .btn-crear {
-    background-color: #4A90E2;
-    color: white;
+    background-color: var(--primary);
+    color: var(--card-bg);
     border: none;
     padding: 12px 30px;
     border-radius: 6px;
