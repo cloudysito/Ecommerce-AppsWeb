@@ -1,164 +1,124 @@
-﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Productos</title>
-    <link rel="stylesheet" type="text/css" href="../assets/cssCliente/common.css">
-    <link rel="stylesheet" type="text/css" href="../assets/cssCliente/header-footer.css">
-    <link rel="stylesheet" type="text/css" href="../assets/cssCliente/catalogo.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Catálogo de Productos</title>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/common.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/catalogo.css">
+    </head>
 
-<body>
-    <header class="barra-superior">
-        <div class="header-left">
-            <img src="../imgs/logo.png" alt="Logo" class="logo-img">
-            <span class="logo-text">Ecommerce</span>
-        </div>
-        <div class="header-right">
-            <a href="perfilUsuario.jsp" class="icon" title="Perfil"><img src="../imgs/perfil.png" alt="Perfil"></a>
-            <a href="../UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png" alt="Cerrar sesión"></a>
-            <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
-        </div>
-    </header>
-
-    <div class="container">
-        <aside class="menu-lateral">
-            <nav>
-                <ul>
-                    <li>
-                        <div class="menu-item">
-                            <img src="../imgs/inicio.png" alt="Inicio" class="menu-icon">
-                            <a href="index.jsp">Inicio</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="menu-item">
-                            <img src="../imgs/catalogo.png" alt="Catálogo de productos" class="menu-icon">
-                            <a href="catalogo.jsp">Catálogo de productos</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="menu-item">
-                            <img src="../imgs/carrito.png" alt="Carrito de compras" class="menu-icon">
-                            <a href="carritoCompras.jsp">Carrito de compras</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="menu-item">
-                            <img src="../imgs/pedidos.png" alt="Gestión de pedidos" class="menu-icon">
-                            <a href="gestionPedidos.jsp">Gestión de pedidos</a>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-
-        <main class="contenido">
-            <div class="catalogo-wrapper">
-                <h1 class="titulo-izq">Catálogo</h1>
-
-                <div class="filtros-container">
-                    <h2>Filtrar Productos</h2>
-                    
-                    <div class="filtros-grid">
-                        <div class="grupo-filtro">
-                            <label>Nombre del producto</label>
-                            <div class="input-con-icono">
-                                <span>🔍</span>
-                                <input type="text" placeholder="Buscar...">
-                            </div>
-                        </div>
-
-                        <div class="grupo-filtro">
-                            <label>Rango de precio</label>
-                            <div class="controles-precio">
-                                <label class="radio-label">
-                                    <input type="radio" name="rango" value="menor"> Menor que
-                                </label>
-                                <label class="radio-label">
-                                    <input type="radio" name="rango" value="mayor"> Mayor que
-                                </label>
-                                <div class="input-con-icono-izq">
-                                    <span>$</span>
-                                    <input type="text" placeholder="00.00" class="input-corto">
-                                </div>
-                                <button class="btn-aplicar">Aplicar Filtros</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tabla-pedidos-container"> <table class="tabla-pedidos tabla-catalogo">
-                        <thead>
-                            <tr>
-                                <th>IMAGEN</th>
-                                <th>NOMBRE</th>
-                                <th>PRECIO</th>
-                                <th>DETALLES</th>
-                                <th>ACCIONES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="img-placeholder" style="background-color: #4a5568;">💻</div>
-                                </td>
-                                <td><span class="fw-bold">Laptop Pro 15"</span></td>
-                                <td>$1,299.00</td>
-                                <td><a href="detallesProducto.html" class="link-detalles">👁 Detalles</a></td>
-                                <td>
-                                    <div class="acciones-catalogo">
-                                        <button class="btn-agregar">🛒 Agregar al carrito</button>
-                                        <button class="btn-resena" onclick="window.location.href='crearReseña.jsp'">💬 Dejar reseña</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="img-placeholder" style="background-color: #fbd38d;">📱</div>
-                                </td>
-                                <td><span class="fw-bold">Smartphone Ultra</span></td>
-                                <td>$899.50</td>
-                                <td><a href="#" class="link-detalles">👁 Detalles</a></td>
-                                <td>
-                                    <div class="acciones-catalogo">
-                                        <button class="btn-agregar">🛒 Agregar al carrito</button>
-                                        <button class="btn-resena" onclick="window.location.href='crearReseña.jsp'">💬 Dejar reseña</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../imgs/audifonos.png" alt="Auriculares" class="img-catalogo">
-                                </td>
-                                <td><span class="fw-bold">Auriculares Inalámbricos</span></td>
-                                <td>$149.99</td>
-                                <td><a href="#" class="link-detalles">👁 Detalles</a></td>
-                                <td>
-                                    <div class="acciones-catalogo">
-                                        <button class="btn-agregar">🛒 Agregar al carrito</button>
-                                        <button class="btn-resena" onclick="window.location.href='crearReseña.jsp'">💬 Dejar reseña</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
+    <body>
+        <header class="barra-superior">
+            <div class="header-left">
+                <img src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo" class="logo-img">
+                <span class="logo-text">Ecommerce</span>
             </div>
-        </main>
-    </div>
+            <div class="header-right">
+                <a href="perfilUsuario.jsp" class="icon"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
+                <a href="#cerrar-sesion" class="icon" title="Cerrar sesión"><img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión"></a>
+            </div>
+        </header>
 
-    <footer class="pie-pagina">
+        <div class="container"> <jsp:include page="menuLateralCliente.jsp" />
+
+            <main class="contenido">
+                <div class="catalogo-wrapper">
+                    <h1 class="titulo-izq">Catálogo</h1>
+
+                    <div class="filtros-container">
+                        <h2>Filtrar Productos</h2>
+
+                        <form action="${pageContext.request.contextPath}/ProductoServlet" method="GET">
+                            <div class="filtros-grid">
+                                <div class="grupo-filtro">
+                                    <label>Nombre del producto</label>
+                                    <div class="input-con-icono">
+                                        <span>🔍</span>
+                                        <input type="text" name="nombreBusqueda" placeholder="Buscar..." value="${param.nombreBusqueda}">
+                                    </div>
+                                </div>
+
+                                <div class="grupo-filtro">
+                                    <label for="categoria">Categoría:</label>
+                                    <select name="categoria" id="categoria" class="form-control">
+                                        <option value="" ${empty param.categoria ? 'selected' : ''}>Todas</option>
+                                        <option value="Electrónica" ${param.categoria == 'Electrónica' ? 'selected' : ''}>Electrónica</option>
+                                        <option value="Ropa" ${param.categoria == 'Ropa' ? 'selected' : ''}>Ropa</option>
+                                        <option value="Hogar" ${param.categoria == 'Hogar' ? 'selected' : ''}>Hogar</option>
+                                        <option value="Accesorios" ${param.categoria == 'Accesorios' ? 'selected' : ''}>Accesorios</option>
+                                    </select>
+
+                                    <label>Rango de precio</label>
+                                    <div class="controles-precio">
+                                        <label class="radio-label">
+                                            <input type="radio" name="tipoPrecio" value="menor" ${param.tipoPrecio == 'menor' ? 'checked' : ''}> Menor que
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="tipoPrecio" value="mayor" ${param.tipoPrecio == 'mayor' ? 'checked' : ''}> Mayor que
+                                        </label>
+                                        <div class="input-con-icono-izq">
+                                            <span>$</span>
+                                            <input type="text" name="precioFiltro" placeholder="00.00" class="input-corto" value="${param.precioFiltro}">
+                                        </div>
+                                        <button type="submit" class="btn-aplicar">Aplicar Filtro</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tabla-pedidos-container"> 
+                        <table class="tabla-pedidos tabla-catalogo">
+                            <thead>
+                                <tr>
+                                    <th>IMAGEN</th>
+                                    <th>NOMBRE</th>
+                                    <th>PRECIO</th>
+                                    <th>DETALLES</th>
+                                    <th>ACCIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="p" items="${productos}">
+                                    <tr>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${not empty p.imagenProducto}">
+                                                    <img src="${pageContext.request.contextPath}/imgs/${p.imagenProducto}" alt="Producto" class="img-catalogo">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="img-placeholder" style="background-color: #4a5568;">📦</div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td><span class="fw-bold">${p.nombre}</span></td>
+                                        <td>$${p.precio}</td>
+                                        <td><a href="detallesProducto.jsp?id=${p.id}" class="link-detalles">👁 Detalles</a></td>
+                                        <td>
+                                            <div class="acciones-catalogo">
+                                                <button class="btn-agregar">🛒 Agregar al carrito</button>
+                                                <button class="btn-resena" onclick="window.location.href = 'crearReseña.jsp?id=${p.id}'">💬 Dejar reseña</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+        <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
-    </footer>
-    <script src="../assets/js/theme.js"></script>
-</body>
+        </footer>
+    </body>
 
 </html>
-

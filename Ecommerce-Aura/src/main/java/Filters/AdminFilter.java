@@ -20,8 +20,7 @@ import java.io.IOException;
     "/views/gestionPedidos.jsp",
     "/views/gestionUsuariosAdmin.jsp",
     "/views/pagPedidosAdmin.jsp",
-    "/ResenaServlet",
-    "/ProductoServlet" // Añádelo cuando lo creemos
+    "/ResenaServlet"
 })
 public class AdminFilter implements Filter {
 
