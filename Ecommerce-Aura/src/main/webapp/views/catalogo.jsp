@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -20,7 +20,7 @@
                 <span class="logo-text">Ecommerce</span>
             </div>
             <div class="header-right">
-                <a href="perfilUsuario.jsp" class="icon"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
+                <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
                 <a href="#cerrar-sesion" class="icon" title="Cerrar sesión"><img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión"></a>
             </div>
         </header>
@@ -99,7 +99,7 @@
                                         </td>
                                         <td><span class="fw-bold">${p.nombre}</span></td>
                                         <td>$${p.precio}</td>
-                                        <td><a href="detallesProducto.jsp?id=${p.id}" class="link-detalles">👁 Detalles</a></td>
+                                        <td><a href="${pageContext.request.contextPath}/views/detallesProducto.jsp?id=${p.id}" class="link-detalles">👁 Detalles</a></td>
                                         <td>
                                             <div class="acciones-catalogo">
                                                 <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
@@ -107,7 +107,7 @@
                                                     <input type="hidden" name="id" value="${p.id}" />
                                                     <button class="btn-agregar" type="submit">🛒 Agregar al carrito</button>
                                                 </form>
-                                                <button class="btn-resena" onclick="window.location.href = 'crearReseña.jsp?id=${p.id}'">💬 Dejar reseña</button>
+                                                <button class="btn-resena" onclick="window.location.href = '${pageContext.request.contextPath}/views/crearReseña.jsp?id=${p.id}'">💬 Dejar reseña</button>
                                             </div>
                                         </td>
                                     </tr>

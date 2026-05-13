@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     
-                    <a href="#inicio" class="btn-volver">Volver al Inicio</a>
+                    <a href="${pageContext.request.contextPath}/views/index.jsp" class="btn-volver">Volver al Inicio</a>
                 </div>
             </div>
         </main>

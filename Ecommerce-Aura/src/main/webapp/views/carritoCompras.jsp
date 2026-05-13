@@ -1,6 +1,5 @@
-﻿
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+﻿<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -91,7 +90,7 @@
                     </table>
 
                     <div class="carrito-footer">
-                        <a href="#continuar" class="btn-continuar">← Continuar comprando</a>
+                        <a href="${pageContext.request.contextPath}/ProductoServlet" class="btn-continuar">← Continuar comprando</a>
 
                         <div class="totales-pago">
                             <div class="total-section">
@@ -114,4 +113,3 @@
 </body>
 
 </html>
-

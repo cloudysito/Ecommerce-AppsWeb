@@ -20,10 +20,10 @@
             </div>
             <div class="header-right">
                 <div class="icons">
-                    <a href="perfilUsuario.jsp" class="icon">
+                    <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon">
                         <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil">
                     </a>
-                    <a href="#" class="icon">
+                    <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon">
                         <img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Salir">
                     </a>
                 </div>
@@ -36,37 +36,37 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="indexAdmin.jsp" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/views/indexAdmin.jsp" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/inicio.png" alt="Inicio" class="menu-icon">
                                 <span>Inicio</span>
                             </a>
                         </li>
                         <li>
-                            <a href="gestionUsuariosAdmin.jsp" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/views/gestionUsuariosAdmin.jsp" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Usuarios" class="menu-icon">
                                 <span>Gestión de usuarios</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../ProductoServlet?accion=listar" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo" class="menu-icon">
                                 <span>Gestión de catálogo</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../PedidoServlet" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/PedidoServlet" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Pedidos" class="menu-icon">
                                 <span>Gestión de pedidos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../ResenaServlet" class="menu-item active">
+                            <a href="${pageContext.request.contextPath}/ResenaServlet" class="menu-item active">
                                 <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Reseñas" class="menu-icon">
                                 <span>Gestion de reseñas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="crearProducto.jsp" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/views/crearProducto.jsp" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Admin" class="menu-icon">
                                 <span>Administrador</span>
                             </a>
@@ -115,7 +115,7 @@
                                     <td class="comentario-celda"><%= resena.getComentario() %></td>
                                     <td><%= sdf.format(resena.getFecha()) %></td>
                                     <td>
-                                        <form action="../ResenaServlet" method="POST" style="display: inline;">
+                                        <form action="${pageContext.request.contextPath}/ResenaServlet" method="POST" style="display: inline;">
                                             <input type="hidden" name="accion" value="eliminar">
                                             <input type="hidden" name="idResena" value="<%= resena.getId() %>">
                                             <button type="submit" class="btn-eliminar-resena" onclick="return confirm('¿Eliminar esta reseña?')">Eliminar</button>

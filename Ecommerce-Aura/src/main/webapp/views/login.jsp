@@ -1,6 +1,5 @@
-﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -107,8 +106,8 @@
                         </form>
 
                         <div class="pie-login">
-                            <p>¿No tiene una cuenta? <a href="registro.jsp">Regístrese aquí</a></p>
-                            <button class="btn-regresar" onclick="window.location.href = 'index.jsp'">
+                            <p>¿No tiene una cuenta? <a href="${pageContext.request.contextPath}/views/registro.jsp">Regístrese aquí</a></p>
+                            <button class="btn-regresar" onclick="window.location.href = '${pageContext.request.contextPath}/views/index.jsp'">
                                 &larr; Regresar a inicio
                             </button>
                         </div>
@@ -125,4 +124,3 @@
     </body>
 
 </html>
-

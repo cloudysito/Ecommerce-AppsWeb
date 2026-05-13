@@ -3,21 +3,29 @@
     background-color: var(--panel-bg);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding: 24px;
 }
 
- .tarjeta-registro {
+.contenedor-registro {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.tarjeta-registro {
     background-color: var(--card-bg);
     width: 100%;
-    max-width: 700px;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.45);
- }
+    max-width: 860px;
+    padding: 32px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
 
 .cabecera-registro {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 24px;
 }
 
 .cabecera-registro h2 {
@@ -39,7 +47,7 @@
 }
 
 .formulario-registro .grupo-formulario {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 .formulario-registro .grupo-formulario label {
@@ -62,14 +70,13 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
     background-color: var(--card-bg);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .formulario-registro .grupo-formulario input:focus,
 .formulario-registro .grupo-formulario textarea:focus {
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    background-color: var(--card-bg);
 }
 
 .formulario-registro .grupo-formulario input::placeholder,
@@ -83,15 +90,19 @@
 
 .grupo-checkbox {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
-    margin-bottom: 30px;
-    margin-top: 10px;
+    margin: 6px 0 24px;
+}
+
+.grupo-checkbox input {
+    margin-top: 3px;
 }
 
 .grupo-checkbox label {
     font-size: 13px;
     color: var(--muted);
+    line-height: 1.4;
 }
 
 .grupo-checkbox a {
@@ -99,28 +110,31 @@
     text-decoration: none;
 }
 
+.grupo-checkbox a:hover {
+    text-decoration: underline;
+}
+
 .contenedor-boton {
     display: flex;
     justify-content: center;
-    margin-bottom: 25px;
+    margin-bottom: 18px;
 }
 
 .btn-crear {
     background-color: var(--primary);
-    color: var(--card-bg);
+    color: #ffffff;
     border: none;
     padding: 12px 30px;
     border-radius: 6px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .btn-crear:hover {
-    opacity: 0.9;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+    opacity: 0.92;
+    transform: translateY(-1px);
 }
 
 .error-message {
@@ -128,7 +142,7 @@
     color: #721c24;
     padding: 12px;
     border-radius: 6px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     border-left: 4px solid #dc3545;
 }
 
@@ -137,7 +151,7 @@
     color: #155724;
     padding: 12px;
     border-radius: 6px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     border-left: 4px solid #28a745;
 }
 
@@ -154,3 +168,17 @@
     text-decoration: underline;
 }
 
+@media (max-width: 900px) {
+    .fondo-login {
+        padding: 16px;
+    }
+
+    .tarjeta-registro {
+        padding: 24px;
+    }
+
+    .grid-formularios {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}

@@ -20,10 +20,10 @@
             </div>
             <div class="header-right">
                 <div class="icons">
-                    <a href="perfilUsuario.jsp" class="icon">
+                    <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon">
                         <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil">
                     </a>
-                    <a href="#" class="icon">
+                    <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon">
                         <img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Salir">
                     </a>
                 </div>
@@ -36,37 +36,37 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="indexAdmin.jsp" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/views/indexAdmin.jsp" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/inicio.png" alt="Inicio" class="menu-icon">
                                 <span>Inicio</span>
                             </a>
                         </li>
                         <li>
-                            <a href="gestionUsuariosAdmin.jsp" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/views/gestionUsuariosAdmin.jsp" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Usuarios" class="menu-icon">
                                 <span>Gestión de usuarios</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../ProductoServlet?accion=listar" class="menu-item active">
+                            <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar" class="menu-item active">
                                 <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo" class="menu-icon">
                                 <span>Gestión de catálogo</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../PedidoServlet" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/PedidoServlet" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Pedidos" class="menu-icon">
                                 <span>Gestión de pedidos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../ResenaServlet" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/ResenaServlet" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Reseñas" class="menu-icon">
                                 <span>Gestion de reseñas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="crearProducto.jsp" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/views/crearProducto.jsp" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Admin" class="menu-icon">
                                 <span>Administrador</span>
                             </a>
@@ -79,7 +79,7 @@
                 <div class="catalogo-wrapper">
                     <div class="catalogo-header">
                         <h1>Gestión de catálogo (Admin)</h1>
-                        <a href="crearProducto.jsp" class="btn-crear-producto">+ Crear producto</a>
+                        <a href="${pageContext.request.contextPath}/views/crearProducto.jsp" class="btn-crear-producto">+ Crear producto</a>
                     </div>
 
                     <div class="tabla-catalogo-container">
@@ -104,8 +104,8 @@
                                     <td>$<%= String.format("%.2f", p.getPrecio()) %></td>
                                     <td><%= p.getStock() %></td>
                                     <td class="acciones-catalogo">
-                                        <a href="../ProductoServlet?accion=editar&id=<%= p.getId() %>" class="btn-editar" title="Editar">✏️</a>
-                                        <a href="../ProductoServlet?accion=eliminar&id=<%= p.getId() %>" class="btn-eliminar" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este producto?')">🗑️</a>
+                                        <a href="${pageContext.request.contextPath}/ProductoServlet?accion=editar&id=<%= p.getId() %>" class="btn-editar" title="Editar">✏️</a>
+                                        <a href="${pageContext.request.contextPath}/ProductoServlet?accion=eliminar&id=<%= p.getId() %>" class="btn-eliminar" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este producto?')">🗑️</a>
                                     </td>
                                 </tr>
                                 <% } 

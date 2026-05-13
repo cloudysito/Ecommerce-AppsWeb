@@ -67,28 +67,28 @@
                         <img src="${pageContext.request.contextPath}/imgs/usuariosCirculo.png" alt="Gestionar Usuarios" class="card-icon">
                         <h3>Gestionar Usuarios (Admin)</h3>
                         <p>Ver, editar o eliminar cuentas de usuario.</p>
-                        <a href="gestionUsuariosAdmin.jsp">Ir a Usuarios →</a>
+                        <a href="${pageContext.request.contextPath}/views/gestionUsuariosAdmin.jsp">Ir a Usuarios →</a>
                     </div>
 
                     <div class="admin-card">
                         <img src="${pageContext.request.contextPath}/imgs/catalogoCirculo.png" alt="Catálogo" class="card-icon">
                         <h3>Catálogo (Admin)</h3>
                         <p>Añadir, actualizar o eliminar productos.</p>
-                        <a href="../ProductoServlet?accion=listar">Ir a Productos →</a>
+                        <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar">Ir a Productos →</a>
                     </div>
 
                     <div class="admin-card">
                         <img src="${pageContext.request.contextPath}/imgs/ticketCirculo.png" alt="Pedidos" class="card-icon">
                         <h3>Pedidos (Admin)</h3>
                         <p>Rastrear y actualizar pedidos de clientes.</p>
-                        <a href="gestionPedidos.jsp">Ir a Pedidos →</a>
+                        <a href="${pageContext.request.contextPath}/views/gestionPedidos.jsp">Ir a Pedidos →</a>
                     </div>
 
                     <div class="admin-card">
                         <img src="${pageContext.request.contextPath}/imgs/reseñaCirculo.png" alt="Reseñas" class="card-icon">
                         <h3>Reseñas (Admin)</h3>
                         <p>Moderar reseñas de productos y valoraciones.</p>
-                        <a href="../ResenaServlet">Ir a Reseñas →</a>
+                        <a href="${pageContext.request.contextPath}/ResenaServlet">Ir a Reseñas →</a>
                     </div>
                 </div>
             </main>

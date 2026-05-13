@@ -20,10 +20,10 @@
             </div>
             <div class="header-right">
                 <div class="icons">
-                    <a href="perfilUsuario.jsp" class="icon">
+                    <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon">
                         <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil">
                     </a>
-                    <a href="#" class="icon">
+                    <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon">
                         <img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Salir">
                     </a>
                 </div>
@@ -36,37 +36,37 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="indexAdmin.jsp" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/views/indexAdmin.jsp" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/inicio.png" alt="Inicio" class="menu-icon">
                                 <span>Inicio</span>
                             </a>
                         </li>
                         <li>
-                            <a href="gestionUsuariosAdmin.jsp" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/views/gestionUsuariosAdmin.jsp" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Usuarios" class="menu-icon">
                                 <span>Gestión de usuarios</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../ProductoServlet?accion=listar" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo" class="menu-icon">
                                 <span>Gestión de catálogo</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../PedidoServlet" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/PedidoServlet" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Pedidos" class="menu-icon">
                                 <span>Gestión de pedidos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../ResenaServlet" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/ResenaServlet" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Reseñas" class="menu-icon">
                                 <span>Gestion de reseñas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="crearProducto.jsp" class="menu-item active">
+                            <a href="${pageContext.request.contextPath}/views/crearProducto.jsp" class="menu-item active">
                                 <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Admin" class="menu-icon">
                                 <span>Administrador</span>
                             </a>
@@ -82,14 +82,14 @@
                         <p class="subtitulo">Actualiza los detalles del producto seleccionado.</p>
                     </div>
 
-                    <form class="editar-producto-form" action="../ProductoServlet" method="POST" enctype="multipart/form-data">
+                    <form class="editar-producto-form" action="${pageContext.request.contextPath}/ProductoServlet" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="accion" value="actualizar">
                         <input type="hidden" name="id" value="<%= producto.getId() %>">
                         <input type="hidden" name="imagenActual" value="<%= producto.getImagenProducto() != null ? producto.getImagenProducto() : "" %>">
                         
                         <div class="imagen-editar-container">
                             <% if (producto.getImagenProducto() != null && !producto.getImagenProducto().isEmpty()) { %>
-                                <img src="../<%= producto.getImagenProducto() %>" alt="Producto" style="max-width: 200px; max-height: 200px; object-fit: cover; border-radius: 8px;">
+                                <img src="${pageContext.request.contextPath}/imgs/<%= producto.getImagenProducto() %>" alt="Producto" style="max-width: 200px; max-height: 200px; object-fit: cover; border-radius: 8px;">
                             <% } else { %>
                                 <div class="imagen-editar-placeholder">
                                     <div class="imagen-icono">🖼️</div>
@@ -129,7 +129,7 @@
                         </div>
 
                         <div class="botones-editar">
-                            <a href="../ProductoServlet?accion=listar" class="btn-cancelar-editar">Cancelar</a>
+                            <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar" class="btn-cancelar-editar">Cancelar</a>
                             <button type="submit" class="btn-actualizar">🔄 Actualizar</button>
                         </div>
                     </form>
