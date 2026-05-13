@@ -73,7 +73,7 @@
 
                         <form class="formulario-login" action="${pageContext.request.contextPath}/UsuarioServlet" method="POST">
 
-                            <input type="hidden" name="accion" value="loginAdmin">
+                            <input type="hidden" name="accion" value="login">
 
                             <div class="grupo-formulario">
                                 <label for="email">Correo electrónico</label>
@@ -101,7 +101,7 @@
                                 <p style="color:green; text-align: center; margin-top: 10px;">Registro exitoso. Por favor inicia sesión.</p>
                             </c:if>
                             <c:if test="${not empty requestScope.error}">
-                                <p style="color:red; text-align: center; margin-top: 10px;">${requestScope.error}</p>
+                                <p style="color:red; text-align: center; margin-top: 10px;">Contraseña o usuario incorrectos.</p>
                             </c:if>
                         </form>
 

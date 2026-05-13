@@ -57,8 +57,10 @@ public class UsuarioBO implements IUsuarioBO {
         if (password == null || password.trim().isEmpty()) {
             throw new Exception("la contraseña es obligatoria");
         }
-        Usuario usuarioEncontrado = usuarioDAO.autentificar(correo, password, "Admin");
-        if (usuarioEncontrado == null) {
+        
+        Usuario usuarioEncontrado = usuarioDAO.encontrarPorCorreo(correo);
+        
+        if (usuarioEncontrado == null || !usuarioEncontrado.getContrasenia().equals(password)) {
             throw new Exception("credenciales incorrectas o no tienes permisos de administrador");
         }
         return usuarioEncontrado;

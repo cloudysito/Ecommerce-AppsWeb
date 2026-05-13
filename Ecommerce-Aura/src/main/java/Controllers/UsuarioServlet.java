@@ -50,8 +50,8 @@ public class UsuarioServlet extends HttpServlet {
             case "registrar":
                 procesarRegistro(request, response);
                 break;
-            case "loginAdmin":
-                procesarLoginAdmin(request, response);
+            case "login":
+                procesarLogin(request, response);
                 break;
             case "editarPerfil":
                 procesarEditarPerfil(request, response);
@@ -98,24 +98,26 @@ public class UsuarioServlet extends HttpServlet {
         }
 }
     
-    private void procesarLoginAdmin(HttpServletRequest request, HttpServletResponse response)
+    private void procesarLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String correo = request.getParameter("correo");
         String password = request.getParameter("password");
 
         try {
-            Usuario adminLogueado = usuarioBO.iniciarSesion(correo, password);
+            Usuario usuarioLogueado = usuarioBO.iniciarSesion(correo, password);
 
-            // Inicio de sesión exitoso
             HttpSession session = request.getSession();
-            session.setAttribute("usuarioActivo", adminLogueado);
-            session.setAttribute("rol", "Admin");
+            session.setAttribute("usuarioActivo", usuarioLogueado);
 
-            response.sendRedirect(request.getContextPath() + "/views/indexAdmin.jsp");
-
+            if ("Admin".equalsIgnoreCase(usuarioLogueado.getRol())) {
+                session.setAttribute("rol", "Admin");
+                response.sendRedirect(request.getContextPath() + "/views/indexAdmin.jsp");
+            } else {
+                session.setAttribute("rol", "Cliente");
+                response.sendRedirect(request.getContextPath() + "/views/index.jsp");
+            }
         } catch (Exception e) {
-         
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
         }
