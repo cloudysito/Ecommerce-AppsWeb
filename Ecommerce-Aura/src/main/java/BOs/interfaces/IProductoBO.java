@@ -1,4 +1,4 @@
-package BOS.interfaces;
+package BOs.interfaces;
 
 import modelo.Producto;
 import org.bson.types.ObjectId;

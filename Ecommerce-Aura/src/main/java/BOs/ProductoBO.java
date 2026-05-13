@@ -1,10 +1,10 @@
-package BOS;
+package BOs;
 
-import BOS.interfaces.IProductoBO;
+import BOs.interfaces.IProductoBO;
 import modelo.Producto;
 import org.bson.types.ObjectId;
 import PersistenciaDAO.IProductoDAO;
-import PersistenciaDAOImpl.ProductoDAO;
+import PersistenciaDAO.impl.ProductoDAO;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package controllers;
 
-import BOS.ProductoBO;
-import BOS.interfaces.IProductoBO;
+import BOs.ProductoBO;
+import BOs.interfaces.IProductoBO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;

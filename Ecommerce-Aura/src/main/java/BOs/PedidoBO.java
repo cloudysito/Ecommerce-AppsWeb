@@ -1,6 +1,6 @@
-package BOS;
+package BOs;
 
-import BOS.interfaces.IPedidoBO;
+import BOs.interfaces.IPedidoBO;
 import modelo.Pedido;
 import org.bson.types.ObjectId;
 import PersistenciaDAO.IPedidoDAO;

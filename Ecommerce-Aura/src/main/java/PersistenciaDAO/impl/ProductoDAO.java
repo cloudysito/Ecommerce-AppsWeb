@@ -1,4 +1,4 @@
-package PersistenciaDAOImpl;
+package PersistenciaDAO.impl;
 
 import Config.MongoClientProvider;
 import com.mongodb.client.MongoCollection;

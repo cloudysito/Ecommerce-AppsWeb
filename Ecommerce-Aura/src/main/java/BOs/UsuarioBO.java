@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package BOS;
+package BOs;
 
-import BOS.interfaces.IUsuarioBO;
+import BOs.interfaces.IUsuarioBO;
 import modelo.Usuario;
 import PersistenciaDAO.IUsuarioDAO;
 import PersistenciaDAOImpl.UsuarioDAO;
