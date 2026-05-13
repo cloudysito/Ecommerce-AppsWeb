@@ -26,37 +26,7 @@
             </div>
         </header>
 
-        <div class="container">
-            <aside class="menu-lateral">
-                <nav>
-                    <ul>
-                        <li>
-                            <div class="menu-item">
-                                <img src="../imgs/inicio.png" alt="Inicio" class="menu-icon">
-                                <a href="index.jsp">Inicio</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="menu-item">
-                                <img src="../imgs/catalogo.png" alt="Catálogo de productos" class="menu-icon">
-                                <a href="catalogo.jsp">Catálogo de productos</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="menu-item">
-                                <img src="../imgs/carrito.png" alt="Carrito de compras" class="menu-icon">
-                                <a href="carritoCompras.jsp">Carrito de compras</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="menu-item">
-                                <img src="../imgs/pedidos.png" alt="Gestión de pedidos" class="menu-icon">
-                                <a href="gestionPedidos.jsp">Gestión de pedidos</a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-            </aside>
+        <div class="container"> <jsp:include page="menuLateralCliente.jsp" />
 
             <main class="contenido">
                 <div class="proceso-wrapper">

@@ -25,37 +25,7 @@
             </div>
         </header>
 
-        <div class="container">
-            <aside class="menu-lateral">
-                <nav>
-                    <ul>
-                        <li>
-                            <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/inicio.png" alt="Inicio" class="menu-icon">
-                                <a href="index.jsp">Inicio</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo" class="menu-icon">
-                                <a href="catalogo.jsp">Catálogo de productos</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/carrito.png" alt="Carrito" class="menu-icon">
-                                <a href="carritoCompras.jsp">Carrito de compras</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Gestión de pedidos" class="menu-icon">
-                                <a href="gestionPedidos.jsp">Gestión de pedidos</a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-            </aside>
+        <div class="container"> <jsp:include page="menuLateralCliente.jsp" />
 
             <main class="contenido">
                 <div class="catalogo-wrapper">
