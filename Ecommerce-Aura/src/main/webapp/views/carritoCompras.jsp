@@ -1,5 +1,6 @@
 ﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -44,52 +45,48 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div class="producto-celda">
-                                        <img src="${pageContext.request.contextPath}/imgs/reloj.png" alt="Reloj Inteligente" class="producto-miniatura">
-                                        <div>
-                                            <p class="producto-nombre">Reloj Inteligente Modelo X</p>
-                                            <p class="producto-color">Color: Turquesa</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$199.99</td>
-                                <td>
-                                    <div class="cantidad-control">
-                                        <button class="btn-cantidad">−</button>
-                                        <input type="number" value="1" class="cantidad-input" readonly>
-                                        <button class="btn-cantidad">+</button>
-                                    </div>
-                                </td>
-                                <td>$199.99</td>
-                                <td>
-                                    <button class="btn-eliminar" title="Eliminar"><img src="${pageContext.request.contextPath}/imgs/basura.png" alt="Eliminar"></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="producto-celda">
-                                        <img src="${pageContext.request.contextPath}/imgs/audifonos.png" alt="Audífonos" class="producto-miniatura">
-                                        <div>
-                                            <p class="producto-nombre">Audífonos Inalámbricos Pro</p>
-                                            <p class="producto-color">Color: Lila</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$89.50</td>
-                                <td>
-                                    <div class="cantidad-control">
-                                        <button class="btn-cantidad">−</button>
-                                        <input type="number" value="2" class="cantidad-input" readonly>
-                                        <button class="btn-cantidad">+</button>
-                                    </div>
-                                </td>
-                                <td>$179.00</td>
-                                <td>
-                                    <button class="btn-eliminar" title="Eliminar"><img src="${pageContext.request.contextPath}/imgs/basura.png" alt="Eliminar"></button>
-                                </td>
-                            </tr>
+                            <c:choose>
+                                <c:when test="${not empty carritoItems}">
+                                    <c:forEach var="it" items="${carritoItems}">
+                                        <tr>
+                                            <td>
+                                                <div class="producto-celda">
+                                                    <c:choose>
+                                                        <c:when test="${not empty it.producto.imagenProducto}">
+                                                            <img src="${pageContext.request.contextPath}/imgs/${it.producto.imagenProducto}" alt="${it.producto.nombre}" class="producto-miniatura">
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div class="img-placeholder">📦</div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    <div>
+                                                        <p class="producto-nombre">${it.producto.nombre}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>$${it.producto.precio}</td>
+                                            <td>
+                                                <div class="cantidad-control">
+                                                    <input type="number" value="${it.cantidad}" class="cantidad-input" readonly>
+                                                </div>
+                                            </td>
+                                            <td>$${it.producto.precio * it.cantidad}</td>
+                                            <td>
+                                                <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
+                                                    <input type="hidden" name="accion" value="remove" />
+                                                    <input type="hidden" name="id" value="${it.producto.id}" />
+                                                    <button class="btn-eliminar" title="Eliminar" type="submit"><img src="${pageContext.request.contextPath}/imgs/basura.png" alt="Eliminar"></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <tr>
+                                        <td colspan="5">Tu carrito está vacío.</td>
+                                    </tr>
+                                </c:otherwise>
+                            </c:choose>
                         </tbody>
                     </table>
 
@@ -101,7 +98,7 @@
                                 <span class="total-label">Total a pagar:</span>
                                 <span class="total-monto">$378.99</span>
                             </div>
-                            <button class="btn-pagar" onclick="window.location.href='procesoCompra.jsp'">Pagar
+                            <button class="btn-pagar" onclick="window.location.href='${pageContext.request.contextPath}/views/procesoCompra.jsp'">Pagar
                                 ahora</button>
                         </div>
                     </div>

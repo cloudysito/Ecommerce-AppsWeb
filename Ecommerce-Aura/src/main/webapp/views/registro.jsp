@@ -1,5 +1,6 @@
 ﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -33,6 +34,12 @@
                             <h2>Crear Cuenta</h2>
                             <p>Regístrate para comenzar a comprar lo que necesitas para la universidad.</p>
                         </div>
+
+                        <c:if test="${not empty requestScope.error}">
+                            <div class="error-message">
+                                <strong>Error:</strong> ${requestScope.error}
+                            </div>
+                        </c:if>
 
                         <form class="formulario-registro" action="${pageContext.request.contextPath}/UsuarioServlet" method="POST">
                             <input type="hidden" name="accion" value="registrar">

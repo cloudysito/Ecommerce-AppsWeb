@@ -102,7 +102,11 @@
                                         <td><a href="detallesProducto.jsp?id=${p.id}" class="link-detalles">👁 Detalles</a></td>
                                         <td>
                                             <div class="acciones-catalogo">
-                                                <button class="btn-agregar">🛒 Agregar al carrito</button>
+                                                <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
+                                                    <input type="hidden" name="accion" value="agregar" />
+                                                    <input type="hidden" name="id" value="${p.id}" />
+                                                    <button class="btn-agregar" type="submit">🛒 Agregar al carrito</button>
+                                                </form>
                                                 <button class="btn-resena" onclick="window.location.href = 'crearReseña.jsp?id=${p.id}'">💬 Dejar reseña</button>
                                             </div>
                                         </td>

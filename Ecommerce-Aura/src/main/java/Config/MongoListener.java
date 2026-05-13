@@ -25,6 +25,7 @@ public class MongoListener implements ServletContextListener{
             System.out.println("se a conectado con exito");
         } catch (Exception e) {
             System.out.println("error al conectar con mongo");
+            e.printStackTrace();
         }
     }
     @Override

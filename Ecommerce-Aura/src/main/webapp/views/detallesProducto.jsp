@@ -31,7 +31,7 @@
         <main class="contenido fondo-claro">
             <div class="detalles-wrapper">
                 
-                <a href="${pageContext.request.contextPath}/views/catalogo.jsp" class="btn-regresar-enlace">← Volver al catálogo</a>
+                <a href="${pageContext.request.contextPath}/ProductoServlet" class="btn-regresar-enlace">← Volver al catálogo</a>
 
                 <div class="producto-principal-card">
                     <div class="producto-galeria">
@@ -68,9 +68,11 @@
                                 </div>
                             </div>
                             
-                            <button class="btn-agregar-grande" onclick="window.location.href='${pageContext.request.contextPath}/views/carritoCompras.jsp'">
-                                🛒 Agregar al carrito
-                            </button>
+                            <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
+                                <input type="hidden" name="accion" value="agregar" />
+                                <input type="hidden" name="id" value="${param.id}" />
+                                <button class="btn-agregar-grande" type="submit">🛒 Agregar al carrito</button>
+                            </form>
                         </div>
 
                         <div class="detalles-tecnicos">

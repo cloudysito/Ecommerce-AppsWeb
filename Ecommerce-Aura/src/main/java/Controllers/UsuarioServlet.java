@@ -69,26 +69,33 @@ public class UsuarioServlet extends HttpServlet {
         throws ServletException, IOException {
          
         try {
-        String nombre = request.getParameter("nombre");
-        String correo = request.getParameter("correo");
-        String contraseña = request.getParameter("contrasenia");
-        String telefono = request.getParameter("telefono");
-        String direccion = request.getParameter("direccion");
-        
-        Usuario nuevo = new Usuario();
-        nuevo.setNombreCompleto(nombre);
-        nuevo.setCorreo(correo);
-        nuevo.setContrasenia(contraseña);
-        nuevo.setTelefono(telefono);
-        nuevo.setDireccion(direccion);
-        
-        usuarioBO.registrarUsuario(nuevo);
-        
-        response.sendRedirect(request.getContextPath() + "/views/login.jsp?registro=exito");
-      } catch (Exception e){
-          request.setAttribute("error", "Error al registrarse: " + e.getMessage());
-          request.getRequestDispatcher("/views/registro.jsp").forward(request, response);
-      }
+            String nombre = request.getParameter("nombre");
+            String correo = request.getParameter("correo");
+            String contraseña = request.getParameter("contrasenia");
+            String confirmar = request.getParameter("confirmar_contrasenia");
+            String telefono = request.getParameter("telefono");
+            String direccion = request.getParameter("direccion");
+
+            if (contraseña == null || confirmar == null || !contraseña.equals(confirmar)) {
+                request.setAttribute("error", "Las contraseñas no coinciden.");
+                request.getRequestDispatcher("/views/registro.jsp").forward(request, response);
+                return;
+            }
+
+            Usuario nuevo = new Usuario();
+            nuevo.setNombreCompleto(nombre);
+            nuevo.setCorreo(correo);
+            nuevo.setContrasenia(contraseña);
+            nuevo.setTelefono(telefono);
+            nuevo.setDireccion(direccion);
+
+            usuarioBO.registrarUsuario(nuevo);
+
+            response.sendRedirect(request.getContextPath() + "/views/login.jsp?registro=exito");
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al registrarse: " + e.getMessage());
+            request.getRequestDispatcher("/views/registro.jsp").forward(request, response);
+        }
 }
     
     private void procesarLoginAdmin(HttpServletRequest request, HttpServletResponse response)

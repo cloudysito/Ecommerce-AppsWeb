@@ -3,28 +3,28 @@
     <nav>
         <ul>
             <li>
-                <div class="menu-item">
+                <a href="${pageContext.request.contextPath}/views/index.jsp" class="menu-item">
                     <img src="${pageContext.request.contextPath}/imgs/inicio.png" alt="Inicio" class="menu-icon">
-                    <a href="${pageContext.request.contextPath}/views/index.jsp">Inicio</a>
-                </div>
+                    <span>Inicio</span>
+                </a>
             </li>
             <li>
-                <div class="menu-item">
+                <a href="${pageContext.request.contextPath}/ProductoServlet" class="menu-item">
                     <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catalogo" class="menu-icon">
-                    <a href="${pageContext.request.contextPath}/views/catalogo.jsp">Catálogo de productos</a>
-                </div>
+                    <span>Catálogo de productos</span>
+                </a>
             </li>
             <li>
-                <div class="menu-item">
+                <a href="${pageContext.request.contextPath}/CarritoServlet" class="menu-item">
                     <img src="${pageContext.request.contextPath}/imgs/carrito.png" alt="Carrito" class="menu-icon">
-                    <a href="${pageContext.request.contextPath}/views/carritoCompras.jsp">Carrito de compras</a>
-                </div>
+                    <span>Carrito de compras</span>
+                </a>
             </li>
             <li>
-                <div class="menu-item">
+                <a href="${pageContext.request.contextPath}/views/gestionPedidos.jsp" class="menu-item">
                     <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Pedidos" class="menu-icon">
-                    <a href="${pageContext.request.contextPath}/views/gestionPedidos.jsp">Gestión de pedidos</a>
-                </div>
+                    <span>Gestión de pedidos</span>
+                </a>
             </li>
         </ul>
     </nav>

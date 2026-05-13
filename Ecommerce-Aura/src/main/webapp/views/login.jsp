@@ -1,5 +1,6 @@
 ﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -39,13 +40,13 @@
                         <li>
                             <div class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo de productos" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/views/catalogo.jsp">Catálogo de productos</a>
+                                <a href="${pageContext.request.contextPath}/ProductoServlet">Catálogo de productos</a>
                             </div>
                         </li>
                         <li>
                             <div class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/carrito.png" alt="Carrito de compras" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/views/carritoCompras.jsp">Carrito de compras</a>
+                                <a href="${pageContext.request.contextPath}/CarritoServlet">Carrito de compras</a>
                             </div>
                         </li>
                         <li>
@@ -97,9 +98,12 @@
 
                             <button type="submit" class="btn-iniciar">Iniciar sesión</button>
 
-                            <p style="color:red; text-align: center; margin-top: 10px; ${empty requestScope.error ? 'display:none;' : ''}">
-                                ${requestScope.error}
-                            </p>
+                            <c:if test="${param.registro == 'exito'}">
+                                <p style="color:green; text-align: center; margin-top: 10px;">Registro exitoso. Por favor inicia sesión.</p>
+                            </c:if>
+                            <c:if test="${not empty requestScope.error}">
+                                <p style="color:red; text-align: center; margin-top: 10px;">${requestScope.error}</p>
+                            </c:if>
                         </form>
 
                         <div class="pie-login">
