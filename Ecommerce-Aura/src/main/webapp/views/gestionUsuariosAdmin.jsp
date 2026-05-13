@@ -6,25 +6,25 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Gestión de Usuarios - Ecommerce</title>
-        <link rel="stylesheet" type="text/css" href="../assets/cssAdmin/common.css">
-        <link rel="stylesheet" type="text/css" href="../assets/cssAdmin/header-footer.css">
-        <link rel="stylesheet" type="text/css" href="../assets/cssAdmin/gestionUsuarios.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/common.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/gestionUsuarios.css">
     </head>
     <body>
         <header class="barra-superior">
             <div class="header-left">
                 <a href="#" class="logo-link">
-                    <img src="../imgs/logo.png" alt="Logo" class="logo-img">
+                    <img src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo" class="logo-img">
                     <span class="logo-text">Ecommerce</span>
                 </a>
             </div>
             <div class="header-right">
                 <div class="icons">
-                    <a href="perfilUsuario.jsp" class="icon">
-                        <img src="../imgs/perfil.png" alt="Perfil">
+                    <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon">
+                        <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil">
                     </a>
-                    <a href="#" class="icon">
-                        <img src="../imgs/salir.png" alt="Salir">
+                    <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon">
+                        <img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Salir">
                     </a>
                 </div>
                 <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
@@ -36,38 +36,38 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="indexAdmin.jsp" class="menu-item">
-                                <img src="../imgs/inicio.png" alt="Inicio" class="menu-icon">
+                            <a href="${pageContext.request.contextPath}/views/indexAdmin.jsp" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/inicio.png" alt="Inicio" class="menu-icon">
                                 <span>Inicio</span>
                             </a>
                         </li>
                         <li>
-                            <a href="gestionUsuariosAdmin.jsp" class="menu-item active">
-                                <img src="../imgs/perfil.png" alt="Usuarios" class="menu-icon">
+                            <a href="${pageContext.request.contextPath}/views/gestionUsuariosAdmin.jsp" class="menu-item active">
+                                <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Usuarios" class="menu-icon">
                                 <span>Gestión de usuarios</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../ProductoServlet?accion=listar" class="menu-item">
-                                <img src="../imgs/catalogo.png" alt="Catálogo" class="menu-icon">
+                            <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo" class="menu-icon">
                                 <span>Gestión de catálogo</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../PedidoServlet" class="menu-item">
-                                <img src="../imgs/pedidos.png" alt="Pedidos" class="menu-icon">
+                            <a href="${pageContext.request.contextPath}/PedidoServlet" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Pedidos" class="menu-icon">
                                 <span>Gestión de pedidos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../ResenaServlet" class="menu-item">
-                                <img src="../imgs/ticket.png" alt="Reseñas" class="menu-icon">
+                            <a href="${pageContext.request.contextPath}/ResenaServlet" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Reseñas" class="menu-icon">
                                 <span>Gestion de reseñas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="crearProducto.jsp" class="menu-item">
-                                <img src="../imgs/perfil.png" alt="Admin" class="menu-icon">
+                            <a href="${pageContext.request.contextPath}/views/crearProducto.jsp" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Admin" class="menu-icon">
                                 <span>Administrador</span>
                             </a>
                         </li>
@@ -138,7 +138,7 @@
         <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
         </footer>
-        <script src="../assets/js/theme.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
     </body>
 </html>
 

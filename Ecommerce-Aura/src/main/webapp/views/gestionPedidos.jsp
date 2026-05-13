@@ -8,20 +8,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Gestión de Pedidos</title>
-        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/common.css">
-        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/header-footer.css">
-        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/gestionPedidos.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/common.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/gestionPedidos.css">
     </head>
 
     <body>
         <header class="barra-superior">
             <div class="header-left">
-                <img src="../imgs/logo.png" alt="Logo" class="logo-img">
+                <img src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo" class="logo-img">
                 <span class="logo-text">Ecommerce</span>
             </div>
             <div class="header-right">
-                <a href="perfilUsuario.jsp" class="icon" title="Perfil"><img src="../imgs/perfil.png" alt="Perfil"></a>
-                <a href="../UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png" alt="Cerrar sesión"></a>
+                <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon" title="Perfil"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
+                <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión"></a>
                 <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
             </div>
         </header>
@@ -46,7 +46,7 @@
                                 <tr>
                                     <td>
                                         <div class="celda-pedido">
-                                            <img src="../imgs/ticket.png" alt="Pedido" class="icono-pedido">
+                                            <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Pedido" class="icono-pedido">
                                             <span>#ORD-1001</span>
                                         </div>
                                     </td>
@@ -57,7 +57,7 @@
                                 <tr>
                                     <td>
                                         <div class="celda-pedido">
-                                            <img src="../imgs/ticket.png" alt="Pedido" class="icono-pedido">
+                                            <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Pedido" class="icono-pedido">
                                             <span>#ORD-1002</span>
                                         </div>
                                     </td>
@@ -68,7 +68,7 @@
                                 <tr>
                                     <td>
                                         <div class="celda-pedido">
-                                            <img src="../imgs/ticket.png" alt="Pedido" class="icono-pedido">
+                                            <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Pedido" class="icono-pedido">
                                             <span>#ORD-1003</span>
                                         </div>
                                     </td>
@@ -79,7 +79,7 @@
                                 <tr>
                                     <td>
                                         <div class="celda-pedido">
-                                            <img src="../imgs/ticket.png" alt="Pedido" class="icono-pedido">
+                                            <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Pedido" class="icono-pedido">
                                             <span>#ORD-1004</span>
                                         </div>
                                     </td>
@@ -90,7 +90,7 @@
                                 <tr>
                                     <td>
                                         <div class="celda-pedido">
-                                            <img src="../imgs/ticket.png" alt="Pedido" class="icono-pedido">
+                                            <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Pedido" class="icono-pedido">
                                             <span>#ORD-1005</span>
                                         </div>
                                     </td>
@@ -104,7 +104,7 @@
                 </div>
             </main>
         </div>
-        <script src="../assets/js/theme.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
     </body>
 
 </html>

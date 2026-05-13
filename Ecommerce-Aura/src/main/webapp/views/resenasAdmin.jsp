@@ -163,7 +163,7 @@
         <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
         </footer>
-        <script src="../assets/js/theme.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
     </body>
 </html>
 

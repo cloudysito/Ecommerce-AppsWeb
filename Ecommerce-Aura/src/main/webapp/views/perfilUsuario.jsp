@@ -8,21 +8,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Perfil de Usuario - Ecommerce</title>
-        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/common.css">
-        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/header-footer.css">
-        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/perfilUsuario.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/common.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/perfilUsuario.css">
     </head>
 
     <body>
         <header class="barra-superior">
             <div class="header-left">
-                <img src="../imgs/logo.png" alt="Logo" class="logo-img">
+                <img src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo" class="logo-img">
                 <span class="logo-text">Ecommerce</span>
             </div>
             <div class="header-right">
-                <a href="perfilUsuario.jsp" class="icon" title="Perfil"><img src="../imgs/perfil.png" alt="Perfil"></a>
-                <a href="../UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png"
-                                                                                  alt="Cerrar sesión"></a>
+                <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon" title="Perfil"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
+                <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión"></a>
                 <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
             </div>
         </header>
@@ -72,7 +71,7 @@
         <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
         </footer>
-        <script src="../assets/js/theme.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
     </body>
 
 </html>

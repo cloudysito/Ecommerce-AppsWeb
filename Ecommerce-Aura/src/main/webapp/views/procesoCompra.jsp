@@ -8,21 +8,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Proceso de Compra</title>
-        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/common.css">
-        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/header-footer.css">
-        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/procesoCompra.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/common.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/procesoCompra.css">
     </head>
 
     <body>
         <header class="barra-superior">
             <div class="header-left">
-                <img src="../imgs/logo.png" alt="Logo" class="logo-img">
+                <img src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo" class="logo-img">
                 <span class="logo-text">Ecommerce</span>
             </div>
             <div class="header-right">
-                <a href="perfilUsuario.jsp" class="icon" title="Perfil"><img src="../imgs/perfil.png" alt="Perfil"></a>
-                <a href="../UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png"
-                                                                                  alt="Cerrar sesión"></a>
+                <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon" title="Perfil"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
+                <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión"></a>
                 <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
             </div>
         </header>
@@ -103,7 +102,7 @@
                                 <h2>Resumen del Pedido</h2>
 
                                 <div class="item-resumen">
-                                    <img src="../imgs/reloj.png" alt="Reloj" class="img-item">
+                                    <img src="${pageContext.request.contextPath}/imgs/reloj.png" alt="Reloj" class="img-item">
                                     <div class="info-item">
                                         <p class="nombre-item">Reloj Inteligente con Funciones de Salud</p>
                                         <p class="cantidad-item">Cant: 1</p>
@@ -112,7 +111,7 @@
                                 </div>
 
                                 <div class="item-resumen">
-                                    <img src="../imgs/audifonos.png" alt="Auriculares" class="img-item">
+                                    <img src="${pageContext.request.contextPath}/imgs/audifonos.png" alt="Auriculares" class="img-item">
                                     <div class="info-item">
                                         <p class="nombre-item">Auriculares inalámbricos con Cancelación de Ruido</p>
                                         <p class="cantidad-item">Cant: 2</p>
@@ -142,7 +141,7 @@
                                     <span class="monto-total">$398.39</span>
                                 </div>
 
-                                <button class="btn-generar-pedido" onclick="window.location.href = 'confirmacionCompra.jsp'">✓ Generar Pedido</button>
+                                <button class="btn-generar-pedido" onclick="window.location.href = '${pageContext.request.contextPath}/views/confirmacionCompra.jsp'">✓ Generar Pedido</button>
                                 <p class="texto-seguro">🔒 Proceso de pago seguro</p>
                             </section>
                         </div>
@@ -154,7 +153,7 @@
         <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
         </footer>
-        <script src="../assets/js/theme.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
     </body>
 
 </html>

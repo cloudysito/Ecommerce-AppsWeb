@@ -8,20 +8,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Carrito</title>
-    <link rel="stylesheet" type="text/css" href="../assets/cssCliente/common.css">
-    <link rel="stylesheet" type="text/css" href="../assets/cssCliente/header-footer.css">
-    <link rel="stylesheet" type="text/css" href="../assets/cssCliente/carrito.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/common.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/header-footer.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/carrito.css">
 </head>
 
 <body>
     <header class="barra-superior">
         <div class="header-left">
-            <img src="../imgs/logo.png" alt="Logo" class="logo-img">
+            <img src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo" class="logo-img">
             <span class="logo-text">Ecommerce</span>
         </div>
         <div class="header-right">
-            <a href="perfilUsuario.jsp" class="icon" title="Perfil"><img src="../imgs/perfil.png" alt="Perfil"></a>
-            <a href="../UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png" alt="Cerrar sesión"></a>
+            <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon" title="Perfil"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
+            <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión"></a>
             <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
         </div>
     </header>
@@ -47,7 +47,7 @@
                             <tr>
                                 <td>
                                     <div class="producto-celda">
-                                        <img src="../imgs/reloj.png" alt="Reloj Inteligente" class="producto-miniatura">
+                                        <img src="${pageContext.request.contextPath}/imgs/reloj.png" alt="Reloj Inteligente" class="producto-miniatura">
                                         <div>
                                             <p class="producto-nombre">Reloj Inteligente Modelo X</p>
                                             <p class="producto-color">Color: Turquesa</p>
@@ -64,14 +64,13 @@
                                 </td>
                                 <td>$199.99</td>
                                 <td>
-                                    <button class="btn-eliminar" title="Eliminar"><img src="../imgs/basura.png"
-                                            alt="Eliminar"></button>
+                                    <button class="btn-eliminar" title="Eliminar"><img src="${pageContext.request.contextPath}/imgs/basura.png" alt="Eliminar"></button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="producto-celda">
-                                        <img src="../imgs/audifonos.png" alt="Audífonos" class="producto-miniatura">
+                                        <img src="${pageContext.request.contextPath}/imgs/audifonos.png" alt="Audífonos" class="producto-miniatura">
                                         <div>
                                             <p class="producto-nombre">Audífonos Inalámbricos Pro</p>
                                             <p class="producto-color">Color: Lila</p>
@@ -88,8 +87,7 @@
                                 </td>
                                 <td>$179.00</td>
                                 <td>
-                                    <button class="btn-eliminar" title="Eliminar"><img src="../imgs/basura.png"
-                                            alt="Eliminar"></button>
+                                    <button class="btn-eliminar" title="Eliminar"><img src="${pageContext.request.contextPath}/imgs/basura.png" alt="Eliminar"></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -115,7 +113,7 @@
     <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
     </footer>
-    <script src="../assets/js/theme.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
 </body>
 
 </html>

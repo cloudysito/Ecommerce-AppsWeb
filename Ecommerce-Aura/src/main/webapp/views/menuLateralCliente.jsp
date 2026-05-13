@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <aside class="menu-lateral">
     <nav>
         <ul>
@@ -9,8 +10,8 @@
             </li>
             <li>
                 <div class="menu-item">
-                    <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Cat·logo" class="menu-icon">
-                    <a href="${pageContext.request.contextPath}/ProductoServlet">Cat·logo de productos</a>
+                    <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catalogo" class="menu-icon">
+                    <a href="${pageContext.request.contextPath}/views/catalogo.jsp">Cat√°logo de productos</a>
                 </div>
             </li>
             <li>
@@ -22,7 +23,7 @@
             <li>
                 <div class="menu-item">
                     <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Pedidos" class="menu-icon">
-                    <a href="${pageContext.request.contextPath}/views/gestionPedidos.jsp">GestiÛn de pedidos</a>
+                    <a href="${pageContext.request.contextPath}/views/gestionPedidos.jsp">Gesti√≥n de pedidos</a>
                 </div>
             </li>
         </ul>
