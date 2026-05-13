@@ -7,7 +7,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Proyecto ECommerce</title>
+        <title>ECommerce</title>
         <link rel="stylesheet" type="text/css" href="../assets/cssCliente/common.css">
         <link rel="stylesheet" type="text/css" href="../assets/cssCliente/registro.css">
     </head>
@@ -35,40 +35,41 @@
                             <p>Regístrate para comenzar a comprar lo que necesitas para la universidad.</p>
                         </div>
 
-                        <form class="formulario-registro">
-
+                        <form class="formulario-registro" action="${pageContext.request.contextPath}/UsuarioServlet" method="POST">
+                            <input type="hidden" name="accion" value="registrar">
+                            
                             <div class="grid-formularios">
                                 <div class="grupo-formulario">
                                     <label for="nombre">Nombre completo</label>
-                                    <input type="text" id="nombre" placeholder="Juan Pérez">
+                                    <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required>
                                 </div>
 
                                 <div class="grupo-formulario">
                                     <label for="correo">Correo electrónico</label>
-                                    <input type="email" id="correo" placeholder="juan.perez@universidad.edu">
+                                    <input type="email" id="correo" name="correo" placeholder="juan.perez@universidad.edu" required>
                                 </div>
 
                                 <div class="grupo-formulario">
-                                    <label for="password">Contraseña</label>
-                                    <input type="password" id="password" placeholder="••••••••">
+                                    <label for="contrasenia">Contraseña</label>
+                                    <input type="password" id="contrasenia" name="contrasenia" placeholder="••••••••" required>
                                 </div>
 
                                 <div class="grupo-formulario">
-                                    <label for="confirm_password">Confirmación de contraseña</label>
-                                    <input type="password" id="confirm_password" placeholder="••••••••">
+                                    <label for="confirmar_contrasenia">Confirmación de contraseña</label>
+                                    <input type="password" id="confirmar_contrasenia" name="confirmar_contrasenia" placeholder="••••••••" required>
                                 </div>
 
                                 <div class="grupo-formulario">
                                     <label for="telefono">Teléfono</label>
-                                    <input type="text" id="telefono" placeholder="+1 (555) 000-0000">
+                                    <input type="text" id="telefono" name="telefono" placeholder="+1 (555) 000-0000">
                                 </div>
                             </div>
 
                             <div class="grupo-formulario">
                                 <label for="direccion">Dirección de envío</label>
-                                <textarea id="direccion" rows="4" placeholder="Av. Universidad 123, Depto 4B, Ciudad, Estado, CP"></textarea>
+                                <textarea id="direccion" rows="4" name="direccion" placeholder="Av. Universidad 123, Depto 4B, Ciudad, Estado, CP"></textarea>
                             </div>
-
+                        
                             <div class="grupo-checkbox">
                                 <input type="checkbox" id="terminos">
                                 <label for="terminos">Acepto los <a href="#">Términos de Servicio</a> y la <a href="#">Política de Privacidad</a></label>
