@@ -9,7 +9,8 @@ import PersistenciaDAO.impl.ProductoDAO;
 import java.util.List;
 
 public class ProductoBO implements IProductoBO {
-    private final IProductoDAO productoDAO;
+
+    private IProductoDAO productoDAO;
 
     public ProductoBO() {
         this.productoDAO = new ProductoDAO();
@@ -17,6 +18,9 @@ public class ProductoBO implements IProductoBO {
 
     @Override
     public List<Producto> listarProductos() {
+        if (this.productoDAO == null) {
+            this.productoDAO = new ProductoDAO(); 
+        }
         return productoDAO.obtenerProductos();
     }
 
@@ -41,4 +45,18 @@ public class ProductoBO implements IProductoBO {
     public void eliminarProducto(ObjectId id) {
         productoDAO.eliminar(id);
     }
+
+    @Override
+    public List<Producto> filtrarProductos(String nombre, String categoria, Double min, Double max) {
+        return productoDAO.buscarProductos(nombre, categoria, min, max);
+    }
+
+    @Override
+    public List<Producto> listarProductosFiltrados(String nombre, String categoria, String tipoPrecio, Double precio) {
+        if (this.productoDAO == null) {
+            this.productoDAO = new ProductoDAO(); 
+        }
+        return productoDAO.obtenerProductosFiltrados(nombre, categoria, tipoPrecio, precio);
+    }
+
 }

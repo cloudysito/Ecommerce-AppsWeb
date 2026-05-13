@@ -10,4 +10,6 @@ public interface IProductoBO {
     void registrarProducto(Producto producto);
     void actualizarProducto(Producto producto);
     void eliminarProducto(ObjectId id);
+    List<Producto> filtrarProductos(String nombre, String categoria, Double min, Double max);
+    List<Producto> listarProductosFiltrados(String nombre, String categoria, String tipoPrecio, Double precio);
 }
