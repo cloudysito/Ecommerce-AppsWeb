@@ -1,0 +1,129 @@
+/* Login */
+.fondo-login {
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-login {
+    background-color: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.icono-login {
+    width: 50px;
+    height: 50px;
+    background-color: #e8f0fe;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+    font-size: 20px;
+}
+
+.cabecera-login h2 {
+    font-size: 24px;
+    color: #202124;
+    margin-bottom: 10px;
+}
+
+.cabecera-login p {
+    font-size: 13px;
+    color: #5f6368;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.formulario-login {
+    text-align: left;
+}
+
+.grupo-formulario {
+    margin-bottom: 20px;
+}
+
+.grupo-formulario label {
+    display: block;
+    font-size: 13px;
+    color: #3c4043;
+    margin-bottom: 8px;
+}
+
+.input-icono {
+    display: flex;
+    align-self: center;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
+    padding: 0 12px;
+    background-color: white;
+}
+
+.input-icono .icono {
+    font-size: 16px;
+    margin-right: 8px;
+    filter: grayscale(100%);
+    opacity: 0.5;
+}
+
+.input-icono input {
+    flex: 1;
+    border: none;
+    padding: 12px 0;
+    font-size: 14px;
+    color: #202124;
+}
+
+.input-icono input::placeholder {
+    color: #9aa0a6;
+}
+
+.enlace-olvido {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.enlace-olvido a,
+.pie-login a {
+    color: #1a73e8;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.btn-iniciar {
+    width: 100%;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+.pie-login p {
+    font-size: 13px;
+    color: #5f6368;
+    margin-bottom: 15px;
+}
+
+.btn-regresar {
+    width: 100%;
+    background-color: white;
+    color: #3c4043;
+    border: 1px solid #dadce0;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}

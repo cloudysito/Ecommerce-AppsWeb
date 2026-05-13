@@ -1,10 +1,5 @@
-<%-- 
-    Document   : indexAdmin
-    Created on : 29/03/2026, 5:42:13 p. m.
-    Author     : garfi
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+﻿
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,7 +8,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Panel de Administrador</title>
-        <link rel="stylesheet" type="text/css" href="../assets/styles.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssAdmin/common.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssAdmin/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssAdmin/indexAdmin.css">
     </head>
 
     <body>
@@ -24,7 +21,7 @@
             </div>
             <div class="header-right">
                 <a href="perfilUsuario.jsp" class="icon" title="Perfil"><img src="../imgs/perfil.png" alt="Perfil"></a>
-                <a href="#cerrar-sesion" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png"
+                <a href="../UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png"
                                                                                  alt="Cerrar sesión"></a>
             </div>
         </header>
@@ -98,7 +95,8 @@
         </div>
     </body>
     <footer class="pie-pagina">
-        <p>Aplicaciones Web – Unidad 2</p>
+            <p>Aplicaciones Web</p>
     </footer>
 
 </html>
+

@@ -1,17 +1,14 @@
-<%-- 
-    Document   : crearProducto
-    Created on : 29/03/2026, 5:26:41 p. m.
-    Author     : garfi
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+﻿
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Producto - Ecommerce</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/stylesAdmin.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/common.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/header-footer.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/crearProducto.css">
 </head>
 <body>
     <header class="barra-superior">
@@ -138,7 +135,8 @@
     </div>
 
     <footer class="pie-pagina">
-        <p>Aplicaciones Web – Unidad 2</p>
+            <p>Aplicaciones Web</p>
     </footer>
 </body>
 </html>
+

@@ -1,0 +1,100 @@
+/* Registro */
+.fondo-login {
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tarjeta-registro {
+    background-color: white;
+    width: 100%;
+    max-width: 700px;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.cabecera-registro {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cabecera-registro h2 {
+    font-size: 28px;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.cabecera-registro p {
+    font-size: 14px;
+    color: #4A90E2;
+    margin: 0;
+}
+
+.grid-formularios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 20px;
+}
+
+.formulario-registro .grupo-formulario input,
+.formulario-registro .grupo-formulario textarea {
+    width: 100%;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 14px;
+    color: #202124;
+    outline: none;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.formulario-registro .grupo-formulario input::placeholder,
+.formulario-registro .grupo-formulario textarea::placeholder {
+    color: #9aa0a6;
+}
+
+.formulario-registro .grupo-formulario textarea {
+    resize: vertical;
+}
+
+.grupo-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.grupo-checkbox label {
+    font-size: 13px;
+    color: #5f6368;
+}
+
+.grupo-checkbox a {
+    color: #4A90E2;
+    text-decoration: none;
+}
+
+.contenedor-boton {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.btn-crear {
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.pie-login {
+    text-align: center;
+}

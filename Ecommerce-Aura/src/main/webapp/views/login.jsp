@@ -1,10 +1,5 @@
-<%-- 
-    Document   : login
-    Created on : 29/03/2026, 5:42:44 p. m.
-    Author     : garfi
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+﻿
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,7 +8,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Proyecto ECommerce</title>
-        <link rel="stylesheet" type="text/css" href="../assets/styles.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/common.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="../assets/cssCliente/login.css">
     </head>
 
     <body>
@@ -24,7 +21,7 @@
             </div>
             <div class="header-right">
                 <a href="perfilUsuario.jsp" class="icon" title="Perfil"><img src="../imgs/perfil.png" alt="Perfil"></a>
-                <a href="#cerrar-sesion" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png"
+                <a href="../UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="../imgs/salir.png"
                                                                                  alt="Cerrar sesión"></a>
             </div>
         </header>
@@ -100,11 +97,9 @@
 
                             <button type="submit" class="btn-iniciar">Iniciar sesión</button>
 
-                            <% if (request.getAttribute("error") != null) {%>
-                            <p style="color:red; text-align: center; margin-top: 10px;">
-                                <%= request.getAttribute("error")%>
+                            <p style="color:red; text-align: center; margin-top: 10px; ${empty requestScope.error ? 'display:none;' : ''}">
+                                ${requestScope.error}
                             </p>
-                            <% }%>
                         </form>
 
                         <div class="pie-login">
@@ -120,8 +115,9 @@
         </div>
 
         <footer class="pie-pagina">
-            <p>Aplicaciones Web – Unidad 2</p>
+            <p>Aplicaciones Web</p>
         </footer>
     </body>
 
 </html>
+

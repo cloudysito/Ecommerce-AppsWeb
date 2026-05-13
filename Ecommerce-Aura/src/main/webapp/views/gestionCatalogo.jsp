@@ -1,22 +1,14 @@
-<%-- 
-    Document   : gestionCatalogo
-    Created on : 29/03/2026, 5:37:58 p. m.
-    Author     : garfi
---%>
-
-<%@page import="java.util.List"%>
-<%@page import="modelo.Producto"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    List<Producto> productos = (List<Producto>) request.getAttribute("productos");
-%>
+﻿
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Gestión de Catálogo - Ecommerce</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/stylesAdmin.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/common.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssAdmin/gestionCatalogo.css">
     </head>
     <body>
         <header class="barra-superior">
@@ -129,7 +121,8 @@
         </div>
 
         <footer class="pie-pagina">
-            <p>Aplicaciones Web – Unidad 2</p>
+            <p>Aplicaciones Web</p>
         </footer>
     </body>
 </html>
+
