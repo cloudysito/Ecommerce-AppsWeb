@@ -52,10 +52,10 @@ public class UsuarioBO implements IUsuarioBO {
     @Override
     public Usuario iniciarSesion(String correo, String password) throws Exception {
         if (correo == null || correo.trim().isEmpty()) {
-            throw new Exception("el correo es obligatorio");
+            throw new Exception("El correo es obligatorio.");
         }
         if (password == null || password.trim().isEmpty()) {
-            throw new Exception("la contraseña es obligatoria");
+            throw new Exception("La contraseña es obligatoria.");
         }
         
         Usuario usuarioEncontrado = usuarioDAO.encontrarPorCorreo(correo);

@@ -49,8 +49,8 @@ public class UsuarioServlet extends HttpServlet {
             case "registrar":
                 procesarRegistro(request, response);
                 break;
-            case "loginAdmin":
-                procesarLoginAdmin(request, response);
+            case "login":
+                procesarLogin(request, response);
                 break;
             case "editarPerfil":
                 procesarEditarPerfil(request, response);
@@ -97,7 +97,7 @@ public class UsuarioServlet extends HttpServlet {
         }
 }
     
-    private void procesarLoginAdmin(HttpServletRequest request, HttpServletResponse response)
+    private void procesarLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String correo = request.getParameter("correo");
@@ -108,11 +108,12 @@ public class UsuarioServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             session.setAttribute("usuarioActivo", usuarioLogueado);
-            session.setAttribute("rol", usuarioLogueado.getRol());
 
-            if ("Admin".equals(usuarioLogueado.getRol())) {
+            if ("Admin".equalsIgnoreCase(usuarioLogueado.getRol())) {
+                session.setAttribute("rol", "Admin");
                 response.sendRedirect(request.getContextPath() + "/views/indexAdmin.jsp");
             } else {
+                session.setAttribute("rol", "Cliente");
                 response.sendRedirect(request.getContextPath() + "/views/index.jsp");
             }
 

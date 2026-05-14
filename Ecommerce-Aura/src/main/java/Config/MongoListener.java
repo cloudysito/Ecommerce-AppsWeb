@@ -17,7 +17,8 @@ import jakarta.servlet.annotation.WebListener;
  * @author USER
  */
 @WebListener
-public class MongoListener implements ServletContextListener{
+public class MongoListener implements ServletContextListener {
+    
     @Override
     public void contextInitialized(ServletContextEvent sce){
         try {
@@ -27,7 +28,6 @@ public class MongoListener implements ServletContextListener{
             
             UsuarioBO usuarioBO = new UsuarioBO();
             usuarioBO.crearAdmin();
-            usuarioBO.crearCliente();
         } catch (Exception e) {
             System.out.println("error al conectar con mongo");
             e.printStackTrace();
