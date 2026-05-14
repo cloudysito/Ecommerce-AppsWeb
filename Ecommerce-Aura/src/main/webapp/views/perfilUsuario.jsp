@@ -1,5 +1,4 @@
-﻿
-<%@ page contentType="text/html; charset=UTF-8" %>
+﻿<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -36,30 +35,31 @@
                             <h2>Perfil de Usuario</h2>
                         </div>
 
-                        <form class="formulario-perfil">
+                        <form class="formulario-perfil" method="POST" action="${pageContext.request.contextPath}/UsuarioServlet">
+                            <input type="hidden" name="accion" value="editarPerfil">
 
                             <div class="grupo-formulario">
                                 <label for="nombre">Nombre completo</label>
-                                <input type="text" id="nombre" value="Juan Pérez">
+                                <input type="text" id="nombre" name="nombre" value="${sessionScope.usuarioActivo.nombreCompleto}" required>
                             </div>
 
                             <div class="grupo-formulario">
                                 <label for="correo">Correo electrónico</label>
-                                <input type="email" id="correo" value="juan.perez@universidad.edu">
+                                <input type="email" id="correo" name="correo" value="${sessionScope.usuarioActivo.correo}" readonly>
                             </div>
 
                             <div class="grupo-formulario">
                                 <label for="telefono">Teléfono</label>
-                                <input type="text" id="telefono" value="+1 (555) 000-0000">
+                                <input type="text" id="telefono" name="telefono" value="${sessionScope.usuarioActivo.telefono}" required>
                             </div>
 
                             <div class="grupo-formulario">
                                 <label for="direccion">Dirección de envío</label>
-                                <textarea id="direccion" rows="3">Av. Universidad 123, Depto 4B, Ciudad, Estado, CP</textarea>
+                                <textarea id="direccion" name="direccion" rows="3" required>${sessionScope.usuarioActivo.direccion}</textarea>
                             </div>
 
                             <div class="contenedor-boton-derecha">
-                                <button type="button" class="btn-guardar">Guardar</button>
+                                <button type="submit" class="btn-guardar">Guardar Cambios</button>
                             </div>
 
                         </form>
@@ -75,4 +75,3 @@
     </body>
 
 </html>
-

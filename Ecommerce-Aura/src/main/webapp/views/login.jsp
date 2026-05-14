@@ -51,7 +51,7 @@
                         <li>
                             <div class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Gestión de pedidos" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/views/gestionPedidos.jsp">Gestión de pedidos</a>
+                                <a href="${pageContext.request.contextPath}/views/login.jsp">Login</a>
                             </div>
                         </li>
                     </ul>

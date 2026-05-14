@@ -88,9 +88,13 @@ public class UsuarioServlet extends HttpServlet {
             nuevo.setTelefono(telefono);
             nuevo.setDireccion(direccion);
 
-            usuarioBO.registrarUsuario(nuevo);
+            Usuario usuarioRegistrado = usuarioBO.registrarUsuario(nuevo);
 
-            response.sendRedirect(request.getContextPath() + "/views/login.jsp?registro=exito");
+            HttpSession session = request.getSession();
+            session.setAttribute("usuarioActivo", usuarioRegistrado);
+            session.setAttribute("rol", "Cliente");
+
+            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
         } catch (Exception e) {
             request.setAttribute("error", "Error al registrarse: " + e.getMessage());
             request.getRequestDispatcher("/views/registro.jsp").forward(request, response);
@@ -149,13 +153,34 @@ public class UsuarioServlet extends HttpServlet {
             HttpSession session = request.getSession(false);
             Usuario usuarioActivo = (Usuario) session.getAttribute("usuarioActivo");
             
-            usuarioActivo.setNombreCompleto(request.getParameter("nombre"));
-            usuarioActivo.setTelefono(request.getParameter("telefono"));
-            usuarioActivo.setDireccion(request.getParameter("direccion"));
+            // Validar que los campos no estén vacíos
+            String nombre = request.getParameter("nombre");
+            String telefono = request.getParameter("telefono");
+            String direccion = request.getParameter("direccion");
+            
+            if (nombre == null || nombre.trim().isEmpty()) {
+                request.setAttribute("error", "El nombre no puede estar vacío.");
+                request.getRequestDispatcher("/views/perfilUsuario.jsp").forward(request, response);
+                return;
+            }
+            if (telefono == null || telefono.trim().isEmpty()) {
+                request.setAttribute("error", "El teléfono no puede estar vacío.");
+                request.getRequestDispatcher("/views/perfilUsuario.jsp").forward(request, response);
+                return;
+            }
+            if (direccion == null || direccion.trim().isEmpty()) {
+                request.setAttribute("error", "La dirección no puede estar vacía.");
+                request.getRequestDispatcher("/views/perfilUsuario.jsp").forward(request, response);
+                return;
+            }
+            
+            usuarioActivo.setNombreCompleto(nombre);
+            usuarioActivo.setTelefono(telefono);
+            usuarioActivo.setDireccion(direccion);
             
             usuarioBO.actualizarPerfil(usuarioActivo);
             session.setAttribute("usuarioActivo", usuarioActivo);
-            response.sendRedirect(request.getContextPath() + "/views/perfilUsuario.jsp");
+            response.sendRedirect(request.getContextPath() + "/views/perfilUsuario.jsp?success=1");
         } catch (Exception e) {
             request.setAttribute("error", "No se pudo actualizar el perfil: " + e.getMessage());
             request.getRequestDispatcher("/views/perfilUsuario.jsp").forward(request, response);

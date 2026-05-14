@@ -20,10 +20,10 @@
                     <span>Carrito de compras</span>
                 </a>
             </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/views/gestionPedidos.jsp" class="menu-item">
-                    <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Pedidos" class="menu-icon">
-                    <span>Gestión de pedidos</span>
+            <li style="${not empty sessionScope.usuarioActivo ? 'display:none !important;' : ''}">
+                <a href="${pageContext.request.contextPath}/views/login.jsp" class="menu-item">
+                    <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Login" class="menu-icon">
+                    <span>Login</span>
                 </a>
             </li>
         </ul>
