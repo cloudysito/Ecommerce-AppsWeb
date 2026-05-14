@@ -49,6 +49,35 @@ public class UsuarioBO implements IUsuarioBO {
         }
     }
     
+    public void crearCliente() {
+        try {
+            System.out.println("[crearCliente] Buscando cliente existente...");
+            Usuario cliente = usuarioDAO.autentificar("cliente@gmail.com", "levi", "Cliente");
+            System.out.println("[crearCliente] Resultado busqueda: " + (cliente == null ? "null (no existe)" : "encontrado"));
+
+            if (cliente != null) {
+                System.out.println("[crearCliente] Documento encontrado - correo: " + cliente.getCorreo() + ", rol: " + cliente.getRol() + ", id: " + cliente.getId());
+            }
+
+            if (cliente == null) {
+                Usuario nuevoCliente = new Usuario();
+                nuevoCliente.setNombreCompleto("Cliente");
+                nuevoCliente.setCorreo("cliente@gmail.com");
+                nuevoCliente.setContrasenia("levi");
+                nuevoCliente.setRol("Cliente");
+
+                System.out.println("[crearCliente] Intentando insertar...");
+                usuarioDAO.registrarUsuario(nuevoCliente, "Cliente");
+                System.out.println("[crearCliente] Cliente creado correctamente con id: " + nuevoCliente.getId());
+            } else {
+                System.out.println("[crearCliente] Cliente ya existe con el rol correcto");
+            }
+        } catch (Exception e) {
+            System.out.println("[crearCliente] ERROR: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
     @Override
     public Usuario iniciarSesion(String correo, String password) throws Exception {
         if (correo == null || correo.trim().isEmpty()) {
@@ -57,9 +86,13 @@ public class UsuarioBO implements IUsuarioBO {
         if (password == null || password.trim().isEmpty()) {
             throw new Exception("la contraseña es obligatoria");
         }
+        // Intentar como Admin primero, luego como Cliente
         Usuario usuarioEncontrado = usuarioDAO.autentificar(correo, password, "Admin");
         if (usuarioEncontrado == null) {
-            throw new Exception("credenciales incorrectas o no tienes permisos de administrador");
+            usuarioEncontrado = usuarioDAO.autentificar(correo, password, "Cliente");
+        }
+        if (usuarioEncontrado == null) {
+            throw new Exception("Correo o contraseña incorrectos");
         }
         return usuarioEncontrado;
     }

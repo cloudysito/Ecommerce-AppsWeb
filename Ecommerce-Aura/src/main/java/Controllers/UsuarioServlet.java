@@ -26,7 +26,6 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         this.usuarioBO = new UsuarioBO();
-        this.usuarioBO.crearAdmin();
     }
 
     @Override
@@ -105,17 +104,19 @@ public class UsuarioServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            Usuario adminLogueado = usuarioBO.iniciarSesion(correo, password);
+            Usuario usuarioLogueado = usuarioBO.iniciarSesion(correo, password);
 
-            // Inicio de sesión exitoso
             HttpSession session = request.getSession();
-            session.setAttribute("usuarioActivo", adminLogueado);
-            session.setAttribute("rol", "Admin");
+            session.setAttribute("usuarioActivo", usuarioLogueado);
+            session.setAttribute("rol", usuarioLogueado.getRol());
 
-            response.sendRedirect(request.getContextPath() + "/views/indexAdmin.jsp");
+            if ("Admin".equals(usuarioLogueado.getRol())) {
+                response.sendRedirect(request.getContextPath() + "/views/indexAdmin.jsp");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/views/index.jsp");
+            }
 
         } catch (Exception e) {
-         
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
         }
@@ -143,13 +144,9 @@ public class UsuarioServlet extends HttpServlet {
 
     private void procesarEditarPerfil(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            HttpSession session = request.getSession();
+            // La sesión está garantizada por ClienteFilter
+            HttpSession session = request.getSession(false);
             Usuario usuarioActivo = (Usuario) session.getAttribute("usuarioActivo");
-            
-            if (usuarioActivo == null) {
-                response.sendRedirect(request.getContextPath() + "/views/login.jsp");
-                return;
-            }
             
             usuarioActivo.setNombreCompleto(request.getParameter("nombre"));
             usuarioActivo.setTelefono(request.getParameter("telefono"));
