@@ -29,7 +29,9 @@ public class CarritoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
-        if (carrito == null) carrito = new ArrayList<>();
+        if (carrito == null) {
+            carrito = new ArrayList<>();
+        }
 
         request.setAttribute("carritoItems", carrito);
         request.getRequestDispatcher("views/carritoCompras.jsp").forward(request, response);
@@ -45,6 +47,9 @@ public class CarritoServlet extends HttpServlet {
 
         if (accion.equals("agregar")) {
             String id = request.getParameter("id");
+            String cantidadStr = request.getParameter("cantidad");
+            int cantidadSeleccionada = (cantidadStr != null && !cantidadStr.isEmpty()) ? Integer.parseInt(cantidadStr) : 1;
+
             if (id == null || id.isEmpty()) {
                 response.sendRedirect(request.getContextPath() + "/ProductoServlet");
                 return;
@@ -61,23 +66,40 @@ public class CarritoServlet extends HttpServlet {
                 carrito = new ArrayList<>();
             }
 
+            int cantidadEnCarritoActual = 0;
+            for (CarritoItem it : carrito) {
+                if (it.getProducto().getId().toString().equals(id)) {
+                    cantidadEnCarritoActual = it.getCantidad();
+                    break;
+                }
+            }
+            if ((cantidadEnCarritoActual + cantidadSeleccionada) > producto.getStock()) {
+                String referer = request.getHeader("Referer");
+                response.sendRedirect(referer != null ? referer : request.getContextPath() + "/ProductoServlet");
+                return;
+            }
+            
             boolean encontrado = false;
             for (CarritoItem it : carrito) {
                 if (it.getProducto().getId().toString().equals(id)) {
-                    it.setCantidad(it.getCantidad() + 1);
+                    it.setCantidad(it.getCantidad() + cantidadSeleccionada);
                     encontrado = true;
                     break;
                 }
             }
+            
             if (!encontrado) {
-                carrito.add(new CarritoItem(producto, 1));
+                carrito.add(new CarritoItem(producto, cantidadSeleccionada));
             }
 
             session.setAttribute("carrito", carrito);
 
             String referer = request.getHeader("Referer");
-            if (referer != null) response.sendRedirect(referer);
-            else response.sendRedirect(request.getContextPath() + "/ProductoServlet");
+            if (referer != null) {
+                response.sendRedirect(referer);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/ProductoServlet");
+            }
         } else if (accion.equals("remove")) {
             String id = request.getParameter("id");
             HttpSession session = request.getSession();
@@ -92,4 +114,3 @@ public class CarritoServlet extends HttpServlet {
         }
     }
 }
-

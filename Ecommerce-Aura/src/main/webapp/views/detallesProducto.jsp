@@ -1,102 +1,141 @@
 ﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles del Producto</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/common.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/header-footer.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/detalleProducto.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detalles del Producto</title>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/common.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/header-footer.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/cssCliente/detalleProducto.css">
+    </head>
 
-<body>
-    <header class="barra-superior">
-        <div class="header-left">
-            <img src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo" class="logo-img">
-            <span class="logo-text">Ecommerce</span>
-        </div>
-        <div class="header-right">
-            <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon" title="Perfil"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
-            <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión"></a>
-            <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
-        </div>
-    </header>
-
-    <div class="container"> <jsp:include page="menuLateralCliente.jsp" />
-
-        <main class="contenido fondo-claro">
-            <div class="detalles-wrapper">
-                
-                <a href="${pageContext.request.contextPath}/ProductoServlet" class="btn-regresar-enlace">← Volver al catálogo</a>
-
-                <div class="producto-principal-card">
-                    <div class="producto-galeria">
-                        <div class="imagen-destacada">
-                            <img src="${pageContext.request.contextPath}/imgs/audifonos.png" alt="Auriculares Inalámbricos">
-                        </div>
-                    </div>
-
-                    <div class="producto-info-detalle">
-                        <span class="categoria-badge">Electrónica > Audio</span>
-                        <h1>Auriculares inalámbricos con Cancelación de Ruido</h1>
-                        
-                        <div class="calificacion-estrellas">
-                            ⭐⭐⭐⭐☆ <span>(24 reseñas)</span>
-                        </div>
-
-                        <div class="precio-detalle">$149.99</div>
-                        
-                        <p class="descripcion-corta">
-                            Disfruta de tu música sin distracciones con nuestros auriculares de última generación. Cuentan con batería de larga duración (hasta 30 horas), ajuste ergonómico para uso prolongado, y sonido de alta fidelidad con bajos profundos.
-                        </p>
-
-                        <div class="stock-status">
-                            <span class="punto-verde"></span> En stock (45 disponibles)
-                        </div>
-
-                        <div class="acciones-compra">
-                            <div class="grupo-cantidad">
-                                <label>Cantidad</label>
-                                <div class="cantidad-control">
-                                    <button class="btn-cantidad">−</button>
-                                    <input type="number" value="1" class="cantidad-input" readonly>
-                                    <button class="btn-cantidad">+</button>
-                                </div>
-                            </div>
-                            
-                            <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
-                                <input type="hidden" name="accion" value="agregar" />
-                                <input type="hidden" name="id" value="${param.id}" />
-                                <button class="btn-agregar-grande" type="submit">🛒 Agregar al carrito</button>
-                            </form>
-                        </div>
-
-                        <div class="detalles-tecnicos">
-                            <h3>Características principales:</h3>
-                            <ul>
-                                <li>Conectividad Bluetooth 5.0</li>
-                                <li>Cancelación activa de ruido (ANC)</li>
-                                <li>Micrófono integrado para llamadas</li>
-                                <li>Carga rápida vía USB-C</li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-
+    <body>
+        <header class="barra-superior">
+            <div class="header-left">
+                <img src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo" class="logo-img">
+                <span class="logo-text">Ecommerce</span>
             </div>
-        </main>
-    </div>
+            <div class="header-right">
+                <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon" title="Perfil"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
+                <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión"></a>
+                <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
+            </div>
+        </header>
 
-    <footer class="pie-pagina">
+        <div class="container"> <jsp:include page="menuLateralCliente.jsp" />
+
+            <main class="contenido fondo-claro">
+                <div class="detalles-wrapper">
+
+                    <a href="${pageContext.request.contextPath}/ProductoServlet" class="btn-regresar-enlace">← Volver al catálogo</a>
+
+                    <div class="producto-principal-card">
+                        <div class="producto-galeria">
+                            <div class="imagen-destacada">
+                                <img src="${pageContext.request.contextPath}/imgs/${not empty producto.imagenProducto ? producto.imagenProducto : 'logo.png'}" alt="${producto.nombre}">
+                            </div>
+                        </div>
+
+                        <div class="producto-info-detalle">
+                            <span class="categoria-badge">${producto.categoria}</span>
+
+                            <h1>${producto.nombre}</h1>
+
+                            <div class="calificacion-estrellas">
+                                ⭐⭐⭐⭐☆ <span>(Consultar reseñas abajo)</span>
+                            </div>
+
+                            <div class="precio-detalle">$${producto.precio}</div>
+
+                            <p class="descripcion-corta">
+                                ${producto.descripcion}
+                            </p>
+
+                            <div class="stock-status">
+                                <span class="${producto.stock > 0 ? 'punto-verde' : 'punto-rojo'}"></span> 
+                                ${producto.stock > 0 ? 'En stock (' : 'Agotado ('}${producto.stock} disponibles)
+                            </div>
+
+                            <div class="acciones-compra">
+                                <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
+                                    <input type="hidden" name="accion" value="agregar" />
+                                    <input type="hidden" name="id" value="${producto.id}" />
+
+                                    <div class="grupo-cantidad">
+                                        <label>Cantidad</label>
+                                        <div class="cantidad-control">
+                                            <button type="button" class="btn-cantidad" onclick="cambiarCantidad(-1)">−</button>
+                                            <input type="number" id="cantidad-input" name="cantidad" value="1" min="1" max="${producto.stock}" readonly>
+                                            <button type="button" class="btn-cantidad" onclick="cambiarCantidad(1)">+</button>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn-agregar-grande" type="submit" ${producto.stock <= 0 ? 'disabled' : ''}>
+                                        🛒 Agregar al carrito
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="detalles-tecnicos">
+                                <h3>Características principales:</h3>
+                                <ul>
+                                    <c:forEach var="caracteristica" items="${producto.caracteristicas}">
+                                        <li>${caracteristica}</li>
+                                        </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="seccion-resenas" style="margin-top: 30px; padding: 20px; background: white; border-radius: 8px;">
+                        <h3>Reseñas de clientes</h3>
+                        <c:choose>
+                            <c:when test="${not empty resenas}">
+                                <c:forEach var="r" items="${resenas}">
+                                    <div class="resena-item" style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                                        <strong>Calificación: ${r.calificacion}/5</strong>
+                                        <p>${r.comentario}</p>
+                                    </div>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <p>Aún no hay reseñas para este producto.</p>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+        <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
-    </footer>
-    <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
-</body>
+        </footer>
+        <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
+        <script>
+        function cambiarCantidad(valor) {
+            const input = document.getElementById('cantidad-input');
+            let actual = parseInt(input.value);
+            const stockMaximo = parseInt(input.getAttribute('max'));
+
+            actual += valor;
+            
+            if (actual < 1) actual = 1;
+
+            if (actual > stockMaximo) {
+                actual = stockMaximo;
+                alert("Lo sentimos, solo hay " + stockMaximo + " unidades disponibles.");  
+            }
+            
+            input.value = actual;
+        }
+        </script>
+    </body>
 
 </html>
 

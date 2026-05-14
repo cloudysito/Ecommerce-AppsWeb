@@ -108,7 +108,7 @@
                                         </td>
                                         <td><span class="fw-bold">${p.nombre}</span></td>
                                         <td>$${p.precio}</td>
-                                        <td><a href="${pageContext.request.contextPath}/views/detallesProducto.jsp?id=${p.id}" class="link-detalles">👁 Detalles</a></td>
+                                        <td><a href="${pageContext.request.contextPath}/ProductoServlet?accion=detalles&id=${p.id}" class="link-detalles">👁 Detalles</a></td>
                                         <td>
                                             <div class="acciones-catalogo">
                                                 <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">

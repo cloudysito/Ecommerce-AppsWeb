@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 
 public class Producto {
@@ -11,17 +12,19 @@ public class Producto {
     private String imagenProducto;
     private int stock;
     private String categoria;
+    private List<String> caracteristicas;
 
     public Producto() {
     }
 
-    public Producto(String nombre, double precio, String descripcion, String imagenProducto, int stock, String categoria) {
+    public Producto(String nombre, double precio, String descripcion, String imagenProducto, int stock, String categoria, List<String> caracteristicas) {
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
         this.imagenProducto = imagenProducto;
         this.stock = stock;
         this.categoria = categoria;
+        this.caracteristicas = caracteristicas;
     }
 
     public ObjectId getId() {
@@ -78,6 +81,14 @@ public class Producto {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public List<String> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(List<String> caracteristicas) {
+        this.caracteristicas = caracteristicas;
     }
     
     public boolean isDisponible() {
