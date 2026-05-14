@@ -39,9 +39,20 @@ public class AdminFilter implements Filter {
         String accion = httpRequest.getParameter("accion");
         String uri = httpRequest.getRequestURI();
 
-        // Para /UsuarioServlet solo proteger editarPerfil; el resto (login, registro, logout) pasa libre
         if (uri.contains("UsuarioServlet") && !"editarPerfil".equals(accion)) {
             chain.doFilter(request, response);
+            return;
+        }
+
+        if (uri.contains("UsuarioServlet") && "editarPerfil".equals(accion)) {
+            HttpSession session = httpRequest.getSession(false);
+            boolean isLoggedIn = (session != null && session.getAttribute("usuarioActivo") != null);
+
+            if (isLoggedIn) {
+                chain.doFilter(request, response);
+            } else {
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/login.jsp");
+            }
             return;
         }
 

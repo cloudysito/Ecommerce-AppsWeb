@@ -156,32 +156,42 @@ public class UsuarioServlet extends HttpServlet {
 
     private void procesarEditarPerfil(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // La sesión está garantizada por ClienteFilter
             HttpSession session = request.getSession(false);
+            if (session == null || session.getAttribute("usuarioActivo") == null) {
+                response.sendRedirect(request.getContextPath() + "/views/login.jsp");
+                return;
+            }
+
             Usuario usuarioActivo = (Usuario) session.getAttribute("usuarioActivo");
-            
-            // Validar que los campos no estén vacíos
+
             String nombre = request.getParameter("nombre");
+            String contrasenia = request.getParameter("contrasenia");
             String telefono = request.getParameter("telefono");
             String direccion = request.getParameter("direccion");
             
-            if (nombre == null || nombre.trim().isEmpty()) {
+            if (nombre != null) {
+                nombre = nombre.trim();
+            }
+            if (contrasenia != null) {
+                contrasenia = contrasenia.trim();
+            }
+            if (telefono != null) {
+                telefono = telefono.trim();
+            }
+            if (direccion != null) {
+                direccion = direccion.trim();
+            }
+
+            if (nombre == null || nombre.isEmpty()) {
                 request.setAttribute("error", "El nombre no puede estar vacío.");
                 request.getRequestDispatcher("/views/perfilUsuario.jsp").forward(request, response);
                 return;
             }
-            if (telefono == null || telefono.trim().isEmpty()) {
-                request.setAttribute("error", "El teléfono no puede estar vacío.");
-                request.getRequestDispatcher("/views/perfilUsuario.jsp").forward(request, response);
-                return;
-            }
-            if (direccion == null || direccion.trim().isEmpty()) {
-                request.setAttribute("error", "La dirección no puede estar vacía.");
-                request.getRequestDispatcher("/views/perfilUsuario.jsp").forward(request, response);
-                return;
-            }
-            
+
             usuarioActivo.setNombreCompleto(nombre);
+            if (contrasenia != null && !contrasenia.isEmpty()) {
+                usuarioActivo.setContrasenia(contrasenia);
+            }
             usuarioActivo.setTelefono(telefono);
             usuarioActivo.setDireccion(direccion);
             

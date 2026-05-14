@@ -34,7 +34,19 @@
                         <div class="cabecera-perfil">
                             <h2>Perfil de Usuario</h2>
                         </div>
-                        
+
+                        <% if ("1".equals(request.getParameter("success"))) { %>
+                            <div class="error-message" style="color: #1b8f3a; background: #e8f7ee; border: 1px solid #b7e4c7;">
+                                Perfil actualizado correctamente.
+                            </div>
+                        <% } %>
+
+                        <% if (request.getAttribute("error") != null) { %>
+                            <div class="error-message">
+                                <%= request.getAttribute("error") %>
+                            </div>
+                        <% } %>
+
                         <form class="formulario-perfil" method="POST" action="${pageContext.request.contextPath}/UsuarioServlet">
                             <input type="hidden" name="accion" value="editarPerfil">
 
@@ -46,6 +58,11 @@
                             <div class="grupo-formulario">
                                 <label for="correo">Correo electrónico</label>
                                 <input type="email" id="correo" name="correo" value="${sessionScope.usuarioActivo.correo}" readonly>
+                            </div>
+
+                            <div class="grupo-formulario">
+                                <label for="contrasenia">Contraseña</label>
+                                <input type="password" id="contrasenia" name="contrasenia" placeholder="Dejar vacío para mantener la actual">
                             </div>
 
                             <div class="grupo-formulario">
