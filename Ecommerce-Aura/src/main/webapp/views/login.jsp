@@ -50,7 +50,7 @@
                         </li>
                         <li>
                             <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Gestión de pedidos" class="menu-icon">
+                                <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Login" class="menu-icon">
                                 <a href="${pageContext.request.contextPath}/views/login.jsp">Login</a>
                             </div>
                         </li>
