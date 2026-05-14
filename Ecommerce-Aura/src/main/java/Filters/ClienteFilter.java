@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package filters;
 
 import jakarta.servlet.Filter;
@@ -12,44 +16,48 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-
-@WebFilter(filterName = "AdminFilter", urlPatterns = {
-    "/views/indexAdmin.jsp",
-    "/views/resenasAdmin.jsp",
-    "/views/gestionCatalogo.jsp",
-    "/views/gestionPedidos.jsp",
-    "/views/gestionUsuariosAdmin.jsp",
-    "/views/pagPedidosAdmin.jsp",
-    "/ResenaServlet",
+/**
+ *
+ * @author garfi
+ */
+@WebFilter(filterName = "ClienteFilter", urlPatterns = {
+    "/views/procesoCompra.jsp",
+    "/views/confirmacionCompra.jsp",
+    "/views/perfilUsuario.jsp",
     "/UsuarioServlet"
 })
-public class AdminFilter implements Filter {
+
+public class ClienteFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
-
+    
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
+        HttpSession session = httpRequest.getSession(false);
 
-        String accion = httpRequest.getParameter("accion");
+        boolean isLoggedIn = (session != null && session.getAttribute("usuarioActivo") != null);
+
         String uri = httpRequest.getRequestURI();
+        String accion = httpRequest.getParameter("accion");
 
-        // Para /UsuarioServlet solo proteger editarPerfil; el resto (login, registro, logout) pasa libre
-        if (uri.contains("UsuarioServlet") && !"editarPerfil".equals(accion)) {
-            chain.doFilter(request, response);
+        // Si es el servlet, solo bloquear la acción editarPerfil
+        if (uri.contains("UsuarioServlet")) {
+            if ("editarPerfil".equals(accion) && !isLoggedIn) {
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/login.jsp");
+            } else {
+                chain.doFilter(request, response);
+            }
             return;
         }
 
-        HttpSession session = httpRequest.getSession(false);
-        boolean isLoggedIn = (session != null && session.getAttribute("usuarioActivo") != null);
-        boolean isAdmin = isLoggedIn && "Admin".equals(session.getAttribute("rol"));
-
-        if (isAdmin) {
+        // Para las JSPs protegidas, exigir sesión activa
+        if (isLoggedIn) {
             chain.doFilter(request, response);
         } else {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/login.jsp");
@@ -58,6 +66,6 @@ public class AdminFilter implements Filter {
 
     @Override
     public void destroy() {
-        // Se ejecuta cuando el filtro se destruye. Lo dejamos vacío.
     }
+
 }

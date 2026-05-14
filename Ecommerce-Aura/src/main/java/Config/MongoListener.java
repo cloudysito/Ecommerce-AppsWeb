@@ -7,6 +7,7 @@
  */
 package Config;
 
+import BOs.UsuarioBO;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -23,6 +24,10 @@ public class MongoListener implements ServletContextListener{
             System.out.println("iniciando conexion a mongo.... owo");
             MongoClientProvider.INSTANCE.init();
             System.out.println("se a conectado con exito");
+            
+            UsuarioBO usuarioBO = new UsuarioBO();
+            usuarioBO.crearAdmin();
+            usuarioBO.crearCliente();
         } catch (Exception e) {
             System.out.println("error al conectar con mongo");
             e.printStackTrace();

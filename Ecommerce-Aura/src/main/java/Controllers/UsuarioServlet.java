@@ -26,7 +26,6 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         this.usuarioBO = new UsuarioBO();
-        this.usuarioBO.crearAdmin();
     }
 
     @Override
@@ -50,8 +49,8 @@ public class UsuarioServlet extends HttpServlet {
             case "registrar":
                 procesarRegistro(request, response);
                 break;
-            case "login":
-                procesarLogin(request, response);
+            case "loginAdmin":
+                procesarLoginAdmin(request, response);
                 break;
             case "editarPerfil":
                 procesarEditarPerfil(request, response);
@@ -98,7 +97,7 @@ public class UsuarioServlet extends HttpServlet {
         }
 }
     
-    private void procesarLogin(HttpServletRequest request, HttpServletResponse response)
+    private void procesarLoginAdmin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String correo = request.getParameter("correo");
@@ -109,14 +108,14 @@ public class UsuarioServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             session.setAttribute("usuarioActivo", usuarioLogueado);
+            session.setAttribute("rol", usuarioLogueado.getRol());
 
-            if ("Admin".equalsIgnoreCase(usuarioLogueado.getRol())) {
-                session.setAttribute("rol", "Admin");
+            if ("Admin".equals(usuarioLogueado.getRol())) {
                 response.sendRedirect(request.getContextPath() + "/views/indexAdmin.jsp");
             } else {
-                session.setAttribute("rol", "Cliente");
                 response.sendRedirect(request.getContextPath() + "/views/index.jsp");
             }
+
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
@@ -145,13 +144,9 @@ public class UsuarioServlet extends HttpServlet {
 
     private void procesarEditarPerfil(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            HttpSession session = request.getSession();
+            // La sesión está garantizada por ClienteFilter
+            HttpSession session = request.getSession(false);
             Usuario usuarioActivo = (Usuario) session.getAttribute("usuarioActivo");
-            
-            if (usuarioActivo == null) {
-                response.sendRedirect(request.getContextPath() + "/views/login.jsp");
-                return;
-            }
             
             usuarioActivo.setNombreCompleto(request.getParameter("nombre"));
             usuarioActivo.setTelefono(request.getParameter("telefono"));
