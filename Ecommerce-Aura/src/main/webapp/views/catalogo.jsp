@@ -20,8 +20,17 @@
                 <span class="logo-text">Ecommerce</span>
             </div>
             <div class="header-right">
-                <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
-                <a href="#cerrar-sesion" class="icon" title="Cerrar sesión"><img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión"></a>
+                <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon">
+                    <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil">
+                </a>
+
+                <!-- Botón de toggle de tema -->
+                <button id="theme-toggle" class="theme-toggle" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
+
+                <!-- Logout: llamar al servlet de usuario -->
+                <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión">
+                    <img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión">
+                </a>
             </div>
         </header>
 
@@ -123,6 +132,7 @@
         <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
         </footer>
+    <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
     </body>
 
 </html>

@@ -14,8 +14,6 @@ import org.bson.types.ObjectId;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @WebServlet(name = "ProductoServlet", urlPatterns = {"/ProductoServlet"})
