@@ -62,9 +62,6 @@ public class UsuarioServlet extends HttpServlet {
             case "editarPerfil":
                 procesarEditarPerfil(request, response);
                 break;
-            case "logout":
-                procesarLogout(request, response);
-                break;
             default:
                 response.sendRedirect(request.getContextPath() + "/views/index.jsp");
                 break;

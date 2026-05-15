@@ -61,7 +61,7 @@ public class UsuarioBO implements IUsuarioBO {
         Usuario usuarioEncontrado = usuarioDAO.encontrarPorCorreo(correo);
         
         if (usuarioEncontrado == null || !usuarioEncontrado.getContrasenia().equals(password)) {
-            throw new Exception("credenciales incorrectas o no tienes permisos de administrador");
+            throw new Exception("Credenciales incorrectas.");
         }
         return usuarioEncontrado;
     }

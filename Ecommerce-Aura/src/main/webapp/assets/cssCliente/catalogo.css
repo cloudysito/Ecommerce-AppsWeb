@@ -59,6 +59,14 @@
     font-size: 14px;
 }
 
+.btn-bloqueado {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
 .input-con-icono input {
     border: none;
     outline: none;

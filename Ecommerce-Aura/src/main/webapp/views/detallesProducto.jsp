@@ -61,25 +61,38 @@
                                 ${producto.stock > 0 ? 'En stock (' : 'Agotado ('}${producto.stock} disponibles)
                             </div>
 
-                            <div class="acciones-compra">
-                                <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
-                                    <input type="hidden" name="accion" value="agregar" />
-                                    <input type="hidden" name="id" value="${producto.id}" />
+                                <div class="acciones-compra">
+                                    <c:choose>
+                                        <c:when test="${not empty sessionScope.usuarioActivo}">
+                                            <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
+                                                <input type="hidden" name="accion" value="agregar" />
+                                                <input type="hidden" name="id" value="${producto.id}" />
 
-                                    <div class="grupo-cantidad">
-                                        <label>Cantidad</label>
-                                        <div class="cantidad-control">
-                                            <button type="button" class="btn-cantidad" onclick="cambiarCantidad(-1)">−</button>
-                                            <input type="number" id="cantidad-input" name="cantidad" value="1" min="1" max="${producto.stock}" readonly>
-                                            <button type="button" class="btn-cantidad" onclick="cambiarCantidad(1)">+</button>
-                                        </div>
-                                    </div>
+                                                <div class="grupo-cantidad">
+                                                    <label>Cantidad</label>
+                                                    <div class="cantidad-control">
+                                                        <button type="button" class="btn-cantidad" onclick="cambiarCantidad(-1)">−</button>
+                                                        <input type="number" id="cantidad-input" name="cantidad" value="1" min="1" max="${producto.stock}" readonly>
+                                                        <button type="button" class="btn-cantidad" onclick="cambiarCantidad(1)">+</button>
+                                                    </div>
+                                                </div>
 
-                                    <button class="btn-agregar-grande" type="submit" ${producto.stock <= 0 ? 'disabled' : ''}>
-                                        🛒 Agregar al carrito
-                                    </button>
-                                </form>
-                            </div>
+                                                <button class="btn-agregar-grande" type="submit" ${producto.stock <= 0 ? 'disabled' : ''}>
+                                                    Agregar al carrito
+                                                </button>
+                                            </form>
+                                        </c:when>
+
+                                        <c:otherwise>
+                                            <div class="aviso-login-detalles" style="padding: 20px; border: 2px dashed var(--color-primario); border-radius: 8px; text-align: center;">
+                                                <p style="margin-bottom: 15px; font-weight: bold;">¿Quieres comprar este artículo?</p>
+                                                <a href="${pageContext.request.contextPath}/views/login.jsp" class="btn-agregar-grande" style="text-decoration: none; display: block;">
+                                                    Inicia sesión para comprar
+                                                </a>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
 
                             <div class="detalles-tecnicos">
                                 <h3>Características principales:</h3>

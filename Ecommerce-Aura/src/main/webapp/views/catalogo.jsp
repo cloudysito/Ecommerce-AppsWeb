@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -24,10 +24,8 @@
                     <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil">
                 </a>
 
-                <!-- Botón de toggle de tema -->
                 <button id="theme-toggle" class="theme-toggle" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
 
-                <!-- Logout: llamar al servlet de usuario -->
                 <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión">
                     <img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión">
                 </a>
@@ -111,12 +109,21 @@
                                         <td><a href="${pageContext.request.contextPath}/ProductoServlet?accion=detalles&id=${p.id}" class="link-detalles">👁 Detalles</a></td>
                                         <td>
                                             <div class="acciones-catalogo">
-                                                <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
-                                                    <input type="hidden" name="accion" value="agregar" />
-                                                    <input type="hidden" name="id" value="${p.id}" />
-                                                    <button class="btn-agregar" type="submit">🛒 Agregar al carrito</button>
-                                                </form>
-                                                <button class="btn-resena" onclick="window.location.href = '${pageContext.request.contextPath}/views/crearReseña.jsp?id=${p.id}'">💬 Dejar reseña</button>
+                                                <c:choose>
+                                                    <c:when test="${not empty sessionScope.usuarioActivo}">
+                                                        <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
+                                                            <input type="hidden" name="accion" value="agregar">
+                                                            <input type="hidden" name="id" value="{p.id}">
+                                                            <button class="btn-agregar" type="submit">Agregar al carrito</button>
+                                                        </form>
+                                                            <button class="btn-resenas" onclick="window.location.href = '${pageContext.request.contextPath}/views/crearReseña.jsp?id=${p.id}'">Dejar reseña</button>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a href="${pageContext.request.contextPath}/views/login.jsp" class="btn-bloqueado" style="text-decoration: none; text-align: center; display: inline-block;"> 
+                                                            Inicia sesion para comprar
+                                                        </a>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
                                         </td>
                                     </tr>

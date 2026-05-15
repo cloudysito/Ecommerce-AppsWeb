@@ -75,7 +75,7 @@
 
                     <div class="grupo-formulario">
                         <label for="direccion">Dirección de envío</label>
-                        <textarea id="direccion" rows="4" name="direccion" placeholder="Av. Universidad 123, Depto 4B, Ciudad, Estado, CP"></textarea>
+                        <textarea id="direccion" rows="4" name="direccion" placeholder="Av. Universidad 123, Depto 4B, Ciudad, Estado, CP" required></textarea>
                     </div>
 
                     <div class="grupo-checkbox">
