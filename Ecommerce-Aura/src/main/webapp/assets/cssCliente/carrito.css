@@ -82,6 +82,23 @@
     font-weight: 600;
 }
 
+.btn-cantidad-pequeno {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #ddd;
+    background: #f8f9fa;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.btn-cantidad-pequeno:hover {
+    background: #e2e6ea;
+}
+
 .cantidad-input {
     width: 45px;
     height: 32px;
