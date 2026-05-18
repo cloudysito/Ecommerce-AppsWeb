@@ -11,6 +11,7 @@ public interface IProductoDAO {
     List<Producto> buscarProductos(String nombre, String categoria, Double minPrecio, Double maxPrecio);
     void insertar(Producto producto);
     void actualizar(Producto producto);
+    void actualizarStock(ObjectId id, int nuevoStock);
     void eliminar(ObjectId id);
     List<Producto> obtenerProductosFiltrados(String nombre, String categoria, String tipoPrecio, Double precio);
 }

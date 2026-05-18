@@ -43,6 +43,15 @@ public class ProductoDAO implements IProductoDAO {
     }
 
     @Override
+    public void actualizarStock(ObjectId id, int nuevoStock) {
+        Producto producto = obtenerProductoPorId(id);
+        if (producto != null) {
+            producto.setStock(Math.max(nuevoStock, 0));
+            actualizar(producto);
+        }
+    }
+
+    @Override
     public void eliminar(ObjectId id) {
         pr.deleteOne(eq("_id", id));
     }

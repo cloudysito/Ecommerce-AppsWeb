@@ -5,7 +5,11 @@
 package controllers;
 
 import BOs.DetallePedidoBO;
+import BOs.PedidoBO;
+import BOs.ProductoBO;
 import BOs.interfaces.IDetallePedidoBO;
+import BOs.interfaces.IPedidoBO;
+import BOs.interfaces.IProductoBO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,9 +17,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+import modelo.CarritoItem;
 import modelo.DetallePedido;
+import modelo.Pedido;
+import modelo.Producto;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -25,58 +33,98 @@ import modelo.DetallePedido;
 public class DetallePedidoServlet extends HttpServlet {
 
     private IDetallePedidoBO detalleBO;
+    private IPedidoBO pedidoBO;
+    private IProductoBO productoBO;
 
     @Override
     public void init() throws ServletException {
         super.init();
         this.detalleBO = new DetallePedidoBO();
+        this.pedidoBO = new PedidoBO();
+        this.productoBO = new ProductoBO();
     }
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DetallePedidoServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DetallePedidoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/views/carritoCompras.jsp");
+        response.sendRedirect(request.getContextPath() + "/views/procesoCompra.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-        List<DetallePedido> carrito = (List<DetallePedido>) session.getAttribute("carrito");
-
-        if (carrito == null || carrito.isEmpty()) {
-            request.setAttribute("mensajeError", "Tu carrito está vacío.");
-            request.getRequestDispatcher("views/carritoCompras.jsp").forward(request, response);
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("usuarioActivo") == null) {
+            response.sendRedirect(request.getContextPath() + "/views/login.jsp");
             return;
         }
 
-        boolean compraExitosa = detalleBO.procesarYGuardarDetalles(carrito);
+        List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
 
-        if (compraExitosa) {
-            session.removeAttribute("carrito");
-            response.sendRedirect(request.getContextPath() + "/views/confirmacionCompra.jsp");
-        } else {
-            request.setAttribute("mensajeError", "Hubo un problema al procesar tu pedido. Inténtalo de nuevo.");
-            request.getRequestDispatcher("views/carritoCompras.jsp").forward(request, response);
+        if (carrito == null || carrito.isEmpty()) {
+            request.setAttribute("mensajeError", "Tu carrito está vacío.");
+            request.getRequestDispatcher("/views/carritoCompras.jsp").forward(request, response);
+            return;
         }
+
+        List<DetallePedido> detalles = new ArrayList<>();
+        double total = 0.0;
+
+        for (CarritoItem item : carrito) {
+            Producto productoActual = productoBO.buscarProductoPorId(item.getProducto().getId());
+            if (productoActual == null) {
+                request.setAttribute("mensajeError", "Uno de los productos ya no está disponible.");
+                request.getRequestDispatcher("/views/carritoCompras.jsp").forward(request, response);
+                return;
+            }
+
+            if (item.getCantidad() <= 0) {
+                request.setAttribute("mensajeError", "La cantidad del carrito no es válida.");
+                request.getRequestDispatcher("/views/carritoCompras.jsp").forward(request, response);
+                return;
+            }
+
+            if (item.getCantidad() > productoActual.getStock()) {
+                request.setAttribute("mensajeError", "No hay stock suficiente para " + productoActual.getNombre() + ".");
+                request.getRequestDispatcher("/views/carritoCompras.jsp").forward(request, response);
+                return;
+            }
+
+            DetallePedido detalle = new DetallePedido(productoActual.getNombre(), item.getCantidad(), productoActual.getPrecio());
+            detalles.add(detalle);
+            total += detalle.getSubtotal();
+        }
+
+        Pedido pedido = new Pedido(((modelo.Usuario) session.getAttribute("usuarioActivo")).getNombreCompleto(), total, detalles);
+        ObjectId pedidoId = new ObjectId();
+        pedido.setId(pedidoId);
+        for (DetallePedido detalle : detalles) {
+            detalle.setPedidoId(pedidoId);
+        }
+
+        pedidoBO.crearPedido(pedido);
+        boolean detallesGuardados = detalleBO.procesarYGuardarDetalles(detalles);
+
+        if (!detallesGuardados) {
+            request.setAttribute("mensajeError", "No se pudieron guardar los detalles de la compra.");
+            request.getRequestDispatcher("/views/carritoCompras.jsp").forward(request, response);
+            return;
+        }
+
+        for (CarritoItem item : carrito) {
+            Producto productoActual = productoBO.buscarProductoPorId(item.getProducto().getId());
+            if (productoActual != null) {
+                productoBO.actualizarStock(productoActual.getId(), productoActual.getStock() - item.getCantidad());
+            }
+        }
+
+        session.removeAttribute("carrito");
+        session.setAttribute("ultimaCompraPedidoId", pedidoId.toString());
+        session.setAttribute("ultimaCompraTotal", total);
+        session.setAttribute("ultimaCompraFecha", pedido.getFecha());
+        session.setAttribute("ultimaCompraDireccion", ((modelo.Usuario) session.getAttribute("usuarioActivo")).getDireccion());
+        response.sendRedirect(request.getContextPath() + "/views/confirmacionCompra.jsp");
     }
 
     /**

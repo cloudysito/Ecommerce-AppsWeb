@@ -1,7 +1,10 @@
 package modelo;
 
+import org.bson.types.ObjectId;
+
 public class DetallePedido {
 
+    private ObjectId pedidoId;
     private String nombreProducto;
     private int cantidad;
     private double precioUnitario;
@@ -11,12 +14,25 @@ public class DetallePedido {
     }
 
     public DetallePedido(String nombreProducto, int cantidad, double precioUnitario) {
+        this(null, nombreProducto, cantidad, precioUnitario);
+    }
+
+    public DetallePedido(ObjectId pedidoId, String nombreProducto, int cantidad, double precioUnitario) {
+        this.pedidoId = pedidoId;
         this.nombreProducto = nombreProducto;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.subtotal = cantidad * precioUnitario;
     }
     //getters y setters
+    public ObjectId getPedidoId() {
+        return pedidoId;
+    }
+
+    public void setPedidoId(ObjectId pedidoId) {
+        this.pedidoId = pedidoId;
+    }
+
     public String getNombreProducto() {
         return nombreProducto;
     }

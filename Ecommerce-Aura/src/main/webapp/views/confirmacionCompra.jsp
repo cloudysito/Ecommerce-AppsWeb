@@ -1,5 +1,6 @@
-
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -41,26 +42,27 @@
                     <div class="confirmacion-detalles">
                         <div class="detalle-item">
                             <label class="detalle-label">Número de Pedido</label>
-                            <p class="detalle-valor">#ORD-987654321</p>
+                            <p class="detalle-valor">#${sessionScope.ultimaCompraPedidoId != null ? sessionScope.ultimaCompraPedidoId : 'PENDIENTE'}</p>
                         </div>
-                        
+
                         <div class="detalle-item">
                             <label class="detalle-label">Fecha de Compra</label>
-                            <p class="detalle-valor">26 de Octubre, 2023</p>
+                            <p class="detalle-valor">${sessionScope.ultimaCompraFecha != null ? sessionScope.ultimaCompraFecha : 'No disponible'}</p>
                         </div>
-                        
+
                         <div class="detalle-item">
                             <label class="detalle-label">Dirección de Envío</label>
                             <p class="detalle-valor">
-                                Juan Pérez<br>
-                                123 Avenida Universidad, Apt 4B<br>
-                                Ciudad Universitaria, ST 12345
+                                ${sessionScope.usuarioActivo != null ? sessionScope.usuarioActivo.nombreCompleto : 'Cliente'}<br>
+                                ${sessionScope.ultimaCompraDireccion != null ? sessionScope.ultimaCompraDireccion : 'No disponible'}
                             </p>
                         </div>
-                        
+
                         <div class="detalle-item">
                             <label class="detalle-label">Costo Total</label>
-                            <p class="detalle-valor total">$398.39</p>
+                            <p class="detalle-valor total">$
+                                <fmt:formatNumber value="${sessionScope.ultimaCompraTotal != null ? sessionScope.ultimaCompraTotal : 0.0}" type="number" minFractionDigits="2" maxFractionDigits="2"/>
+                            </p>
                         </div>
                     </div>
                     

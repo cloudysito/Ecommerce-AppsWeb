@@ -9,6 +9,7 @@ public interface IProductoBO {
     Producto buscarProductoPorId(ObjectId id);
     void registrarProducto(Producto producto);
     void actualizarProducto(Producto producto);
+    void actualizarStock(ObjectId id, int nuevoStock);
     void eliminarProducto(ObjectId id);
     List<Producto> filtrarProductos(String nombre, String categoria, Double min, Double max);
     List<Producto> listarProductosFiltrados(String nombre, String categoria, String tipoPrecio, Double precio);

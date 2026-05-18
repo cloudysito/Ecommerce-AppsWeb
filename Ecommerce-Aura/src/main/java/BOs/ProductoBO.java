@@ -42,6 +42,14 @@ public class ProductoBO implements IProductoBO {
     }
 
     @Override
+    public void actualizarStock(ObjectId id, int nuevoStock) {
+        if (productoDAO == null) {
+            productoDAO = new ProductoDAO();
+        }
+        productoDAO.actualizarStock(id, nuevoStock);
+    }
+
+    @Override
     public void eliminarProducto(ObjectId id) {
         productoDAO.eliminar(id);
     }

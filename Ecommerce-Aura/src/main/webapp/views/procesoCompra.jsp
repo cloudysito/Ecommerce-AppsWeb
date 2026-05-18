@@ -1,5 +1,7 @@
 ﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -40,28 +42,28 @@
 
                                 <div class="fila-doble">
                                     <div class="campo">
-                                        <label>Nombre Completo</label>
-                                        <input type="text" placeholder="Usuario Estudiante">
+                                        <label for="nombreCompleto">Nombre Completo</label>
+                                        <input type="text" id="nombreCompleto" placeholder="Usuario Estudiante">
                                     </div>
                                     <div class="campo">
-                                        <label>Número de Teléfono</label>
-                                        <input type="text" placeholder="(644) 000-0000">
+                                        <label for="telefonoEnvio">Número de Teléfono</label>
+                                        <input type="text" id="telefonoEnvio" placeholder="(644) 000-0000">
                                     </div>
                                 </div>
 
                                 <div class="campo">
-                                    <label>Dirección de Entrega</label>
-                                    <input type="text" placeholder="Ingresar calle, edificio, número de apartamento...">
+                                    <label for="direccionEntrega">Dirección de Entrega</label>
+                                    <input type="text" id="direccionEntrega" placeholder="Ingresar calle, edificio, número de apartamento...">
                                 </div>
 
                                 <div class="fila-doble">
                                     <div class="campo">
-                                        <label>Ciudad</label>
-                                        <input type="text" placeholder="Ciudad">
+                                        <label for="ciudadEnvio">Ciudad</label>
+                                        <input type="text" id="ciudadEnvio" placeholder="Ciudad">
                                     </div>
                                     <div class="campo">
-                                        <label>Código Postal</label>
-                                        <input type="text" placeholder="C.P">
+                                        <label for="codigoPostal">Código Postal</label>
+                                        <input type="text" id="codigoPostal" placeholder="C.P">
                                     </div>
                                 </div>
                             </section>
@@ -74,18 +76,18 @@
 
                                 <div class="datos-tarjeta">
                                     <div class="campo">
-                                        <label>Número de Tarjeta</label>
-                                        <input type="text" placeholder="1234 5678 9012 3456">
+                                        <label for="numeroTarjeta">Número de Tarjeta</label>
+                                        <input type="text" id="numeroTarjeta" placeholder="1234 5678 9012 3456">
                                     </div>
 
                                     <div class="fila-doble">
                                         <div class="campo">
-                                            <label>MM/AA</label>
-                                            <input type="text" placeholder="MM/AA">
+                                            <label for="fechaVencimiento">MM/AA</label>
+                                            <input type="text" id="fechaVencimiento" placeholder="MM/AA">
                                         </div>
                                         <div class="campo">
-                                            <label>CVC</label>
-                                            <input type="text" placeholder="CVC">
+                                            <label for="cvc">CVC</label>
+                                            <input type="text" id="cvc" placeholder="CVC">
                                         </div>
                                     </div>
                                 </div>
@@ -98,52 +100,78 @@
                         </div>
 
                         <div class="proceso-resumen">
+                            <form action="${pageContext.request.contextPath}/procesarCompra" method="POST">
                             <section class="resumen-pedido">
                                 <h2>Resumen del Pedido</h2>
 
-                                <div class="item-resumen">
-                                    <img src="${pageContext.request.contextPath}/imgs/reloj.png" alt="Reloj" class="img-item">
-                                    <div class="info-item">
-                                        <p class="nombre-item">Reloj Inteligente con Funciones de Salud</p>
-                                        <p class="cantidad-item">Cant: 1</p>
-                                    </div>
-                                    <p class="precio-item">$199.99</p>
-                                </div>
+                                <c:choose>
+                                    <c:when test="${not empty sessionScope.carrito}">
+                                        <c:set var="subtotal" value="0.0" scope="page" />
+                                        <c:forEach var="it" items="${sessionScope.carrito}">
+                                            <div class="item-resumen">
+                                                <c:choose>
+                                                    <c:when test="${not empty it.producto.imagenProducto}">
+                                                        <c:choose>
+                                                            <c:when test="${it.producto.imagenProducto.contains('/')}">
+                                                                <img src="${pageContext.request.contextPath}/${it.producto.imagenProducto}" alt="${it.producto.nombre}" class="img-item">
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <img src="${pageContext.request.contextPath}/imgs/${it.producto.imagenProducto}" alt="${it.producto.nombre}" class="img-item">
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="img-placeholder">📦</div>
+                                                    </c:otherwise>
+                                                </c:choose>
 
-                                <div class="item-resumen">
-                                    <img src="${pageContext.request.contextPath}/imgs/audifonos.png" alt="Auriculares" class="img-item">
-                                    <div class="info-item">
-                                        <p class="nombre-item">Auriculares inalámbricos con Cancelación de Ruido</p>
-                                        <p class="cantidad-item">Cant: 2</p>
-                                    </div>
-                                    <p class="precio-item">$179.00</p>
-                                </div>
+                                                <div class="info-item">
+                                                    <p class="nombre-item">${it.producto.nombre}</p>
+                                                    <p class="cantidad-item">Cant: ${it.cantidad}</p>
+                                                </div>
+                                                <p class="precio-item">$${it.producto.precio}</p>
+                                            </div>
+                                            <c:set var="subtotal" value="${subtotal + (it.producto.precio * it.cantidad)}" scope="page" />
+                                        </c:forEach>
 
-                                <div class="separador"></div>
+                                        <div class="separador"></div>
 
-                                <div class="fila-total">
-                                    <span>Subtotal</span>
-                                    <span>$378.99</span>
-                                </div>
-                                <div class="fila-total">
-                                    <span>Envío</span>
-                                    <span>$5.00</span>
-                                </div>
-                                <div class="fila-total">
-                                    <span>Impuestos</span>
-                                    <span>$14.40</span>
-                                </div>
+                                        <c:set var="envio" value="5.0" scope="page" />
+                                        <c:set var="taxRate" value="0.038" scope="page" />
+                                        <c:set var="impuestos" value="${subtotal * taxRate}" scope="page" />
+                                        <c:set var="total" value="${subtotal + envio + impuestos}" scope="page" />
 
-                                <div class="separador"></div>
+                                        <div class="fila-total">
+                                            <span>Subtotal</span>
+                                            <span>$<fmt:formatNumber value="${subtotal}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
+                                        </div>
+                                        <div class="fila-total">
+                                            <span>Envío</span>
+                                            <span>$<fmt:formatNumber value="${envio}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
+                                        </div>
+                                        <div class="fila-total">
+                                            <span>Impuestos</span>
+                                            <span>$<fmt:formatNumber value="${impuestos}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
+                                        </div>
 
-                                <div class="fila-total-final">
-                                    <span>Total</span>
-                                    <span class="monto-total">$398.39</span>
-                                </div>
+                                        <div class="separador"></div>
 
-                                <button class="btn-generar-pedido" onclick="window.location.href = '${pageContext.request.contextPath}/views/confirmacionCompra.jsp'">✓ Generar Pedido</button>
-                                <p class="texto-seguro">🔒 Proceso de pago seguro</p>
+                                        <div class="fila-total-final">
+                                            <span>Total</span>
+                                            <span class="monto-total">$<fmt:formatNumber value="${total}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
+                                        </div>
+
+                                        <button type="submit" class="btn-generar-pedido">✓ Generar Pedido</button>
+                                        <p class="texto-seguro">🔒 Proceso de pago seguro</p>
+
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>Tu carrito está vacío.</p>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </section>
+                            </form>
                         </div>
                     </div>
                 </div>
