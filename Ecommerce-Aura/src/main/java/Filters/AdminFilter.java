@@ -1,5 +1,7 @@
 package filters;
 
+import Config.JwtUtil;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -44,24 +46,25 @@ public class AdminFilter implements Filter {
             return;
         }
 
-        if (uri.contains("UsuarioServlet") && "editarPerfil".equals(accion)) {
-            HttpSession session = httpRequest.getSession(false);
-            boolean isLoggedIn = (session != null && session.getAttribute("usuarioActivo") != null);
+        HttpSession session = httpRequest.getSession(false);
+        boolean isLoggedIn = (session != null && session.getAttribute("usuarioActivo") != null);
+        String token = isLoggedIn ? (String) session.getAttribute("jwtToken") : null;
 
-            if (isLoggedIn) {
+        // Validar JWT
+        Claims claims = null;
+        if (token != null) {
+            claims = JwtUtil.validarToken(token);
+        }
+
+        boolean isAdmin = isLoggedIn && "Admin".equals(session.getAttribute("rol")) && claims != null;
+
+        if (isLoggedIn && claims != null) {
+            String tokenRol = (String) claims.get("rol");
+            if ("Admin".equals(tokenRol)) {
                 chain.doFilter(request, response);
             } else {
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/login.jsp");
             }
-            return;
-        }
-
-        HttpSession session = httpRequest.getSession(false);
-        boolean isLoggedIn = (session != null && session.getAttribute("usuarioActivo") != null);
-        boolean isAdmin = isLoggedIn && "Admin".equals(session.getAttribute("rol"));
-
-        if (isAdmin) {
-            chain.doFilter(request, response);
         } else {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/login.jsp");
         }

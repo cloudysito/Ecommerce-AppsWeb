@@ -1,4 +1,3 @@
-﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -61,45 +60,44 @@
                                 ${producto.stock > 0 ? 'En stock (' : 'Agotado ('}${producto.stock} disponibles)
                             </div>
 
-                                <div class="acciones-compra">
-                                    <c:choose>
-                                        <c:when test="${not empty sessionScope.usuarioActivo}">
-                                            <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
-                                                <input type="hidden" name="accion" value="agregar" />
-                                                <input type="hidden" name="id" value="${producto.id}" />
+                            <div class="acciones-compra">
+                                <c:choose>
+                                    <c:when test="${not empty sessionScope.usuarioActivo}">
+                                        <form id="form-agregar-carrito" style="display:inline">
+                                            <input type="hidden" id="prod-id" name="id" value="${producto.id}" />
 
-                                                <div class="grupo-cantidad">
-                                                    <label>Cantidad</label>
-                                                    <div class="cantidad-control">
-                                                        <button type="button" class="btn-cantidad" onclick="cambiarCantidad(-1)">−</button>
-                                                        <input type="number" id="cantidad-input" name="cantidad" value="1" min="1" max="${producto.stock}" readonly>
-                                                        <button type="button" class="btn-cantidad" onclick="cambiarCantidad(1)">+</button>
-                                                    </div>
+                                            <div class="grupo-cantidad">
+                                                <label>Cantidad</label>
+                                                <div class="cantidad-control">
+                                                    <button type="button" class="btn-cantidad" onclick="cambiarCantidad(-1)">−</button>
+                                                    <input type="number" id="cantidad-input" name="cantidad" value="1" min="1" max="${producto.stock}" readonly>
+                                                    <button type="button" class="btn-cantidad" onclick="cambiarCantidad(1)">+</button>
                                                 </div>
-
-                                                <button class="btn-agregar-grande" type="submit" ${producto.stock <= 0 ? 'disabled' : ''}>
-                                                    Agregar al carrito
-                                                </button>
-                                            </form>
-                                        </c:when>
-
-                                        <c:otherwise>
-                                            <div class="aviso-login-detalles" style="padding: 20px; border: 2px dashed var(--color-primario); border-radius: 8px; text-align: center;">
-                                                <p style="margin-bottom: 15px; font-weight: bold;">¿Quieres comprar este artículo?</p>
-                                                <a href="${pageContext.request.contextPath}/views/login.jsp" class="btn-agregar-grande" style="text-decoration: none; display: block;">
-                                                    Inicia sesión para comprar
-                                                </a>
                                             </div>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
+
+                                            <button class="btn-agregar-grande" type="button" id="btn-add-carrito" ${producto.stock <= 0 ? 'disabled' : ''}>
+                                                Agregar al carrito
+                                            </button>
+                                        </form>
+                                    </c:when>
+
+                                    <c:otherwise>
+                                        <div class="aviso-login-detalles" style="padding: 20px; border: 2px dashed var(--color-primario); border-radius: 8px; text-align: center;">
+                                            <p style="margin-bottom: 15px; font-weight: bold;">¿Quieres comprar este artículo?</p>
+                                            <a href="${pageContext.request.contextPath}/views/login.jsp" class="btn-agregar-grande" style="text-decoration: none; display: block;">
+                                                Inicia sesión para comprar
+                                            </a>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
 
                             <div class="detalles-tecnicos">
                                 <h3>Características principales:</h3>
                                 <ul>
                                     <c:forEach var="caracteristica" items="${producto.caracteristicas}">
                                         <li>${caracteristica}</li>
-                                        </c:forEach>
+                                    </c:forEach>
                                 </ul>
                             </div>
                         </div>
@@ -126,10 +124,13 @@
             </main>
         </div>
 
+        <header style="display:none;"></header>
         <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
         </footer>
+        
         <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
+        
         <script>
         function cambiarCantidad(valor) {
             const input = document.getElementById('cantidad-input');
@@ -137,7 +138,6 @@
             const stockMaximo = parseInt(input.getAttribute('max'));
 
             actual += valor;
-            
             if (actual < 1) actual = 1;
 
             if (actual > stockMaximo) {
@@ -147,8 +147,34 @@
             
             input.value = actual;
         }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const btnCarrito = document.getElementById("btn-add-carrito");
+            
+            if (btnCarrito) {
+                btnCarrito.addEventListener("click", async () => {
+                    const idProducto = document.getElementById("prod-id").value;
+                    const cantidad = document.getElementById("cantidad-input").value;
+                    const contextPath = "${pageContext.request.contextPath}";
+
+                    const url = contextPath + "/CarritoServlet?accion=agregar&id=" + idProducto + "&cantidad=" + cantidad;
+
+                    try {
+                        const response = await fetch(url, { method: "POST" });
+                        
+                        if (response.ok) {
+                            alert("Producto agregado al carrito exitosamente.");
+                        } else {
+                            alert("No se pudo añadir el artículo. Verifica los datos.");
+                        }
+                    } catch (error) {
+                        console.error("Error en la ejecución de la promesa asíncrona: ", error);
+                        alert("Error de comunicación de red al intentar añadir el artículo.");
+                    }
+                });
+            }
+        });
         </script>
     </body>
 
 </html>
-

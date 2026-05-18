@@ -1,5 +1,5 @@
-﻿<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -102,7 +102,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <tr>
-                                            <td colspan="5">Tu carrito está vacío.</td>
+                                            <td colspan="5" style="text-align: center; padding: 20px;">Tu carrito está vacío.</td>
                                         </tr>
                                     </c:otherwise>
                                 </c:choose>
@@ -132,22 +132,21 @@
         </footer>
         <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
         <script>
-                                    function modificarCantidad(id, cambio) {
-                                        const input = document.getElementById('cant-' + id);
-                                        const form = document.getElementById('form-' + id);
-                                        let valor = parseInt(input.value);
-                                        const maximo = parseInt(input.max);
+            function modificarCantidad(id, cambio) {
+                const input = document.getElementById('cant-' + id);
+                const form = document.getElementById('form-' + id);
+                let valor = parseInt(input.value);
+                const maximo = parseInt(input.max);
 
-                                        valor += cambio;
+                valor += cambio;
 
-                                        if (valor >= 1 && valor <= maximo) {
-                                            input.value = valor;
-                                            form.submit();
-                                        } else if (valor > maximo) {
-                                            alert("Stock máximo alcanzado (" + maximo + " unidades)");
-                                        }
-                                    }
+                if (valor >= 1 && valor <= maximo) {
+                    input.value = valor;
+                    form.submit();
+                } else if (valor > maximo) {
+                    alert("Stock máximo alcanzado (" + maximo + " unidades)");
+                }
+            }
         </script>
     </body>
-
 </html>

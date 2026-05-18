@@ -113,7 +113,7 @@
                                                     <c:when test="${not empty sessionScope.usuarioActivo}">
                                                         <form action="${pageContext.request.contextPath}/CarritoServlet" method="POST" style="display:inline">
                                                             <input type="hidden" name="accion" value="agregar">
-                                                            <input type="hidden" name="id" value="{p.id}">
+                                                            <input type="hidden" name="id" value="${p.id}">
                                                             <button class="btn-agregar" type="submit">Agregar al carrito</button>
                                                         </form>
                                                             <button class="btn-resenas" onclick="window.location.href = '${pageContext.request.contextPath}/views/crearReseña.jsp?id=${p.id}'">Dejar reseña</button>

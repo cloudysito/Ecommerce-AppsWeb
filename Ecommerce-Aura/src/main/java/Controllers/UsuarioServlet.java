@@ -5,6 +5,7 @@
 package controllers;
 
 import BOs.UsuarioBO;
+import Config.JwtUtil;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -116,8 +117,11 @@ public class UsuarioServlet extends HttpServlet {
 
             Usuario usuarioRegistrado = usuarioBO.registrarUsuario(nuevo);
 
+            String token = JwtUtil.generarToken(usuarioRegistrado.getId().toString(), "Cliente");
+
             HttpSession session = request.getSession();
             session.setAttribute("usuarioActivo", usuarioRegistrado);
+            session.setAttribute("jwtToken", token);
             session.setAttribute("rol", "Cliente");
 
             response.sendRedirect(request.getContextPath() + "/views/index.jsp");
@@ -136,8 +140,11 @@ public class UsuarioServlet extends HttpServlet {
         try {
             Usuario usuarioLogueado = usuarioBO.iniciarSesion(correo, password);
 
+            String token = JwtUtil.generarToken(usuarioLogueado.getId().toString(), usuarioLogueado.getRol());
+
             HttpSession session = request.getSession();
             session.setAttribute("usuarioActivo", usuarioLogueado);
+            session.setAttribute("jwtToken", token);
 
             if ("Admin".equalsIgnoreCase(usuarioLogueado.getRol())) {
                 session.setAttribute("rol", "Admin");

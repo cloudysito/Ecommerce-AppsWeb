@@ -50,10 +50,11 @@ public class CarritoServlet extends HttpServlet {
             String cantidadStr = request.getParameter("cantidad");
             int cantidadSeleccionada = (cantidadStr != null && !cantidadStr.isEmpty()) ? Integer.parseInt(cantidadStr) : 1;
 
-            if (id == null || id.isEmpty()) {
+            if (id == null || id.trim().isEmpty() || id.length() != 24) {
                 response.sendRedirect(request.getContextPath() + "/ProductoServlet");
                 return;
             }
+            
             Producto producto = productoBO.buscarProductoPorId(new ObjectId(id));
             if (producto == null) {
                 response.sendRedirect(request.getContextPath() + "/ProductoServlet");
@@ -105,7 +106,7 @@ public class CarritoServlet extends HttpServlet {
             String id = request.getParameter("id");
             String cantidadStr = request.getParameter("cantidad");
 
-            if (id != null && cantidadStr != null) {
+            if (id != null && id.length() == 24 && cantidadStr != null) {
                 HttpSession session = request.getSession();
                 List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
 
@@ -117,17 +118,21 @@ public class CarritoServlet extends HttpServlet {
                             break;
                         }
                     }
+                    session.setAttribute("carrito", carrito);
                 }
             }
-            response.sendRedirect(request.getContextPath() + "/CarritoServlet?accion=ver");
+            response.sendRedirect(request.getContextPath() + "/CarritoServlet");
 
         } else if (accion.equals("remove")) {
             String id = request.getParameter("id");
-            HttpSession session = request.getSession();
-            List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
-            if (carrito != null && id != null) {
-                carrito.removeIf(it -> it.getProducto().getId().toString().equals(id));
-                session.setAttribute("carrito", carrito);
+            
+            if (id != null && id.length() == 24) {
+                HttpSession session = request.getSession();
+                List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
+                if (carrito != null) {
+                    carrito.removeIf(it -> it.getProducto().getId().toString().equals(id));
+                    session.setAttribute("carrito", carrito);
+                }
             }
             response.sendRedirect(request.getContextPath() + "/CarritoServlet");
         } else {

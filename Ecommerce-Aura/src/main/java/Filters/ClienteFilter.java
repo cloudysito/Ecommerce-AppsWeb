@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package filters;
 
+import Config.JwtUtil;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -42,22 +40,33 @@ public class ClienteFilter implements Filter {
         HttpSession session = httpRequest.getSession(false);
 
         boolean isLoggedIn = (session != null && session.getAttribute("usuarioActivo") != null);
+        String token = isLoggedIn ? (String) session.getAttribute("jwtToken") : null;
+
+        // Validar JWT
+        Claims claims = null;
+        if (token != null) {
+            claims = JwtUtil.validarToken(token);
+        }
 
         String uri = httpRequest.getRequestURI();
         String accion = httpRequest.getParameter("accion");
 
         // Si es el servlet, solo bloquear la acción editarPerfil
         if (uri.contains("UsuarioServlet")) {
-            if ("editarPerfil".equals(accion) && !isLoggedIn) {
-                httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/login.jsp");
+            if ("editarPerfil".equals(accion)) {
+                if (isLoggedIn && claims != null) {
+                    chain.doFilter(request, response);
+                } else {
+                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/login.jsp");
+                }
             } else {
                 chain.doFilter(request, response);
             }
             return;
         }
 
-        // Para las JSPs protegidas, exigir sesión activa
-        if (isLoggedIn) {
+        // Para las JSPs protegidas, exigir sesión activa y JWT válido
+        if (isLoggedIn && claims != null) {
             chain.doFilter(request, response);
         } else {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/login.jsp");
