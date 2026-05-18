@@ -33,10 +33,8 @@ public class ProductoServlet extends HttpServlet {
 
     private void crearProductosDePrueba() {
         try {
-
             List<Producto> productosExistentes = productoBO.listarProductos();
             if (productosExistentes.isEmpty()) {
-                // Producto 1: Electrónica
                 Producto p1 = new Producto(
                         "Laptop Gaming Pro 15\"",
                         1299.99,
@@ -48,7 +46,6 @@ public class ProductoServlet extends HttpServlet {
                 );
                 productoBO.registrarProducto(p1);
 
-                // Producto 2: Electrónica
                 Producto p2 = new Producto(
                         "Auriculares Inalámbricos Noise Cancelling",
                         249.99,
@@ -60,7 +57,6 @@ public class ProductoServlet extends HttpServlet {
                 );
                 productoBO.registrarProducto(p2);
 
-                // Producto 3: Muebles
                 Producto p3 = new Producto(
                         "Silla Ergonómica de Oficina",
                         189.50,
@@ -72,7 +68,6 @@ public class ProductoServlet extends HttpServlet {
                 );
                 productoBO.registrarProducto(p3);
 
-                // Producto 4: Electrónica
                 Producto p4 = new Producto(
                         "Smartwatch Pro Series",
                         1000.00,
@@ -84,54 +79,6 @@ public class ProductoServlet extends HttpServlet {
                 );
                 productoBO.registrarProducto(p4);
 
-                // Producto 5: Ropa
-                Producto p5 = new Producto(
-                        "Zapatillas Deportivas Running Pro",
-                        89.99,
-                        "Zapatillas ligeras para running, suela con tecnología de amortiguación, material transpirable.",
-                        "",
-                        60,
-                        "Ropa",
-                        Arrays.asList("Suela con amortiguación React", "Tejido Flyknit transpirable", "Peso ligero (250g)", "Refuerzo en talón", "Tracción multisuperficie")
-                );
-                productoBO.registrarProducto(p5);
-
-                // Producto 6: Electrónica
-                Producto p6 = new Producto(
-                        "Teclado Mecánico RGB Gaming",
-                        129.99,
-                        "Teclado mecánico con switches blue, retroiluminación RGB personalizable, reposamuñecas extraíble.",
-                        "",
-                        35,
-                        "Electrónica",
-                        Arrays.asList("Switches mecánicos Blue", "Iluminación RGB Chroma", "Layout en Español", "Anti-ghosting total", "Cable trenzado removible")
-                );
-                productoBO.registrarProducto(p6);
-
-                // Producto 7: Hogar
-                Producto p7 = new Producto(
-                        "Escritorio Minimalista de Madera",
-                        279.00,
-                        "Escritorio moderno de madera maciza, 140x60cm, con organizador de cables integrado.",
-                        "",
-                        12,
-                        "Muebles",
-                        Arrays.asList("Madera de roble natural", "Estructura metálica industrial", "Medidas 140x60cm", "Organizador de cables", "Fácil montaje")
-                );
-                productoBO.registrarProducto(p7);
-
-                // Producto 8: Electrónica
-                Producto p8 = new Producto(
-                        "Mouse Inalámbrico Ergonómico",
-                        45.99,
-                        "Mouse ergonómico inalámbrico, 6 botones programables, batería recargable, 3200 DPI.",
-                        "",
-                        80,
-                        "Electrónica",
-                        Arrays.asList("Resolución 3200 DPI ajustable", "Conexión 2.4GHz + Bluetooth", "6 botones programables", "Batería recargable", "Diseño vertical ergonómico")
-                );
-                productoBO.registrarProducto(p8);
-
                 System.out.println(" Productos de prueba creados correctamente");
             } else {
                 System.out.println("️ Ya existen productos en la base de datos");
@@ -142,35 +89,53 @@ public class ProductoServlet extends HttpServlet {
     }
 
     @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String accion = request.getParameter("accion");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String accion = request.getParameter("accion");
 
-    if ("detalles".equals(accion)) {
-        try {
-            String idStr = request.getParameter("id");
-            if (idStr != null && !idStr.isEmpty()) {
-                org.bson.types.ObjectId id = new org.bson.types.ObjectId(idStr);
-                
-                Producto producto = productoBO.buscarProductoPorId(id);
-                request.setAttribute("producto", producto);
-                request.getRequestDispatcher("views/detallesProducto.jsp").forward(request, response);
-            }
-        } catch (Exception e) {
-            response.sendRedirect("ProductoServlet"); 
+        if ("listarAdmin".equals(accion)) {
+            List<Producto> productos = productoBO.listarProductos();
+            request.setAttribute("productos", productos);
+            request.getRequestDispatcher("/views/gestionCatalogo.jsp").forward(request, response);
+            return;
         }
-    } 
-
-        else {
+        
+        if ("cargarEditar".equals(accion)) {
+            String id = request.getParameter("id");
+            Producto producto = productoBO.buscarProductoPorId(new org.bson.types.ObjectId(id));
+            request.setAttribute("producto", producto);
+            request.getRequestDispatcher("/views/editarProducto.jsp").forward(request, response);
+            return;
+        }
+        
+        if ("eliminar".equals(accion)) {
+            String id = request.getParameter("id");
+            productoBO.eliminarProducto(new org.bson.types.ObjectId(id));
+            response.sendRedirect(request.getContextPath() + "/ProductoServlet?accion=listarAdmin");
+            return;
+        }
+        
+        if ("detalles".equals(accion)) {
+            try {
+                String idStr = request.getParameter("id");
+                if (idStr != null && !idStr.isEmpty()) {
+                    org.bson.types.ObjectId id = new org.bson.types.ObjectId(idStr);
+                    Producto producto = productoBO.buscarProductoPorId(id);
+                    request.setAttribute("producto", producto);
+                    request.getRequestDispatcher("views/detallesProducto.jsp").forward(request, response);
+                }
+            } catch (Exception e) {
+                response.sendRedirect("ProductoServlet");
+            }
+        } else {
             String nombre = request.getParameter("nombreBusqueda");
             String categoria = request.getParameter("categoria");
             String tipoPrecio = request.getParameter("tipoPrecio");
             String precioStr = request.getParameter("precioFiltro");
 
             Double precio = (precioStr != null && !precioStr.isEmpty()) ? Double.parseDouble(precioStr) : null;
-
             List<Producto> lista = productoBO.listarProductosFiltrados(nombre, categoria, tipoPrecio, precio);
-
             request.setAttribute("productos", lista);
+            
             String adminParam = request.getParameter("admin");
             if (adminParam != null && ("1".equals(adminParam) || "true".equalsIgnoreCase(adminParam))) {
                 request.getRequestDispatcher("/views/gestionCatalogo.jsp").forward(request, response);
@@ -178,14 +143,13 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
                 request.getRequestDispatcher("/views/catalogo.jsp").forward(request, response);
             }
         }
-}
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
 
         if ("actualizar".equals(accion)) {
-            // Actualizar producto existente
             String id = request.getParameter("id");
             String nombre = request.getParameter("nombre");
             String precioStr = request.getParameter("precio");
@@ -193,16 +157,15 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
             String stockStr = request.getParameter("stock");
             String categoria = request.getParameter("categoria");
             String imagenActual = request.getParameter("imagenActual");
-            List<String> caracteristicas = new ArrayList<>();
+            List<String> caracteristicas = new ArrayList<>(); // Puedes poblarlo dinámicamente después
 
             double precio = (precioStr != null) ? Double.parseDouble(precioStr) : 0;
             int stock = (stockStr != null) ? Integer.parseInt(stockStr) : 0;
 
             Part filePart = request.getPart("imagenProducto");
             String fileName = filePart.getSubmittedFileName();
-            String rutaFinalImagen = imagenActual; // Mantener imagen actual por defecto
+            String rutaFinalImagen = imagenActual;
 
-            // Solo actualizar imagen si se seleccionó una nueva
             if (fileName != null && !fileName.isEmpty()) {
                 String applicationPath = request.getServletContext().getRealPath("");
                 String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
@@ -220,9 +183,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
             producto.setId(new ObjectId(id));
             productoBO.actualizarProducto(producto);
 
-            response.sendRedirect("ProductoServlet?accion=listar");
+            response.sendRedirect(request.getContextPath() + "/ProductoServlet?accion=listarAdmin");
         } else {
-            // Crear nuevo producto
             String nombre = request.getParameter("nombre");
             String precioStr = request.getParameter("precio");
             String descripcion = request.getParameter("descripcion");
@@ -249,9 +211,11 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
                 filePart.write(uploadFilePath + File.separator + fileName);
                 rutaFinalImagen = UPLOAD_DIR + "/" + fileName;
             }
+            
             Producto nuevo = new Producto(nombre, precio, descripcion, rutaFinalImagen, stock, categoria, caracteristicas);
             productoBO.registrarProducto(nuevo);
-            response.sendRedirect("ProductoServlet?accion=listar");
+            
+            response.sendRedirect(request.getContextPath() + "/ProductoServlet?accion=listarAdmin");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -42,13 +42,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/views/gestionUsuariosAdmin.jsp" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=consultarUsuarios" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Usuarios" class="menu-icon">
                                 <span>Gestión de usuarios</span>
                             </a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar" class="menu-item active">
+                            <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listarAdmin" class="menu-item active">
                                 <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo" class="menu-icon">
                                 <span>Gestión de catálogo</span>
                             </a>
@@ -67,8 +67,8 @@
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/views/crearProducto.jsp" class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Admin" class="menu-icon">
-                                <span>Administrador</span>
+                                <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Agregar producto" class="menu-icon">
+                                <span>Agregar producto</span>
                             </a>
                         </li>
                     </ul>
@@ -86,34 +86,61 @@
                         <table class="tabla-catalogo">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>Imagen</th>
                                     <th>Producto</th>
                                     <th>Categoría</th>
                                     <th>Precio</th>
                                     <th>Stock</th>
+                                    <th>Características</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% if (productos != null && !productos.isEmpty()) { 
-                                    for (Producto p : productos) { %>
-                                <tr>
-                                    <td><%= p.getId().toString().substring(18) %>...</td>
-                                    <td><%= p.getNombre() %></td>
-                                    <td><a href="#" class="categoria-link"><%= p.getCategoria() %></a></td>
-                                    <td>$<%= String.format("%.2f", p.getPrecio()) %></td>
-                                    <td><%= p.getStock() %></td>
-                                    <td class="acciones-catalogo">
-                                        <a href="${pageContext.request.contextPath}/ProductoServlet?accion=editar&id=<%= p.getId() %>" class="btn-editar" title="Editar">✏️</a>
-                                        <a href="${pageContext.request.contextPath}/ProductoServlet?accion=eliminar&id=<%= p.getId() %>" class="btn-eliminar" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este producto?')">🗑️</a>
-                                    </td>
-                                </tr>
-                                <% } 
-                                } else { %>
-                                <tr>
-                                    <td colspan="6" style="text-align: center; padding: 20px;">No hay productos registrados</td>
-                                </tr>
-                                <% } %>
+                                <c:choose>
+                                    <c:when test="${not empty productos}">
+                                        <c:forEach var="p" items="${productos}">
+                                            <tr>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${not empty p.imagenProducto}">
+                                                            <c:choose>
+                                                                <c:when test="${p.imagenProducto.contains('/')}">
+                                                                    <img src="${pageContext.request.contextPath}/${p.imagenProducto}" width="50" style="border-radius: 4px; object-fit: cover;">
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <img src="${pageContext.request.contextPath}/imgs/${p.imagenProducto}" width="50" style="border-radius: 4px; object-fit: cover;">
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div style="background:#eee; width:50px; height:50px; text-align:center; line-height:50px; border-radius:4px;">📦</div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td><strong>${p.nombre}</strong></td>
+                                                <td><span class="badge" style="background: #6a0dad; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.85em;">${p.categoria}</span></td>
+                                                <td>$${p.precio}</td>
+                                                <td>${p.stock} pzas</td>
+                                                <td>
+                                                    <ul style="margin: 0; padding-left: 20px; font-size: 0.9em; text-align: left;">
+                                                        <c:forEach var="carac" items="${p.caracteristicas}">
+                                                            <li>${carac}</li>
+                                                        </c:forEach>
+                                                    </ul>
+                                                </td>
+                                                <td class="acciones-catalogo">
+                                                    <a href="${pageContext.request.contextPath}/ProductoServlet?accion=cargarEditar&id=${p.id}" class="btn-editar" title="Editar" style="text-decoration: none; margin-right: 5px;">✏️</a>
+                                                    <a href="${pageContext.request.contextPath}/ProductoServlet?accion=eliminar&id=${p.id}" class="btn-eliminar" title="Eliminar" style="text-decoration: none;" onclick="return confirm('¿Estás seguro de eliminar este producto?')">🗑️</a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td colspan="7" style="text-align: center; padding: 20px;">No hay productos registrados</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                             </tbody>
                         </table>
                     </div>
@@ -127,4 +154,3 @@
         <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
     </body>
 </html>
-

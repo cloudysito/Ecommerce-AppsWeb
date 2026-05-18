@@ -1,4 +1,3 @@
-﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -42,13 +41,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/views/gestionUsuariosAdmin.jsp" class="menu-item">
+                        <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=consultarUsuarios" class="menu-item">
                             <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Usuarios" class="menu-icon">
                             <span>Gestión de usuarios</span>
                         </a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar" class="menu-item">
+                        <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listarAdmin" class="menu-item">
                             <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo" class="menu-icon">
                             <span>Gestión de catálogo</span>
                         </a>
@@ -67,8 +66,8 @@
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/views/crearProducto.jsp" class="menu-item active">
-                            <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Admin" class="menu-icon">
-                            <span>Administrador</span>
+                            <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Agregar producto" class="menu-icon">
+                            <span>Agregar producto</span>
                         </a>
                     </li>
                 </ul>
@@ -117,7 +116,7 @@
                             </div>
 
                             <div class="botones-producto">
-                                <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar" class="btn-cancelar">Cancelar</a>
+                                <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listarAdmin" class="btn-cancelar">Cancelar</a>
                                 <button type="submit" class="btn-añadir">Añadir producto</button>
                             </div>
                         </div>
@@ -141,4 +140,3 @@
     <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
 </body>
 </html>
-

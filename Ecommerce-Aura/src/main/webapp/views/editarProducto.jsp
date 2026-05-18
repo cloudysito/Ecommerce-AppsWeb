@@ -67,8 +67,8 @@
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/views/crearProducto.jsp" class="menu-item active">
-                                <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Admin" class="menu-icon">
-                                <span>Administrador</span>
+                                <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Agregar producto" class="menu-icon">
+                                <span>Agregar producto</span>
                             </a>
                         </li>
                     </ul>

@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -49,7 +48,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar" class="menu-item">
+                            <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listarAdmin" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo" class="menu-icon">
                                 <span>Gestión de catálogo</span>
                             </a>
@@ -68,8 +67,8 @@
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/views/crearProducto.jsp" class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Admin" class="menu-icon">
-                                <span>Administrador</span>
+                                <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Agregar producto" class="menu-icon">
+                                <span>Agregar producto</span>
                             </a>
                         </li>
                     </ul>
@@ -90,7 +89,8 @@
                                     <th>Nombre</th>
                                     <th>Email</th>
                                     <th>Telefono</th>
-
+                                    <th>Rol</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -125,4 +125,3 @@
         <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
     </body>
 </html>
-
