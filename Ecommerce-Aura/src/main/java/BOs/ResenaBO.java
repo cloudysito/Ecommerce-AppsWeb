@@ -8,8 +8,8 @@ import BOs.interfaces.IResenaBO;
 import java.util.List;
 import modelo.Resena;
 import org.bson.types.ObjectId;
-import PersistenciaDAO.IResenaDAO;
-import PersistenciaDAOImpl.ResenaDAO;
+import PersistenciaDAOInterfaces.IResenaDAO;
+import PersistenciaDAO.ResenaDAO;
 
 /**
  *

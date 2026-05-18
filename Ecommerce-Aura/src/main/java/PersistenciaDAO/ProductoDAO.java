@@ -1,11 +1,11 @@
-package PersistenciaDAO.impl;
+package PersistenciaDAO;
 
 import Config.MongoClientProvider;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import modelo.Producto;
 import org.bson.types.ObjectId;
-import PersistenciaDAO.IProductoDAO;
+import PersistenciaDAOInterfaces.IProductoDAO;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;

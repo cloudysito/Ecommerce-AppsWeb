@@ -6,8 +6,9 @@ package BOs;
 
 import BOs.interfaces.IUsuarioBO;
 import modelo.Usuario;
-import PersistenciaDAO.IUsuarioDAO;
-import PersistenciaDAOImpl.UsuarioDAO;
+import PersistenciaDAOInterfaces.IUsuarioDAO;
+import PersistenciaDAO.UsuarioDAO;
+import java.util.List;
 
 /**
  *
@@ -99,5 +100,14 @@ public class UsuarioBO implements IUsuarioBO {
             throw new Exception("No se pudo actualizar el perfil.");
         }
         return usuario;
+    }
+
+    @Override
+    public List<Usuario> consultarTodos() throws Exception {
+        try {
+            return usuarioDAO.encontrarTodos();
+        } catch (Exception e){
+            throw new Exception("No hay usuarios en la base de datos: " + e.getMessage());
+        }
     }
 }

@@ -1,4 +1,4 @@
-package PersistenciaDAO;
+package PersistenciaDAOInterfaces;
 
 import modelo.DetallePedido;
 import org.bson.types.ObjectId;

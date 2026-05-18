@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import modelo.Usuario;
 
 /**
@@ -33,11 +34,21 @@ public class UsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
 
-        if ("logout".equals(accion)) {
-            procesarLogout(request, response);
+        if (accion == null) {
+            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
             return;
         }
-
+        
+        if ("consultarUsuarios".equals(accion)) {
+            procesarConsultarUsuarios(request, response);
+            return;
+        } 
+        
+        if ("logout".equals(accion)){
+            procesarLogout(request, response);
+            return;
+        } 
+        
         response.sendRedirect(request.getContextPath() + "/views/index.jsp");
     }
 
@@ -67,10 +78,21 @@ public class UsuarioServlet extends HttpServlet {
                 break;
         }
     }
+    
+    private void procesarConsultarUsuarios(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {      
+        try {
+            List<Usuario> listaUsuarios = usuarioBO.consultarTodos();
+            request.setAttribute("usuariosRegistrados", listaUsuarios);
+            request.getRequestDispatcher("/views/gestionUsuariosAdmin.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/views/indexAdmin.jsp").forward(request, response);
+        }
+    }
 
     private void procesarRegistro(HttpServletRequest request, HttpServletResponse response) 
-        throws ServletException, IOException {
-         
+        throws ServletException, IOException {        
         try {
             String nombre = request.getParameter("nombre");
             String correo = request.getParameter("correo");
@@ -136,7 +158,7 @@ public class UsuarioServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session != null) {
-            session.invalidate(); // Destruye la sesión
+            session.invalidate();
         }
         response.sendRedirect(request.getContextPath() + "/views/login.jsp");
     }

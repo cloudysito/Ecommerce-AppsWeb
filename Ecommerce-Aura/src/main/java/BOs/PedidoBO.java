@@ -3,8 +3,8 @@ package BOs;
 import BOs.interfaces.IPedidoBO;
 import modelo.Pedido;
 import org.bson.types.ObjectId;
-import PersistenciaDAO.IPedidoDAO;
-import PersistenciaDAOImpl.PedidoDAO;
+import PersistenciaDAOInterfaces.IPedidoDAO;
+import PersistenciaDAO.PedidoDAO;
 
 import java.util.List;
 

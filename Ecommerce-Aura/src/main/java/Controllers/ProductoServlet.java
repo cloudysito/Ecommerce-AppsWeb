@@ -160,19 +160,24 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
         }
     } 
 
-    else {
-        String nombre = request.getParameter("nombreBusqueda");
-        String categoria = request.getParameter("categoria");
-        String tipoPrecio = request.getParameter("tipoPrecio");
-        String precioStr = request.getParameter("precioFiltro");
+        else {
+            String nombre = request.getParameter("nombreBusqueda");
+            String categoria = request.getParameter("categoria");
+            String tipoPrecio = request.getParameter("tipoPrecio");
+            String precioStr = request.getParameter("precioFiltro");
 
-        Double precio = (precioStr != null && !precioStr.isEmpty()) ? Double.parseDouble(precioStr) : null;
+            Double precio = (precioStr != null && !precioStr.isEmpty()) ? Double.parseDouble(precioStr) : null;
 
-        List<Producto> lista = productoBO.listarProductosFiltrados(nombre, categoria, tipoPrecio, precio);
+            List<Producto> lista = productoBO.listarProductosFiltrados(nombre, categoria, tipoPrecio, precio);
 
-        request.setAttribute("productos", lista);
-        request.getRequestDispatcher("views/catalogo.jsp").forward(request, response);
-    }
+            request.setAttribute("productos", lista);
+            String adminParam = request.getParameter("admin");
+            if (adminParam != null && ("1".equals(adminParam) || "true".equalsIgnoreCase(adminParam))) {
+                request.getRequestDispatcher("/views/gestionCatalogo.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/views/catalogo.jsp").forward(request, response);
+            }
+        }
 }
 
     @Override

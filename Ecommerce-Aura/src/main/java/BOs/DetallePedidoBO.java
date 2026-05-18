@@ -4,8 +4,8 @@ import BOs.interfaces.IDetallePedidoBO;
 import java.util.List;
 import modelo.DetallePedido;
 import org.bson.types.ObjectId;
-import PersistenciaDAO.IDetallePedidoDAO;
-import PersistenciaDAOImpl.DetallePedidoDAO;
+import PersistenciaDAOInterfaces.IDetallePedidoDAO;
+import PersistenciaDAO.DetallePedidoDAO;
 
 /**
  *

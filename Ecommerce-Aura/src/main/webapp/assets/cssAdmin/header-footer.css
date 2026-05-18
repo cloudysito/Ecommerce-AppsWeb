@@ -88,6 +88,16 @@
     font-size: 14px;
 }
 
+.menu-item > a,
+.menu-item > a:visited,
+.menu-item > a:hover,
+.menu-item > a:active {
+    color: var(--text) !important;
+    text-decoration: none !important;
+    flex: 1;
+    display: block;
+}
+
 .menu-item:hover {
     background-color: rgba(26,115,232,0.06);
 }

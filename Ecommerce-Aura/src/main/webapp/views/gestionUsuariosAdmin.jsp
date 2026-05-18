@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 ﻿
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
@@ -42,7 +43,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/views/gestionUsuariosAdmin.jsp" class="menu-item active">
+                            <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=consultarUsuarios" class="menu-item active">
                                 <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Usuarios" class="menu-icon">
                                 <span>Gestión de usuarios</span>
                             </a>
@@ -88,46 +89,29 @@
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Email</th>
-                                    <th>Rol</th>
-                                    <th>Estado</th>
-                                    <th>Fecha de Registro</th>
-                                    <th>Acciones</th>
+                                    <th>Telefono</th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Juan Pérez</td>
-                                    <td>juan@example.com</td>
-                                    <td>Cliente</td>
-                                    <td><span class="estado-usuario estado-activo">Activo</span></td>
-                                    <td>15/10/2023</td>
-                                    <td class="acciones-celda">
-                                        <a href="#" class="btn-cambiar-estado">Cambiar Estado</a>
-                                        <a href="#" class="btn-eliminar-usuario">Eliminar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>María García</td>
-                                    <td>maria@example.com</td>
-                                    <td>Admin</td>
-                                    <td><span class="estado-usuario estado-activo">Activo</span></td>
-                                    <td>12/10/2023</td>
-                                    <td class="acciones-celda">
-                                        <a href="#" class="btn-cambiar-estado">Cambiar Estado</a>
-                                        <a href="#" class="btn-eliminar-usuario">Eliminar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carlos López</td>
-                                    <td>carlos@example.com</td>
-                                    <td>Cliente</td>
-                                    <td><span class="estado-usuario estado-inactivo">Inactivo</span></td>
-                                    <td>10/10/2023</td>
-                                    <td class="acciones-celda">
-                                        <a href="#" class="btn-cambiar-estado">Cambiar Estado</a>
-                                        <a href="#" class="btn-eliminar-usuario">Eliminar</a>
-                                    </td>
-                                </tr>
+                                <c:forEach var="u" items="${usuariosRegistrados}">
+                                    <tr>
+                                        <td>${u.nombreCompleto}</td>
+                                        <td>${u.correo}</td>
+                                        <td>${u.telefono}</td>
+                                        <td>
+                                            <span class="badge ${u.rol == 'Admin' ? 'badge-admin' : 'badge-cliente'}">
+                                                ${u.rol}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="acciones-tabla">
+                                                <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=cargarEditar&id=${u.id}" class="btn-editar-mini">✏️</a>
+                                                <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=eliminar&id=${u.id}" class="btn-eliminar-mini" onclick="return confirm('¿Seguro que deseas eliminar a este usuario?')">🗑️</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>

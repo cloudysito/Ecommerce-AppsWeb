@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package PersistenciaDAOImpl;
+package PersistenciaDAO;
 
 import Config.MongoClientProvider;
 import com.mongodb.MongoException;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import modelo.Resena;
 import org.bson.types.ObjectId;
-import PersistenciaDAO.IResenaDAO;
+import PersistenciaDAOInterfaces.IResenaDAO;
 
 /**
  *

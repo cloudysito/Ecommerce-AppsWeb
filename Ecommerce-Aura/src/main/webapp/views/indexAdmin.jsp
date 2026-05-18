@@ -33,24 +33,24 @@
                         <li>
                             <div class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Gestión de catálogo" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar">Gestión de catálogo</a>
+                                <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar&admin=true">Gestión de catálogo</a>
                             </div>
                         </li>
                         <li>
                             <div class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Gestión de pedidos" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/views/gestionPedidos.jsp">Gestión de pedidos</a>
+                                <a href="${pageContext.request.contextPath}/PedidoServlet">Gestión de pedidos</a>
                             </div>
                         </li>
                         <li>
                             <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/reseña.png" alt="Gestión de reseñas" class="menu-icon">
+                                        <img src="${pageContext.request.contextPath}/imgs/resena.png" alt="Gestión de reseñas" class="menu-icon">
                                 <a href="${pageContext.request.contextPath}/ResenaServlet">Gestión de reseñas</a>
                             </div>
                         </li>
                         <li>
                             <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/admin.png" alt="Administrador" class="menu-icon">
+                                <img src="${pageContext.request.contextPath}/imgs/usuariosCirculo.png" alt="Administrador" class="menu-icon">
                                 <a href="${pageContext.request.contextPath}/views/indexAdmin.jsp">Administrador</a>
                             </div>
                         </li>
@@ -67,36 +67,36 @@
                         <img src="${pageContext.request.contextPath}/imgs/usuariosCirculo.png" alt="Gestionar Usuarios" class="card-icon">
                         <h3>Gestionar Usuarios (Admin)</h3>
                         <p>Ver, editar o eliminar cuentas de usuario.</p>
-                        <a href="${pageContext.request.contextPath}/views/gestionUsuariosAdmin.jsp">Ir a Usuarios →</a>
+                        <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=consultarUsuarios" class="card-link">Ir a Usuarios →</a>
                     </div>
 
                     <div class="admin-card">
                         <img src="${pageContext.request.contextPath}/imgs/catalogoCirculo.png" alt="Catálogo" class="card-icon">
                         <h3>Catálogo (Admin)</h3>
                         <p>Añadir, actualizar o eliminar productos.</p>
-                        <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar">Ir a Productos →</a>
+                        <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar&admin=true" class="card-link">Ir a Productos →</a>
                     </div>
 
                     <div class="admin-card">
                         <img src="${pageContext.request.contextPath}/imgs/ticketCirculo.png" alt="Pedidos" class="card-icon">
                         <h3>Pedidos (Admin)</h3>
                         <p>Rastrear y actualizar pedidos de clientes.</p>
-                        <a href="${pageContext.request.contextPath}/views/gestionPedidos.jsp">Ir a Pedidos →</a>
+                        <a href="${pageContext.request.contextPath}/PedidoServlet" class="card-link">Ir a Pedidos →</a>
                     </div>
 
                     <div class="admin-card">
-                        <img src="${pageContext.request.contextPath}/imgs/reseñaCirculo.png" alt="Reseñas" class="card-icon">
+                        <img src="${pageContext.request.contextPath}/imgs/resenaCirculo.png" alt="Reseñas" class="card-icon">
                         <h3>Reseñas (Admin)</h3>
                         <p>Moderar reseñas de productos y valoraciones.</p>
-                        <a href="${pageContext.request.contextPath}/ResenaServlet">Ir a Reseñas →</a>
+                        <a href="${pageContext.request.contextPath}/ResenaServlet" class="card-link">Ir a Reseñas →</a>
                     </div>
                 </div>
             </main>
         </div>
-    </body>
-    <footer class="pie-pagina">
+        <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
-    </footer>
-    <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
+        </footer>
+        <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
+    </body>
 </html>
 

@@ -3,8 +3,8 @@ package BOs;
 import BOs.interfaces.IProductoBO;
 import modelo.Producto;
 import org.bson.types.ObjectId;
-import PersistenciaDAO.IProductoDAO;
-import PersistenciaDAO.impl.ProductoDAO;
+import PersistenciaDAOInterfaces.IProductoDAO;
+import PersistenciaDAO.ProductoDAO;
 
 import java.util.List;
 

@@ -26,7 +26,7 @@ public class PedidoServlet extends HttpServlet {
         List<Pedido> listaPedidos = pedidoBO.listarPedidos();
 
         request.setAttribute("listaPedidos", listaPedidos);
-        request.getRequestDispatcher("views/pedido.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/pagPedidosAdmin.jsp").forward(request, response);
     }
 
     @Override
