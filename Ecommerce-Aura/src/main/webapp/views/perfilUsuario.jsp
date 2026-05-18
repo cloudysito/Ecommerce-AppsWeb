@@ -1,4 +1,5 @@
-﻿<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -25,7 +26,26 @@
             </div>
         </header>
 
-        <div class="container"> <jsp:include page="menuLateralCliente.jsp" />
+        <div class="container"> 
+            <c:choose>
+                <c:when test="${sessionScope.rol == 'Admin'}">
+                    <aside class="menu-lateral">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/views/indexAdmin.jsp" class="menu-item active">
+                                        <img src="${pageContext.request.contextPath}/imgs/inicio.png" alt="Inicio" class="menu-icon">
+                                        <span>Volver al Panel Admin</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </aside>
+                </c:when>
+                <c:otherwise>
+                    <jsp:include page="menuLateralCliente.jsp" />
+                </c:otherwise>
+            </c:choose>
 
             <main class="contenido pantalla-centrada">
                 <div class="contenedor-perfil">
@@ -75,7 +95,19 @@
                                 <textarea id="direccion" name="direccion" rows="3" >${sessionScope.usuarioActivo.direccion}</textarea>
                             </div>
 
-                            <div class="contenedor-boton-derecha">
+                            <div class="contenedor-boton-derecha" style="display: flex; gap: 10px; justify-content: flex-end; align-items: center;">
+                                <c:choose>
+                                    <c:when test="${sessionScope.rol == 'Admin'}">
+                                        <a href="${pageContext.request.contextPath}/views/indexAdmin.jsp" class="btn-guardar" style="background-color: #6c757d; text-decoration: none; text-align: center; display: inline-flex; align-items: center; justify-content: center;">
+                                            Cancelar
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="${pageContext.request.contextPath}/views/index.jsp" class="btn-guardar" style="background-color: #6c757d; text-decoration: none; text-align: center; display: inline-flex; align-items: center; justify-content: center;">
+                                            Cancelar
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
                                 <button type="submit" class="btn-guardar">Guardar Cambios</button>
                             </div>
 
