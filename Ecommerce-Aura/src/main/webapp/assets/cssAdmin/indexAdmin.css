@@ -1,69 +1,47 @@
 /* Index Admin - Panel Principal */
-.admin-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-top: 30px;
-}
 
- .admin-card {
+.admin-description {
+    max-width: 760px;
+    margin-top: 28px;
+    padding: 24px 26px;
     background-color: var(--card-bg);
     border: 1px solid var(--border);
-    padding: 30px;
-    text-align: center;
- }
-
-.card-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 20px;
-    object-fit: contain;
+    border-radius: 12px;
 }
 
- .admin-card h3 {
-    font-size: 16px;
-    font-weight: 600;
+.admin-description h2 {
     color: var(--text);
+    font-size: 20px;
     margin-bottom: 12px;
- }
+}
 
- .admin-card p {
+.admin-description p {
     color: var(--muted);
-    font-size: 13px;
-    margin-bottom: 15px;
-    line-height: 1.4;
- }
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
 
- .admin-card a {
-    color: var(--primary);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
- }
+.admin-description ul {
+    padding-left: 18px;
+    color: var(--text);
+    display: grid;
+    gap: 10px;
+}
 
-  .card-link {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 14px;
-      background: transparent;
-      border-radius: 6px;
-      color: var(--primary);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-  }
+.admin-description li {
+    color: var(--muted);
+    line-height: 1.5;
+}
 
-  .card-link:hover {
-      background-color: var(--card-hover);
-  }
-
- .subtitulo {
+.subtitulo {
     color: var(--muted);
     font-size: 14px;
     margin-bottom: 30px;
- }
+}
 
 @media (max-width: 768px) {
+
     .menu-lateral {
         width: 180px;
     }
@@ -86,6 +64,10 @@
     .tabla-pedidos td {
         padding: 12px 10px;
         font-size: 12px;
+    }
+
+    .admin-description {
+        padding: 20px;
     }
 }
 

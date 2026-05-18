@@ -31,28 +31,40 @@
                 <nav>
                     <ul>
                         <li>
-                            <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Gestión de catálogo" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar&admin=true">Gestión de catálogo</a>
-                            </div>
+                            <a href="${pageContext.request.contextPath}/views/indexAdmin.jsp" class="menu-item active">
+                                <img src="${pageContext.request.contextPath}/imgs/inicio.png" alt="Inicio" class="menu-icon">
+                                <span>Inicio</span>
+                            </a>
                         </li>
                         <li>
-                            <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Gestión de pedidos" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/PedidoServlet">Gestión de pedidos</a>
-                            </div>
+                            <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=consultarUsuarios" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Usuarios" class="menu-icon">
+                                <span>Gestión de usuarios</span>
+                            </a>
                         </li>
                         <li>
-                            <div class="menu-item">
-                                        <img src="${pageContext.request.contextPath}/imgs/resena.png" alt="Gestión de reseñas" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/ResenaServlet">Gestión de reseñas</a>
-                            </div>
+                            <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar&admin=true" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo" class="menu-icon">
+                                <span>Gestión de catálogo</span>
+                            </a>
                         </li>
                         <li>
-                            <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/usuariosCirculo.png" alt="Administrador" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/views/indexAdmin.jsp">Administrador</a>
-                            </div>
+                            <a href="${pageContext.request.contextPath}/PedidoServlet" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Pedidos" class="menu-icon">
+                                <span>Gestión de pedidos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/ResenaServlet" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Reseñas" class="menu-icon">
+                                <span>Gestion de reseñas</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/views/indexAdmin.jsp" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Administrador" class="menu-icon">
+                                <span>Administrador</span>
+                            </a>
                         </li>
                     </ul>
                 </nav>
@@ -62,35 +74,20 @@
                 <h1>Panel de Administrador</h1>
                 <p class="subtitulo">Gestión centralizada de la plataforma</p>
 
-                <div class="admin-grid">
-                    <div class="admin-card">
-                        <img src="${pageContext.request.contextPath}/imgs/usuariosCirculo.png" alt="Gestionar Usuarios" class="card-icon">
-                        <h3>Gestionar Usuarios (Admin)</h3>
-                        <p>Ver, editar o eliminar cuentas de usuario.</p>
-                        <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=consultarUsuarios" class="card-link">Ir a Usuarios →</a>
-                    </div>
-
-                    <div class="admin-card">
-                        <img src="${pageContext.request.contextPath}/imgs/catalogoCirculo.png" alt="Catálogo" class="card-icon">
-                        <h3>Catálogo (Admin)</h3>
-                        <p>Añadir, actualizar o eliminar productos.</p>
-                        <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listar&admin=true" class="card-link">Ir a Productos →</a>
-                    </div>
-
-                    <div class="admin-card">
-                        <img src="${pageContext.request.contextPath}/imgs/ticketCirculo.png" alt="Pedidos" class="card-icon">
-                        <h3>Pedidos (Admin)</h3>
-                        <p>Rastrear y actualizar pedidos de clientes.</p>
-                        <a href="${pageContext.request.contextPath}/PedidoServlet" class="card-link">Ir a Pedidos →</a>
-                    </div>
-
-                    <div class="admin-card">
-                        <img src="${pageContext.request.contextPath}/imgs/resenaCirculo.png" alt="Reseñas" class="card-icon">
-                        <h3>Reseñas (Admin)</h3>
-                        <p>Moderar reseñas de productos y valoraciones.</p>
-                        <a href="${pageContext.request.contextPath}/ResenaServlet" class="card-link">Ir a Reseñas →</a>
-                    </div>
-                </div>
+                <section class="admin-description">
+                    <h2>¿Qué puede hacer el administrador?</h2>
+                    <p>
+                        Desde este panel puedes gestionar usuarios, productos, pedidos y reseñas.
+                        También puedes consultar información, actualizar datos, eliminar registros y
+                        mantener controlada la actividad general de la tienda.
+                    </p>
+                    <ul>
+                        <li>Administrar cuentas de usuario.</li>
+                        <li>Crear, editar y eliminar productos.</li>
+                        <li>Revisar y actualizar pedidos.</li>
+                        <li>Moderar reseñas y valoraciones.</li>
+                    </ul>
+                </section>
             </main>
         </div>
         <footer class="pie-pagina">
