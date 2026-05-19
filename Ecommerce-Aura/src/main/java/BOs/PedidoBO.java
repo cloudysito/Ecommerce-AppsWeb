@@ -22,10 +22,12 @@ public class PedidoBO implements IPedidoBO {
 
     @Override
     public void cambiarEstado(ObjectId id, String nuevoEstado) {
-        if (nuevoEstado.equals("Pendiente") ||  nuevoEstado.equals("Cancelado") || nuevoEstado.equals("Entregado")){
-            pedidoDAO.actualizarEstado(id, nuevoEstado);
-        }
+    if (nuevoEstado.equals("Pendiente") || 
+        nuevoEstado.equals("Entregado") ||
+        nuevoEstado.equals("Enviado")) {
+        pedidoDAO.actualizarEstado(id, nuevoEstado);
     }
+}
 
     @Override
     public void crearPedido(Pedido pedido) {
