@@ -60,6 +60,13 @@ public class DetallePedidoServlet extends HttpServlet {
             return;
         }
 
+        modelo.Usuario usuarioActivo = (modelo.Usuario) session.getAttribute("usuarioActivo");
+        if (!usuarioActivo.isActivo()) {
+            request.setAttribute("mensajeError", "Tu cuenta ha sido desactivada. No puedes procesar compras.");
+            request.getRequestDispatcher("/views/carritoCompras.jsp").forward(request, response);
+            return;
+        }
+
         List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
 
         if (carrito == null || carrito.isEmpty()) {

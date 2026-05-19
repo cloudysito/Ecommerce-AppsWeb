@@ -9,6 +9,7 @@ import modelo.Usuario;
 import PersistenciaDAOInterfaces.IUsuarioDAO;
 import PersistenciaDAO.UsuarioDAO;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -64,6 +65,11 @@ public class UsuarioBO implements IUsuarioBO {
         if (usuarioEncontrado == null || !usuarioEncontrado.getContrasenia().equals(password)) {
             throw new Exception("Credenciales incorrectas.");
         }
+
+        if (!usuarioEncontrado.isActivo()) {
+            throw new Exception("Tu cuenta ha sido desactivada. Contacta al administrador.");
+        }
+
         return usuarioEncontrado;
     }
     
@@ -108,6 +114,18 @@ public class UsuarioBO implements IUsuarioBO {
             return usuarioDAO.encontrarTodos();
         } catch (Exception e){
             throw new Exception("No hay usuarios en la base de datos: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean cambiarEstadoUsuario(ObjectId userId, boolean activo) throws Exception {
+        if (userId == null) {
+            throw new Exception("El ID del usuario es obligatorio.");
+        }
+        try {
+            return usuarioDAO.cambiarEstadoActivo(userId, activo);
+        } catch (Exception e) {
+            throw new Exception("No se pudo cambiar el estado del usuario: " + e.getMessage());
         }
     }
 }

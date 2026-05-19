@@ -8,6 +8,7 @@ import Config.MongoClientProvider;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     public UsuarioDAO() {
         this.col = MongoClientProvider.INSTANCE.getcCollection("usuario", Usuario.class);
+        migrarCampoActivo();
     }
 
     @Override
@@ -132,5 +134,32 @@ public class UsuarioDAO implements IUsuarioDAO {
             throw new MongoException("error al buscar por nombre" + e);
         }
     }
-    
+
+    @Override
+    public boolean cambiarEstadoActivo(ObjectId userId, boolean activo) {
+        try {
+            UpdateResult resultado = col.updateOne(
+                    Filters.eq("_id", userId),
+                    Updates.set("activo", activo)
+            );
+            return resultado.getModifiedCount() > 0;
+        } catch (MongoException e) {
+            throw new MongoException("error al cambiar estado del usuario: " + e);
+        }
+    }
+
+    private void migrarCampoActivo() {
+        try {
+            UpdateResult resultado = col.updateMany(
+                    Filters.exists("activo", false),
+                    Updates.set("activo", true)
+            );
+            if (resultado.getModifiedCount() > 0) {
+                System.out.println("✅ Migración completada: " + resultado.getModifiedCount() + " usuario(s) actualizado(s) con campo 'activo'");
+            }
+        } catch (Exception e) {
+            System.err.println("⚠️ Error durante la migración del campo 'activo': " + e.getMessage());
+        }
+    }
+
 }

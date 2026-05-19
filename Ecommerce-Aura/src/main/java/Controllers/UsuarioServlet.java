@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import modelo.Usuario;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -36,21 +37,35 @@ public class UsuarioServlet extends HttpServlet {
         String accion = request.getParameter("accion");
 
         if (accion == null) {
-            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
+            HttpSession session = request.getSession(false);
+            String home = (isAdmin(session)) ? "/views/indexAdmin.jsp" : "/views/index.jsp";
+            response.sendRedirect(request.getContextPath() + home);
             return;
         }
         
         if ("consultarUsuarios".equals(accion)) {
             procesarConsultarUsuarios(request, response);
             return;
-        } 
-        
+        }
+
         if ("logout".equals(accion)){
             procesarLogout(request, response);
             return;
-        } 
-        
-        response.sendRedirect(request.getContextPath() + "/views/index.jsp");
+        }
+
+        if ("activar".equals(accion)){
+            procesarActivar(request, response);
+            return;
+        }
+
+        if ("desactivar".equals(accion)){
+            procesarDesactivar(request, response);
+            return;
+        }
+
+        HttpSession session = request.getSession(false);
+        String home = (isAdmin(session)) ? "/views/indexAdmin.jsp" : "/views/index.jsp";
+        response.sendRedirect(request.getContextPath() + home);
     }
 
     @Override
@@ -60,7 +75,9 @@ public class UsuarioServlet extends HttpServlet {
         String accion = request.getParameter("accion");
 
         if (accion == null) {
-            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
+            HttpSession session = request.getSession(false);
+            String home = (isAdmin(session)) ? "/views/indexAdmin.jsp" : "/views/index.jsp";
+            response.sendRedirect(request.getContextPath() + home);
             return;
         }
 
@@ -75,13 +92,20 @@ public class UsuarioServlet extends HttpServlet {
                 procesarEditarPerfil(request, response);
                 break;
             default:
-                response.sendRedirect(request.getContextPath() + "/views/index.jsp");
+                HttpSession session = request.getSession(false);
+                String home = (isAdmin(session)) ? "/views/indexAdmin.jsp" : "/views/index.jsp";
+                response.sendRedirect(request.getContextPath() + home);
                 break;
         }
     }
     
     private void procesarConsultarUsuarios(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {      
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (!isAdmin(session)) {
+            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
+            return;
+        }
         try {
             List<Usuario> listaUsuarios = usuarioBO.consultarTodos();
             request.setAttribute("usuariosRegistrados", listaUsuarios);
@@ -168,6 +192,105 @@ public class UsuarioServlet extends HttpServlet {
             session.invalidate();
         }
         response.sendRedirect(request.getContextPath() + "/views/login.jsp");
+    }
+
+    private void procesarActivar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (!isAdmin(session)) {
+            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
+            return;
+        }
+        try {
+            String userId = request.getParameter("id");
+            if (userId == null || userId.isEmpty()) {
+                request.setAttribute("error", "ID de usuario no válido.");
+                procesarConsultarUsuarios(request, response);
+                return;
+            }
+
+            ObjectId objectId = parseObjectId(userId);
+            boolean exito = usuarioBO.cambiarEstadoUsuario(objectId, true);
+
+            if (exito) {
+                request.setAttribute("exito", "Usuario activado correctamente.");
+            } else {
+                request.setAttribute("error", "No se pudo activar el usuario.");
+            }
+
+            procesarConsultarUsuarios(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al activar el usuario: " + e.getMessage());
+            procesarConsultarUsuarios(request, response);
+        }
+    }
+
+    private void procesarDesactivar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (!isAdmin(session)) {
+            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
+            return;
+        }
+        try {
+            String userId = request.getParameter("id");
+            if (userId == null || userId.isEmpty()) {
+                request.setAttribute("error", "ID de usuario no válido.");
+                procesarConsultarUsuarios(request, response);
+                return;
+            }
+
+            ObjectId objectId = parseObjectId(userId);
+            boolean exito = usuarioBO.cambiarEstadoUsuario(objectId, false);
+
+            if (exito) {
+                request.setAttribute("exito", "Usuario desactivado correctamente.");
+            } else {
+                request.setAttribute("error", "No se pudo desactivar el usuario.");
+            }
+
+            procesarConsultarUsuarios(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al desactivar el usuario: " + e.getMessage());
+            procesarConsultarUsuarios(request, response);
+        }
+    }
+
+    /**
+     * Intenta parsear un ObjectId desde diferentes formatos que pueden llegar desde la vista.
+     * Acepta tanto el hex string puro como la representación "ObjectId('...')" u otras.
+     */
+    private ObjectId parseObjectId(String raw) {
+        if (raw == null) return null;
+        raw = raw.trim();
+        // Si viene en formato ObjectId("hex") o ObjectId('hex')
+        int start = raw.indexOf('(');
+        int end = raw.lastIndexOf(')');
+        if (start != -1 && end != -1 && end > start) {
+            String inside = raw.substring(start + 1, end).replace("\"", "").replace("'", "").trim();
+            raw = inside;
+        }
+        // Extraer la primera secuencia hex de 24 chars
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("([0-9a-fA-F]{24})").matcher(raw);
+        if (m.find()) {
+            return new ObjectId(m.group(1));
+        }
+        // Fallback: intentar construir directamente
+        return new ObjectId(raw);
+    }
+    
+    private boolean isAdmin(HttpSession session) {
+        if (session == null) return false;
+        Object usuarioObj = session.getAttribute("usuarioActivo");
+        if (usuarioObj instanceof Usuario) {
+            Usuario u = (Usuario) usuarioObj;
+            return "Admin".equalsIgnoreCase(u.getRol());
+        }
+        Object rolAttr = session.getAttribute("rol");
+        if (rolAttr != null) {
+            return "Admin".equalsIgnoreCase(rolAttr.toString());
+        }
+        return false;
     }
 
     /**

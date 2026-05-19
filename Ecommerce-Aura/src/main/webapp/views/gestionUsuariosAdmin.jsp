@@ -82,6 +82,18 @@
                         <p class="subtitulo">Ver, editar o eliminar cuentas de usuario.</p>
                     </div>
 
+                    <c:if test="${not empty exito}">
+                        <div class="alert alert-success" style="margin: 20px 0; padding: 15px; background-color: #d4edda; color: #155724; border-radius: 4px;">
+                            ✅ ${exito}
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty error}">
+                        <div class="alert alert-danger" style="margin: 20px 0; padding: 15px; background-color: #f8d7da; color: #721c24; border-radius: 4px;">
+                            ❌ ${error}
+                        </div>
+                    </c:if>
+
                     <div class="tabla-usuarios-container">
                         <table class="tabla-usuarios">
                             <thead>
@@ -90,6 +102,7 @@
                                     <th>Email</th>
                                     <th>Telefono</th>
                                     <th>Rol</th>
+                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -105,9 +118,26 @@
                                             </span>
                                         </td>
                                         <td>
+                                            <c:choose>
+                                                <c:when test="${u.activo}">
+                                                    <span class="badge" style="background-color: #28a745; color: white; padding: 5px 10px; border-radius: 4px;">✅ Activo</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="badge" style="background-color: #dc3545; color: white; padding: 5px 10px; border-radius: 4px;">❌ Inactivo</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td>
                                             <div class="acciones-tabla">
-                                                <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=cargarEditar&id=${u.id}" class="btn-editar-mini">✏️</a>
-                                                <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=eliminar&id=${u.id}" class="btn-eliminar-mini" onclick="return confirm('¿Seguro que deseas eliminar a este usuario?')">🗑️</a>
+                                                <c:choose>
+                                                    <c:when test="${u.activo}">
+                                                        <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=desactivar&id=${u.id}" class="btn-desactivar-mini" onclick="return confirm('¿Desactivar este usuario?')" title="Desactivar">🔒</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=activar&id=${u.id}" class="btn-activar-mini" onclick="return confirm('¿Activar este usuario?')" title="Activar">🔓</a>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=eliminar&id=${u.id}" class="btn-eliminar-mini" onclick="return confirm('¿Seguro que deseas eliminar a este usuario?')" title="Eliminar">🗑️</a>
                                             </div>
                                         </td>
                                     </tr>
