@@ -120,7 +120,16 @@
                                                 <td><strong>${p.nombre}</strong></td>
                                                 <td><span class="badge" style="background: #6a0dad; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.85em;">${p.categoria}</span></td>
                                                 <td>$${p.precio}</td>
-                                                <td>${p.stock} pzas</td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${p.stock > 0}">
+                                                            <span style="background-color: #10b981; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em;">${p.stock} pzas</span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span style="background-color: #ef4444; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em;">Agotado</span>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
                                                 <td>
                                                     <ul style="margin: 0; padding-left: 20px; font-size: 0.9em; text-align: left;">
                                                         <c:forEach var="carac" items="${p.caracteristicas}">

@@ -87,6 +87,7 @@
                                     <th>IMAGEN</th>
                                     <th>NOMBRE</th>
                                     <th>PRECIO</th>
+                                    <th>DISPONIBILIDAD</th>
                                     <th>DETALLES</th>
                                     <th>ACCIONES</th>
                                 </tr>
@@ -106,6 +107,16 @@
                                         </td>
                                         <td><span class="fw-bold">${p.nombre}</span></td>
                                         <td>$${p.precio}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${p.stock > 0}">
+                                                    <span style="background-color: #10b981; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.85em; font-weight: bold;">En stock (${p.stock})</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span style="background-color: #ef4444; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.85em; font-weight: bold;">Agotado</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
                                         <td><a href="${pageContext.request.contextPath}/ProductoServlet?accion=detalles&id=${p.id}" class="link-detalles">👁 Detalles</a></td>
                                         <td>
                                             <div class="acciones-catalogo">
