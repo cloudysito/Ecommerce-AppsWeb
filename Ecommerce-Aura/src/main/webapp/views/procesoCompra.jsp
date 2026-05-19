@@ -77,100 +77,119 @@
                                 <div class="datos-tarjeta">
                                     <div class="campo">
                                         <label for="numeroTarjeta">Número de Tarjeta</label>
-                                        <input type="text" id="numeroTarjeta" placeholder="1234 5678 9012 3456">
+                                        <input type="text" id="numeroTarjeta" placeholder="1234 5678 9012 3456"
+                                               inputmode="numeric" pattern="\d*" maxlength="16"
+                                               oninput="this.value=this.value.replace(/[^0-9\s]/g,'')">
                                     </div>
 
                                     <div class="fila-doble">
                                         <div class="campo">
                                             <label for="fechaVencimiento">MM/AA</label>
-                                            <input type="text" id="fechaVencimiento" placeholder="MM/AA">
+                                            <input type="text" id="fechaVencimiento" placeholder="MM/AA"
+                                                   maxlength="5"
+                                                   oninput="this.value=this.value.replace(/[^0-9]/g,'').replace(/(\d{2})(\d)/,'$1/$2')">
                                         </div>
                                         <div class="campo">
                                             <label for="cvc">CVC</label>
-                                            <input type="text" id="cvc" placeholder="CVC">
+                                            <input type="text" id="cvc" placeholder="CVC"
+                                                   inputmode="numeric" maxlength="3"
+                                                   oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="opcion-pago">
-                                    <input type="radio" id="saldo" name="pago" value="saldo">
-                                    <label for="saldo" class="label-pago">Efectivo</label>
+                                    <input type="radio" id="transferencia" name="pago" value="transferencia">
+                                    <label for="transferencia" class="label-pago">Transferencia Bancaria</label>
+                                </div>
+
+                                <div class="datos-transferencia" style="display:none;">
+                                    <div class="campo">
+                                        <p><strong>Banco:</strong> BBVA</p>
+                                        <p><strong>CLABE:</strong> 012 345 678 901 234 567</p>
+                                        <p><strong>Titular:</strong> Ecommerce Aura S.A.</p>
+                                        <p><strong>Concepto:</strong> Tu número de pedido se mostrará al confirmar</p>
+                                    </div>
+                                </div>
+                                <div class="opcion-pago">
+                                    <input type="radio" id="contraEntrega" name="pago" value="contraEntrega">
+                                    <label for="contraEntrega" class="label-pago">Contra Entrega</label>
                                 </div>
                             </section>
                         </div>
 
                         <div class="proceso-resumen">
                             <form action="${pageContext.request.contextPath}/procesarCompra" method="POST">
-                            <section class="resumen-pedido">
-                                <h2>Resumen del Pedido</h2>
+                                <section class="resumen-pedido">
+                                    <h2>Resumen del Pedido</h2>
 
-                                <c:choose>
-                                    <c:when test="${not empty sessionScope.carrito}">
-                                        <c:set var="subtotal" value="0.0" scope="page" />
-                                        <c:forEach var="it" items="${sessionScope.carrito}">
-                                            <div class="item-resumen">
-                                                <c:choose>
-                                                    <c:when test="${not empty it.producto.imagenProducto}">
-                                                        <c:choose>
-                                                            <c:when test="${it.producto.imagenProducto.contains('/')}">
-                                                                <img src="${pageContext.request.contextPath}/${it.producto.imagenProducto}" alt="${it.producto.nombre}" class="img-item">
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <img src="${pageContext.request.contextPath}/imgs/${it.producto.imagenProducto}" alt="${it.producto.nombre}" class="img-item">
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <div class="img-placeholder">📦</div>
-                                                    </c:otherwise>
-                                                </c:choose>
+                                    <c:choose>
+                                        <c:when test="${not empty sessionScope.carrito}">
+                                            <c:set var="subtotal" value="0.0" scope="page" />
+                                            <c:forEach var="it" items="${sessionScope.carrito}">
+                                                <div class="item-resumen">
+                                                    <c:choose>
+                                                        <c:when test="${not empty it.producto.imagenProducto}">
+                                                            <c:choose>
+                                                                <c:when test="${it.producto.imagenProducto.contains('/')}">
+                                                                    <img src="${pageContext.request.contextPath}/${it.producto.imagenProducto}" alt="${it.producto.nombre}" class="img-item">
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <img src="${pageContext.request.contextPath}/imgs/${it.producto.imagenProducto}" alt="${it.producto.nombre}" class="img-item">
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div class="img-placeholder">📦</div>
+                                                        </c:otherwise>
+                                                    </c:choose>
 
-                                                <div class="info-item">
-                                                    <p class="nombre-item">${it.producto.nombre}</p>
-                                                    <p class="cantidad-item">Cant: ${it.cantidad}</p>
+                                                    <div class="info-item">
+                                                        <p class="nombre-item">${it.producto.nombre}</p>
+                                                        <p class="cantidad-item">Cant: ${it.cantidad}</p>
+                                                    </div>
+                                                    <p class="precio-item">$${it.producto.precio}</p>
                                                 </div>
-                                                <p class="precio-item">$${it.producto.precio}</p>
+                                                <c:set var="subtotal" value="${subtotal + (it.producto.precio * it.cantidad)}" scope="page" />
+                                            </c:forEach>
+
+                                            <div class="separador"></div>
+
+                                            <c:set var="envio" value="5.0" scope="page" />
+                                            <c:set var="taxRate" value="0.038" scope="page" />
+                                            <c:set var="impuestos" value="${subtotal * taxRate}" scope="page" />
+                                            <c:set var="total" value="${subtotal + envio + impuestos}" scope="page" />
+
+                                            <div class="fila-total">
+                                                <span>Subtotal</span>
+                                                <span>$<fmt:formatNumber value="${subtotal}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
                                             </div>
-                                            <c:set var="subtotal" value="${subtotal + (it.producto.precio * it.cantidad)}" scope="page" />
-                                        </c:forEach>
+                                            <div class="fila-total">
+                                                <span>Envío</span>
+                                                <span>$<fmt:formatNumber value="${envio}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
+                                            </div>
+                                            <div class="fila-total">
+                                                <span>Impuestos</span>
+                                                <span>$<fmt:formatNumber value="${impuestos}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
+                                            </div>
 
-                                        <div class="separador"></div>
+                                            <div class="separador"></div>
 
-                                        <c:set var="envio" value="5.0" scope="page" />
-                                        <c:set var="taxRate" value="0.038" scope="page" />
-                                        <c:set var="impuestos" value="${subtotal * taxRate}" scope="page" />
-                                        <c:set var="total" value="${subtotal + envio + impuestos}" scope="page" />
+                                            <div class="fila-total-final">
+                                                <span>Total</span>
+                                                <span class="monto-total">$<fmt:formatNumber value="${total}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
+                                            </div>
+                                            <input type="hidden" id="metodoPagoHidden" name="metodoPago" value="tarjeta">
+                                            <button type="submit" class="btn-generar-pedido">✓ Generar Pedido</button>
+                                            <p class="texto-seguro">🔒 Proceso de pago seguro</p>
 
-                                        <div class="fila-total">
-                                            <span>Subtotal</span>
-                                            <span>$<fmt:formatNumber value="${subtotal}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
-                                        </div>
-                                        <div class="fila-total">
-                                            <span>Envío</span>
-                                            <span>$<fmt:formatNumber value="${envio}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
-                                        </div>
-                                        <div class="fila-total">
-                                            <span>Impuestos</span>
-                                            <span>$<fmt:formatNumber value="${impuestos}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
-                                        </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p>Tu carrito está vacío.</p>
+                                        </c:otherwise>
+                                    </c:choose>
 
-                                        <div class="separador"></div>
-
-                                        <div class="fila-total-final">
-                                            <span>Total</span>
-                                            <span class="monto-total">$<fmt:formatNumber value="${total}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
-                                        </div>
-
-                                        <button type="submit" class="btn-generar-pedido">✓ Generar Pedido</button>
-                                        <p class="texto-seguro">🔒 Proceso de pago seguro</p>
-
-                                    </c:when>
-                                    <c:otherwise>
-                                        <p>Tu carrito está vacío.</p>
-                                    </c:otherwise>
-                                </c:choose>
-
-                            </section>
+                                </section>
                             </form>
                         </div>
                     </div>
@@ -182,6 +201,44 @@
             <p>Aplicaciones Web</p>
         </footer>
         <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
+        <script>
+            document.querySelectorAll('input[name="pago"]').forEach(radio => {
+                radio.addEventListener('change', function () {
+                    document.querySelector('.datos-tarjeta').style.display =
+                            this.value === 'tarjeta' ? 'block' : 'none';
+                    document.querySelector('.datos-transferencia').style.display =
+                            this.value === 'transferencia' ? 'block' : 'none';
+                });
+            });
+
+            document.querySelector('form').addEventListener('submit', function (e) {
+                const metodo = document.querySelector('input[name="pago"]:checked').value;
+
+                if (metodo === 'tarjeta') {
+                    const num = document.getElementById('numeroTarjeta').value.replace(/\s/g, '');
+                    const fecha = document.getElementById('fechaVencimiento').value;
+                    const cvc = document.getElementById('cvc').value;
+
+                    if (!/^\d{16}$/.test(num)) {
+                        e.preventDefault();
+                        alert('El número de tarjeta debe tener 16 dígitos.');
+                        return;
+                    }
+                    if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(fecha)) {
+                        e.preventDefault();
+                        alert('Fecha de vencimiento inválida. Usa el formato MM/AA.');
+                        return;
+                    }
+                    if (!/^\d{3,4}$/.test(cvc)) {
+                        e.preventDefault();
+                        alert('CVC inválido. Debe tener 3 o 4 dígitos.');
+                        return;
+                    }
+                }
+
+                document.getElementById('metodoPagoHidden').value = metodo;
+            });
+        </script>
     </body>
 
 </html>

@@ -12,6 +12,7 @@ public class Pedido {
     private double total;
     private String estado;
     private List<DetallePedido> productos;
+    private String metodoPago;      
 
     public Pedido() {
     }
@@ -20,8 +21,8 @@ public class Pedido {
         this.nombreCliente = nombreCliente;
         this.total = total;
         this.productos = productos;
-        this.fecha = new Date(); // Fecha actual
-        this.estado = "Pendiente"; // Estado inicial por defecto
+        this.fecha = new Date(); 
+        this.estado = "Pendiente"; 
     }
 
     public ObjectId getId() {
@@ -71,4 +72,14 @@ public class Pedido {
     public void setProductos(List<DetallePedido> productos) {
         this.productos = productos;
     }
+
+    public String getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+    
+    
 }
