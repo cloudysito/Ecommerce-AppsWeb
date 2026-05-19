@@ -75,6 +75,16 @@ public class DetallePedidoServlet extends HttpServlet {
             return;
         }
 
+        String metodoPago = request.getParameter("metodoPago");
+        if (metodoPago == null
+                || (!metodoPago.equals("tarjeta")
+                && !metodoPago.equals("transferencia")
+                && !metodoPago.equals("contraEntrega"))) {
+            request.setAttribute("mensajeError", "Método de pago inválido.");
+            request.getRequestDispatcher("/views/procesoCompra.jsp").forward(request, response);
+            return;
+        }
+
         List<DetallePedido> detalles = new ArrayList<>();
         double total = 0.0;
 
@@ -104,6 +114,7 @@ public class DetallePedidoServlet extends HttpServlet {
         }
 
         Pedido pedido = new Pedido(((modelo.Usuario) session.getAttribute("usuarioActivo")).getNombreCompleto(), total, detalles);
+        pedido.setMetodoPago(metodoPago);
         ObjectId pedidoId = new ObjectId();
         pedido.setId(pedidoId);
         for (DetallePedido detalle : detalles) {
@@ -130,6 +141,7 @@ public class DetallePedidoServlet extends HttpServlet {
         session.setAttribute("ultimaCompraPedidoId", pedidoId.toString());
         session.setAttribute("ultimaCompraTotal", total);
         session.setAttribute("ultimaCompraFecha", pedido.getFecha());
+        session.setAttribute("ultimaCompraMetodoPago", metodoPago);
         session.setAttribute("ultimaCompraDireccion", ((modelo.Usuario) session.getAttribute("usuarioActivo")).getDireccion());
         response.sendRedirect(request.getContextPath() + "/views/confirmacionCompra.jsp");
     }
