@@ -109,6 +109,18 @@
     flex-shrink: 0;
 }
 
+.menu-item .menu-icon {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 4px;
+    display: block;
+}
+
+.menu-item.active .menu-icon {
+    background: transparent !important;
+    filter: none !important;
+}
+
 .menu-lateral nav ul li a {
     text-decoration: none;
     color: var(--text);

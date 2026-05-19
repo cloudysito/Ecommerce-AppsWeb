@@ -27,9 +27,11 @@ public enum MongoClientProvider {
         if(client == null)throw new IllegalStateException("mongo client provider no inicializado, llama a init uir antes");
         return client;
     }
+    
     public MongoDatabase database(){
         return client.getDatabase(this.dbName);
     }
+    
     public<T> MongoCollection<T>getcCollection(String collectionName, Class<T>clazz){
         if(client == null)
             throw new IllegalStateException("mongo client provider no inicializado, llama a init uir antes");

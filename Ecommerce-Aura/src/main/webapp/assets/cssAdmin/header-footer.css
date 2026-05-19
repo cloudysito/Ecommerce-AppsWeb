@@ -115,6 +115,19 @@
     flex-shrink: 0;
 }
 
+.menu-item .menu-icon {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 4px;
+    display: block;
+}
+
+.menu-item.active .menu-icon {
+    /* Evita que el icono reciba filtros/contraste que lo hagan parecer un recuadro blanco */
+    background: transparent !important;
+    filter: none !important;
+}
+
 .menu-icon-lg {
     width: 45px;
     height: 45px;

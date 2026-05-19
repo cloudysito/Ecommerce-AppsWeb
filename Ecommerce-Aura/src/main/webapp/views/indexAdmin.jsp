@@ -42,6 +42,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="${pageContext.request.contextPath}/CategoriaServlet?accion=listarAdmin" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Categorías" class="menu-icon">
+                                <span>Gestionar Categorías</span>
+                            </a>
+                        </li>   
+                        <li>
                             <a href="${pageContext.request.contextPath}/ProductoServlet?accion=listarAdmin" class="menu-item">
                                 <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo" class="menu-icon">
                                 <span>Gestión de catálogo</span>
