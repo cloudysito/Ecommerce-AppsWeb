@@ -1,4 +1,5 @@
-
+<%@page import="modelo.Pedido"%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -43,61 +44,38 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <%
+                                    List<Pedido> misPedidos = (List<Pedido>) request.getAttribute("misPedidos");
+                                    if (misPedidos != null && !misPedidos.isEmpty()) {
+                                        for (Pedido pedido : misPedidos) {
+                                            String estadoClass = "";
+                                            String estadoTexto = pedido.getEstado();
+                                            if ("Pendiente".equalsIgnoreCase(estadoTexto))
+                                                estadoClass = "estado-pendiente";
+                                            else if ("Enviado".equalsIgnoreCase(estadoTexto))
+                                                estadoClass = "estado-enviado";
+                                            else if ("Entregado".equalsIgnoreCase(estadoTexto))
+                                                estadoClass = "estado-entregado";
+                                            else if ("Cancelado".equalsIgnoreCase(estadoTexto))
+                                                estadoClass = "estado-cancelado";
+                                %>
                                 <tr>
                                     <td>
                                         <div class="celda-pedido">
                                             <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Pedido" class="icono-pedido">
-                                            <span>#ORD-1001</span>
+                                            <span>#<%= pedido.getId().toString().substring(0, 14) %>...</span>
                                         </div>
                                     </td>
-                                    <td>26 Oct, 2023</td>
-                                    <td>$125.00</td>
-                                    <td><span class="estado-pedido estado-pendiente">Pendiente</span></td>
+                                    <td><%= pedido.getFecha()%></td>
+                                    <td>$<%= String.format("%.2f", pedido.getTotal())%></td>
+                                    <td><span class="estado-pedido <%= estadoClass%>"><%= estadoTexto%></span></td>
                                 </tr>
+                                <%  }
+                                    } else { %>
                                 <tr>
-                                    <td>
-                                        <div class="celda-pedido">
-                                            <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Pedido" class="icono-pedido">
-                                            <span>#ORD-1002</span>
-                                        </div>
-                                    </td>
-                                    <td>25 Oct, 2023</td>
-                                    <td>$45.50</td>
-                                    <td><span class="estado-pedido estado-enviado">Enviado</span></td>
+                                    <td colspan="4" style="text-align: center; padding: 20px;">No tienes pedidos registrados</td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <div class="celda-pedido">
-                                            <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Pedido" class="icono-pedido">
-                                            <span>#ORD-1003</span>
-                                        </div>
-                                    </td>
-                                    <td>20 Oct, 2023</td>
-                                    <td>$320.00</td>
-                                    <td><span class="estado-pedido estado-entregado">Entregado</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="celda-pedido">
-                                            <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Pedido" class="icono-pedido">
-                                            <span>#ORD-1004</span>
-                                        </div>
-                                    </td>
-                                    <td>19 Oct, 2023</td>
-                                    <td>$89.99</td>
-                                    <td><span class="estado-pedido estado-entregado">Entregado</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="celda-pedido">
-                                            <img src="${pageContext.request.contextPath}/imgs/ticket.png" alt="Pedido" class="icono-pedido">
-                                            <span>#ORD-1005</span>
-                                        </div>
-                                    </td>
-                                    <td>18 Oct, 2023</td>
-                                    <td>$210.50</td>
-                                    <td><span class="estado-pedido estado-pendiente">Pendiente</span></td>
-                                </tr>
+                                <% }%>
                             </tbody>
                         </table>
                     </div>

@@ -22,12 +22,32 @@ public class PedidoServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Pedido> listaPedidos = pedidoBO.listarPedidos();
-
-        request.setAttribute("listaPedidos", listaPedidos);
-        request.getRequestDispatcher("/views/pagPedidosAdmin.jsp").forward(request, response);
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    String accion = request.getParameter("accion");
+    
+    if ("misPedidos".equals(accion)) {
+        // Verificar sesión
+        jakarta.servlet.http.HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("usuarioActivo") == null) {
+            response.sendRedirect(request.getContextPath() + "/views/login.jsp");
+            return;
+        }
+        
+        modelo.Usuario usuario = (modelo.Usuario) session.getAttribute("usuarioActivo");
+        List<Pedido> todos = pedidoBO.listarPedidos();
+        List<Pedido> misPedidos = todos.stream()
+            .filter(p -> p.getNombreCliente().equals(usuario.getNombreCompleto()))
+            .collect(java.util.stream.Collectors.toList());
+        
+        request.setAttribute("misPedidos", misPedidos);
+        request.getRequestDispatcher("/views/gestionPedidos.jsp").forward(request, response);
+        return;
     }
+
+    List<Pedido> listaPedidos = pedidoBO.listarPedidos();
+    request.setAttribute("listaPedidos", listaPedidos);
+    request.getRequestDispatcher("/views/pagPedidosAdmin.jsp").forward(request, response);
+}
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
