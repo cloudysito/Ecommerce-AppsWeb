@@ -11,7 +11,6 @@ public class EmailService {
     private static final ExecutorService executor = Executors.newCachedThreadPool();
 
     public static void enviarConfirmacionAsync(Usuario usuario, Pedido pedido, HttpSession session) {
-        // Copiar referencias necesarias para la tarea
         executor.submit(() -> {
             try {
                 EmailUtil.enviarConfirmacionPedido(usuario, pedido);
@@ -21,7 +20,6 @@ public class EmailService {
                         session.removeAttribute("emailError");
                     }
                 } catch (Exception e) {
-                    // No hacer fallar el envío por problemas de sesión
                     System.err.println("Aviso: no se pudo setear atributo de sesión tras enviar correo: " + e.getMessage());
                 }
             } catch (MessagingException mex) {
