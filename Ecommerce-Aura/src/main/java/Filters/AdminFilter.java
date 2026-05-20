@@ -14,16 +14,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-
 @WebFilter(filterName = "AdminFilter", urlPatterns = {
     "/views/indexAdmin.jsp",
     "/views/resenasAdmin.jsp",
     "/views/gestionCatalogo.jsp",
-    "/views/gestionPedidos.jsp",
     "/views/gestionUsuariosAdmin.jsp",
     "/views/pagPedidosAdmin.jsp",
     "/ResenaServlet",
-    "/UsuarioServlet"
+    "/UsuarioServlet",
+    "/PedidoServlet",
+    "/PagoServlet"
 })
 public class AdminFilter implements Filter {
 
@@ -41,9 +41,21 @@ public class AdminFilter implements Filter {
         String accion = httpRequest.getParameter("accion");
         String uri = httpRequest.getRequestURI();
 
-        if (uri.contains("UsuarioServlet") && !"editarPerfil".equals(accion)) {
+        if (uri.contains("UsuarioServlet")
+                && ("login".equals(accion) || "logout".equals(accion) || "registrar".equals(accion))) {
             chain.doFilter(request, response);
             return;
+        }
+
+        if (uri.contains("UsuarioServlet") && "editarPerfil".equals(accion)) {
+            HttpSession session2 = httpRequest.getSession(false);
+            if (session2 != null && session2.getAttribute("usuarioActivo") != null) {
+                chain.doFilter(request, response);
+                return;
+            } else {
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/login.jsp");
+                return;
+            }
         }
 
         HttpSession session = httpRequest.getSession(false);
