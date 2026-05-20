@@ -83,3 +83,35 @@
 .btn-eliminar-resena:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .tabla-resenas thead {
+        display: none;
+    }
+
+    .tabla-resenas tbody tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 12px;
+        padding: 12px;
+    }
+
+    .tabla-resenas td {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+        border: none;
+        font-size: 13px;
+    }
+
+    .comentario-celda {
+        word-break: break-word;
+    }
+
+    .btn-eliminar-resena {
+        width: 100%;
+        padding: 10px;
+    }
+}

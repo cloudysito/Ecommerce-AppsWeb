@@ -38,9 +38,9 @@
 
 .productos-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(1000px, 1fr));
+    grid-template-columns: 1fr;
     gap: 20px;
-    height: 1000px;
+    height: auto;
     justify-self: center;
 }
 
@@ -215,4 +215,44 @@
     font-size: 13px;
     line-height: 1.5;
     margin: 0;
+}
+
+@media (max-width: 768px) {
+    .titulo-principal {
+        font-size: 24px;
+    }
+
+    .producto {
+        padding: 16px;
+        max-width: 100%;
+    }
+
+    .equipo-desarrollo {
+        grid-template-columns: 1fr;
+    }
+
+    .tarjeta-desarrollador {
+        width: 100%;
+    }
+
+    .info-proyecto {
+        height: auto;
+        border-width: 4px;
+    }
+
+    .productos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .producto h3 {
+        font-size: 18px;
+    }
+    
+    .contenido,
+    .panel-central {
+        padding: 16px;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
 }

@@ -26,36 +26,7 @@
         </header>
 
         <div class="container">
-            <aside class="menu-lateral">
-                <nav>
-                    <ul>
-                        <li>
-                            <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/inicio.png" alt="Inicio" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/views/index.jsp">Inicio</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Catálogo de productos" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/ProductoServlet">Catálogo de productos</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/carrito.png" alt="Carrito de compras" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/CarritoServlet">Carrito de compras</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="menu-item">
-                                <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Login" class="menu-icon">
-                                <a href="${pageContext.request.contextPath}/views/login.jsp">Login</a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-            </aside>
+            <jsp:include page="menuLateralCliente.jsp" />
 
             <main class="contenido fondo-login">
                 <div class="contenedor-login">

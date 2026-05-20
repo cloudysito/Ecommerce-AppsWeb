@@ -100,3 +100,21 @@ body {
     font-size: 14px;
     color: var(--muted);
 }
+
+@media (max-width: 768px) {
+    body {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .container {
+        flex-direction: column !important;
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    .contenido {
+        padding: 16px;
+        overflow-y: visible;
+    }
+}

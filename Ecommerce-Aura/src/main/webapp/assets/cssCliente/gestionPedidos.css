@@ -76,3 +76,39 @@
     background-color: #c8e6c9;
     color: #2e7d32;
 }
+
+@media (max-width: 768px) {
+    .tabla-pedidos-container {
+        overflow-x: auto;
+    }
+
+    .tabla-pedidos thead {
+        display: none;
+    }
+
+    .tabla-pedidos tbody tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 12px;
+        padding: 12px;
+    }
+
+    .tabla-pedidos td {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+        border: none;
+        font-size: 13px;
+    }
+
+    .celda-pedido {
+        gap: 8px;
+    }
+
+    .estado-pedido {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+}

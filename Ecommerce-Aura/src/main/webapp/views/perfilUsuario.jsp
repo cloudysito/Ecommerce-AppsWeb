@@ -28,18 +28,7 @@
         <div class="container"> 
             <c:choose>
                 <c:when test="${sessionScope.rol == 'Admin'}">
-                    <aside class="menu-lateral">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/views/indexAdmin.jsp" class="menu-item active">
-                                        <img src="${pageContext.request.contextPath}/imgs/inicio.png" alt="Inicio" class="menu-icon">
-                                        <span>Volver al Panel Admin</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </aside>
+                    <jsp:include page="menuLateralAdmin.jsp" />
                 </c:when>
                 <c:otherwise>
                     <jsp:include page="menuLateralCliente.jsp" />

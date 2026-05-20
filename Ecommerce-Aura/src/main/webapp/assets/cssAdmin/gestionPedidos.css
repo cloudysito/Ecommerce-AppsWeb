@@ -109,3 +109,30 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+@media (max-width: 768px) {
+    .tabla-pedidos thead {
+        display: none;
+    }
+
+    .tabla-pedidos tbody tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 12px;
+        padding: 12px;
+    }
+
+    .tabla-pedidos td {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+        border: none;
+        font-size: 13px;
+    }
+
+    .select-estado {
+        width: 100%;
+    }
+}
