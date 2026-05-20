@@ -1,8 +1,11 @@
 package controllers;
 
+import BOs.CarritoBO;
 import BOs.ProductoBO;
-import modelo.Producto;
+import BOs.interfaces.ICarritoBO;
 import modelo.CarritoItem;
+import modelo.Producto;
+import modelo.Usuario;
 import org.bson.types.ObjectId;
 
 import jakarta.servlet.ServletException;
@@ -19,18 +22,27 @@ import java.util.List;
 public class CarritoServlet extends HttpServlet {
 
     private ProductoBO productoBO;
+    private ICarritoBO carritoBO;
 
     @Override
     public void init() throws ServletException {
         this.productoBO = new ProductoBO();
+        this.carritoBO = new CarritoBO();
+    }
+
+    private String getUsuarioId(HttpSession session) {
+        Usuario user = (Usuario) session.getAttribute("usuarioActivo");
+        return (user != null) ? user.getId().toHexString() : null;
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
+        
         if (carrito == null) {
             carrito = new ArrayList<>();
+            session.setAttribute("carrito", carrito);
         }
 
         request.setAttribute("carritoItems", carrito);
@@ -40,6 +52,14 @@ public class CarritoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
+        HttpSession session = request.getSession();
+        String usuarioId = getUsuarioId(session);
+        List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
+
+        if (carrito == null) {
+            carrito = new ArrayList<>();
+        }
+
         if (accion == null) {
             response.sendRedirect(request.getContextPath() + "/ProductoServlet");
             return;
@@ -50,93 +70,49 @@ public class CarritoServlet extends HttpServlet {
             String cantidadStr = request.getParameter("cantidad");
             int cantidadSeleccionada = (cantidadStr != null && !cantidadStr.isEmpty()) ? Integer.parseInt(cantidadStr) : 1;
 
-            if (id == null || id.trim().isEmpty() || id.length() != 24) {
-                response.sendRedirect(request.getContextPath() + "/ProductoServlet");
-                return;
-            }
-            
-            Producto producto = productoBO.buscarProductoPorId(new ObjectId(id));
-            if (producto == null) {
-                response.sendRedirect(request.getContextPath() + "/ProductoServlet");
-                return;
-            }
-
-            HttpSession session = request.getSession();
-            List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
-            if (carrito == null) {
-                carrito = new ArrayList<>();
-            }
-
-            int cantidadEnCarritoActual = 0;
-            for (CarritoItem it : carrito) {
-                if (it.getProducto().getId().toString().equals(id)) {
-                    cantidadEnCarritoActual = it.getCantidad();
-                    break;
+            if (id != null && id.length() == 24) {
+                Producto producto = productoBO.buscarProductoPorId(new ObjectId(id));
+                if (producto != null) {
+                    boolean encontrado = false;
+                    for (CarritoItem it : carrito) {
+                        if (it.getProducto().getId().toString().equals(id)) {
+                            if ((it.getCantidad() + cantidadSeleccionada) <= producto.getStock()) {
+                                it.setCantidad(it.getCantidad() + cantidadSeleccionada);
+                            }
+                            encontrado = true;
+                            break;
+                        }
+                    }
+                    if (!encontrado && cantidadSeleccionada <= producto.getStock()) {
+                        carrito.add(new CarritoItem(producto, cantidadSeleccionada));
+                    }
                 }
             }
-            if ((cantidadEnCarritoActual + cantidadSeleccionada) > producto.getStock()) {
-                String referer = request.getHeader("Referer");
-                response.sendRedirect(referer != null ? referer : request.getContextPath() + "/ProductoServlet");
-                return;
-            }
-
-            boolean encontrado = false;
-            for (CarritoItem it : carrito) {
-                if (it.getProducto().getId().toString().equals(id)) {
-                    it.setCantidad(it.getCantidad() + cantidadSeleccionada);
-                    encontrado = true;
-                    break;
-                }
-            }
-
-            if (!encontrado) {
-                carrito.add(new CarritoItem(producto, cantidadSeleccionada));
-            }
-
-            session.setAttribute("carrito", carrito);
-
-            String referer = request.getHeader("Referer");
-            if (referer != null) {
-                response.sendRedirect(referer);
-            } else {
-                response.sendRedirect(request.getContextPath() + "/ProductoServlet");
-            }
-
         } else if (accion.equals("update")) {
             String id = request.getParameter("id");
             String cantidadStr = request.getParameter("cantidad");
 
             if (id != null && id.length() == 24 && cantidadStr != null) {
-                HttpSession session = request.getSession();
-                List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
-
-                if (carrito != null) {
-                    int nuevaCantidad = Integer.parseInt(cantidadStr);
-                    for (CarritoItem it : carrito) {
-                        if (it.getProducto().getId().toString().equals(id)) {
-                            it.setCantidad(nuevaCantidad);
-                            break;
-                        }
+                int nuevaCantidad = Integer.parseInt(cantidadStr);
+                for (CarritoItem it : carrito) {
+                    if (it.getProducto().getId().toString().equals(id)) {
+                        it.setCantidad(nuevaCantidad);
+                        break;
                     }
-                    session.setAttribute("carrito", carrito);
                 }
             }
-            response.sendRedirect(request.getContextPath() + "/CarritoServlet");
-
         } else if (accion.equals("remove")) {
             String id = request.getParameter("id");
-            
             if (id != null && id.length() == 24) {
-                HttpSession session = request.getSession();
-                List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
-                if (carrito != null) {
-                    carrito.removeIf(it -> it.getProducto().getId().toString().equals(id));
-                    session.setAttribute("carrito", carrito);
-                }
+                carrito.removeIf(it -> it.getProducto().getId().toString().equals(id));
             }
-            response.sendRedirect(request.getContextPath() + "/CarritoServlet");
-        } else {
-            response.sendRedirect(request.getContextPath() + "/ProductoServlet");
         }
+
+        session.setAttribute("carrito", carrito);
+        if (usuarioId != null) {
+            carritoBO.persistir(usuarioId, carrito);
+        }
+
+        response.sendRedirect(request.getContextPath() + "/CarritoServlet");
     }
 }

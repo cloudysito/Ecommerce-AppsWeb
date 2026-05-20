@@ -4,6 +4,7 @@
  */
 package controllers;
 
+import BOs.CarritoBO;
 import BOs.UsuarioBO;
 import Config.JwtUtil;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import modelo.CarritoItem;
 import modelo.Usuario;
 import org.bson.types.ObjectId;
 
@@ -170,6 +172,10 @@ public class UsuarioServlet extends HttpServlet {
             session.setAttribute("usuarioActivo", usuarioLogueado);
             session.setAttribute("jwtToken", token);
 
+            CarritoBO carritoBO = new CarritoBO();
+            List<CarritoItem> carritoGuardado = carritoBO.recuperar(usuarioLogueado.getId().toHexString());
+            session.setAttribute("carrito", carritoGuardado);
+            
             if ("Admin".equalsIgnoreCase(usuarioLogueado.getRol())) {
                 session.setAttribute("rol", "Admin");
                 response.sendRedirect(request.getContextPath() + "/views/indexAdmin.jsp");
@@ -256,26 +262,19 @@ public class UsuarioServlet extends HttpServlet {
         }
     }
 
-    /**
-     * Intenta parsear un ObjectId desde diferentes formatos que pueden llegar desde la vista.
-     * Acepta tanto el hex string puro como la representación "ObjectId('...')" u otras.
-     */
     private ObjectId parseObjectId(String raw) {
         if (raw == null) return null;
         raw = raw.trim();
-        // Si viene en formato ObjectId("hex") o ObjectId('hex')
         int start = raw.indexOf('(');
         int end = raw.lastIndexOf(')');
         if (start != -1 && end != -1 && end > start) {
             String inside = raw.substring(start + 1, end).replace("\"", "").replace("'", "").trim();
             raw = inside;
         }
-        // Extraer la primera secuencia hex de 24 chars
         java.util.regex.Matcher m = java.util.regex.Pattern.compile("([0-9a-fA-F]{24})").matcher(raw);
         if (m.find()) {
             return new ObjectId(m.group(1));
         }
-        // Fallback: intentar construir directamente
         return new ObjectId(raw);
     }
     
