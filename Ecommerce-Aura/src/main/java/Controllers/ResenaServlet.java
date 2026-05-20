@@ -37,11 +37,11 @@ public class ResenaServlet extends HttpServlet {
         try {
             List<Resena> listaResenas = resenaBO.obtenerTodasLasResenas();
             request.setAttribute("listaResenas", listaResenas);
-            request.getRequestDispatcher("views/indexAdmin.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/resenasAdmin.jsp").forward(request, response);
 
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
-            request.getRequestDispatcher("views/indexAdmin.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/resenasAdmin.jsp").forward(request, response);
         }
     }
 

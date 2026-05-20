@@ -44,7 +44,7 @@ public class ProductoServlet extends HttpServlet {
                         "Laptop Gaming Pro 15",
                         1299.99,
                         "Laptop de alto rendimiento con procesador Intel i7, 16GB RAM, RTX 3060, SSD 512GB. Ideal para gaming y diseño.",
-                        "",
+                        "laptop.png",
                         15,
                         "Electrónica",
                         Arrays.asList("Procesador Intel i7-12700H", "16GB RAM", "RTX 3060", "SSD 512GB")
@@ -66,7 +66,7 @@ public class ProductoServlet extends HttpServlet {
                         "Silla Ergonómica de Oficina",
                         189.50,
                         "Silla ergonómica con soporte lumbar, reposabrazas ajustables, respaldo reclinable hasta 135°.",
-                        "",
+                        "silla.png",
                         22,
                         "Muebles",
                         Arrays.asList("Soporte lumbar ajustable", "Malla transpirable", "Reposabrazos 3D", "Respaldo reclinable 135°", "Base de acero reforzado")
