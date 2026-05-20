@@ -58,6 +58,11 @@ public class AdminFilter implements Filter {
             }
         }
 
+        if (uri.contains("PedidoServlet") && "misPedidos".equals(accion)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         HttpSession session = httpRequest.getSession(false);
         boolean isLoggedIn = (session != null && session.getAttribute("usuarioActivo") != null);
         String token = isLoggedIn ? (String) session.getAttribute("jwtToken") : null;

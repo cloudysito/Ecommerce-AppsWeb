@@ -21,7 +21,7 @@
                 </a>
             </li>
             <li style="${empty sessionScope.usuarioActivo ? 'display:none !important;' : ''}">
-                <a href="${pageContext.request.contextPath}/views/gestionPedidos.jsp" class="menu-item">
+                <a href="${pageContext.request.contextPath}/PedidoServlet?accion=misPedidos" class="menu-item">
                     <img src="${pageContext.request.contextPath}/imgs/pedidos.png" alt="Pedidos" class="menu-icon">
                     <span>Mis pedidos</span>
                 </a>
