@@ -8,10 +8,8 @@ import Config.MongoClientProvider;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.result.UpdateResult;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import modelo.Categoria;
 import modelo.Producto;
 import PersistenciaDAOInterfaces.ICategoriaDAO;
@@ -57,22 +55,13 @@ public class CategoriaDAO implements ICategoriaDAO {
     }
 
     @Override
-    public Optional<Categoria> consultarPorId(ObjectId id) throws Exception {
-        if (id == null) {
-            return Optional.empty();
-        }
-        return Optional.ofNullable(coleccion.find(Filters.eq("_id", id)).first());
+    public Categoria consultarPorId(ObjectId id) throws Exception {
+        return coleccion.find(com.mongodb.client.model.Filters.eq("_id", id)).first();
     }
 
     @Override
     public void actualizar(Categoria categoria) throws Exception {
-        if (categoria == null || categoria.getId() == null) {
-            throw new Exception("La categoría y su ID son obligatorios para actualizar.");
-        }
-        UpdateResult result = coleccion.replaceOne(Filters.eq("_id", categoria.getId()), categoria);
-        if (result.getMatchedCount() == 0) {
-            throw new Exception("No se encontró la categoría para actualizar.");
-        }
+        coleccion.replaceOne(com.mongodb.client.model.Filters.eq("_id", categoria.getId()), categoria);
     }
 
     @Override

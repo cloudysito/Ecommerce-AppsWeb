@@ -10,10 +10,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @WebServlet(name = "CategoriaServlet", urlPatterns = {"/CategoriaServlet"})
 public class CategoriaServlet extends HttpServlet {
@@ -70,11 +68,6 @@ public class CategoriaServlet extends HttpServlet {
     }
 
     private void procesarListarAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (!isAdmin(request.getSession(false))) {
-            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
-            return;
-        }
-
         try {
             List<Categoria> lista = categoriaBO.listarCategorias();
             request.setAttribute("categoriasRegistradas", lista);
@@ -86,11 +79,6 @@ public class CategoriaServlet extends HttpServlet {
     }
 
     private void procesarCargarEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (!isAdmin(request.getSession(false))) {
-            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
-            return;
-        }
-
         try {
             String idStr = request.getParameter("id");
             ObjectId id = parseObjectId(idStr);
@@ -98,12 +86,12 @@ public class CategoriaServlet extends HttpServlet {
                 throw new Exception("ID de categoría no válido.");
             }
 
-            Optional<Categoria> categoria = categoriaBO.obtenerCategoriaPorId(id);
-            if (categoria.isEmpty()) {
+            Categoria categoria = categoriaBO.obtenerCategoriaPorId(id);
+            if (categoria == null) {
                 throw new Exception("La categoría no fue encontrada.");
             }
 
-            request.setAttribute("categoriaEditar", categoria.get());
+            request.setAttribute("categoriaEditar", categoria);
             request.setAttribute("categoriasRegistradas", categoriaBO.listarCategorias());
             request.getRequestDispatcher("/views/gestionCategoriasAdmin.jsp").forward(request, response);
         } catch (Exception e) {
@@ -113,11 +101,6 @@ public class CategoriaServlet extends HttpServlet {
     }
 
     private void procesarCrear(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (!isAdmin(request.getSession(false))) {
-            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
-            return;
-        }
-
         try {
             String nombre = request.getParameter("nombre");
             String descripcion = request.getParameter("descripcion");
@@ -135,11 +118,6 @@ public class CategoriaServlet extends HttpServlet {
     }
 
     private void procesarActualizar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (!isAdmin(request.getSession(false))) {
-            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
-            return;
-        }
-
         try {
             String idStr = request.getParameter("id");
             ObjectId id = parseObjectId(idStr);
@@ -152,7 +130,7 @@ public class CategoriaServlet extends HttpServlet {
             categoria.setNombre(request.getParameter("nombre"));
             categoria.setDescripcion(request.getParameter("descripcion"));
 
-            categoriaBO.actualizarCategoria(categoria);
+            categoriaBO.modificarCategoria(categoria);
             response.sendRedirect(request.getContextPath() + "/CategoriaServlet?accion=listarAdmin");
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
@@ -161,11 +139,6 @@ public class CategoriaServlet extends HttpServlet {
     }
 
     private void procesarEliminar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (!isAdmin(request.getSession(false))) {
-            response.sendRedirect(request.getContextPath() + "/views/index.jsp");
-            return;
-        }
-
         try {
             String idStr = request.getParameter("id");
             ObjectId id = parseObjectId(idStr);
@@ -199,11 +172,5 @@ public class CategoriaServlet extends HttpServlet {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    private boolean isAdmin(HttpSession session) {
-        if (session == null) return false;
-        Object rol = session.getAttribute("rol");
-        return rol != null && "Admin".equalsIgnoreCase(rol.toString());
     }
 }

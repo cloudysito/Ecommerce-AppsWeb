@@ -6,7 +6,6 @@ package BOs.interfaces;
 
 import modelo.Categoria;
 import java.util.List;
-import java.util.Optional;
 import org.bson.types.ObjectId;
 
 /**
@@ -16,7 +15,7 @@ import org.bson.types.ObjectId;
 public interface ICategoriaBO {
     public void registrarCategoria(Categoria categoria) throws Exception;
     public List<Categoria> listarCategorias() throws Exception;
-    public Optional<Categoria> obtenerCategoriaPorId(ObjectId id) throws Exception;
-    public void actualizarCategoria(Categoria categoria) throws Exception;
+    public Categoria obtenerCategoriaPorId(ObjectId id) throws Exception;
+    public void modificarCategoria(Categoria categoria) throws Exception;
     public void borrarCategoria(ObjectId id) throws Exception;
 }

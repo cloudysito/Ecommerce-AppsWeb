@@ -48,27 +48,15 @@ public class CategoriaBO implements ICategoriaBO {
     }
 
     @Override
-    public Optional<Categoria> obtenerCategoriaPorId(ObjectId id) throws Exception {
-        if (id == null) {
-            return Optional.empty();
-        }
+    public Categoria obtenerCategoriaPorId(ObjectId id) throws Exception {
+        if (id == null) throw new Exception("ID invalido.");
         return categoriaDAO.consultarPorId(id);
     }
 
     @Override
-    public void actualizarCategoria(Categoria categoria) throws Exception {
-        if (categoria == null) {
-            throw new Exception("La categoría es obligatoria.");
-        }
-        if (categoria.getId() == null) {
-            throw new Exception("El ID de la categoría es obligatorio.");
-        }
+    public void modificarCategoria(Categoria categoria) throws Exception {
         if (categoria.getNombre() == null || categoria.getNombre().trim().isEmpty()) {
-            throw new Exception("El nombre de la categoría es obligatorio.");
-        }
-        categoria.setNombre(categoria.getNombre().trim());
-        if (categoria.getDescripcion() != null) {
-            categoria.setDescripcion(categoria.getDescripcion().trim());
+            throw new Exception("El nombre es obligatorio para actualizar.");
         }
         categoriaDAO.actualizar(categoria);
     }
