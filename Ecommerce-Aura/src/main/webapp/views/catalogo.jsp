@@ -24,8 +24,6 @@
                     <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil">
                 </a>
 
-                <button id="theme-toggle" class="theme-toggle" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
-
                 <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión">
                     <img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión">
                 </a>
@@ -150,7 +148,6 @@
         <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
         </footer>
-    <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
     </body>
 
 </html>

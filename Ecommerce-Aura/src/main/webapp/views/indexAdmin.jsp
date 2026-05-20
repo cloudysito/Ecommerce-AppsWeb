@@ -21,7 +21,6 @@
             <div class="header-right">
                 <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon" title="Perfil"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
                 <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Cerrar sesión"></a>
-                <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
             </div>
         </header>
 
@@ -98,6 +97,5 @@
         <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
         </footer>
-        <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
-    </body>
+        </body>
 </html>

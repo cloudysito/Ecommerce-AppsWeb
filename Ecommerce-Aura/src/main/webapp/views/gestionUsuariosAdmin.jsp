@@ -27,7 +27,6 @@
                         <img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Salir">
                     </a>
                 </div>
-                <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
             </div>
         </header>
 
@@ -158,6 +157,5 @@
         <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
         </footer>
-        <script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
-    </body>
+        </body>
 </html>

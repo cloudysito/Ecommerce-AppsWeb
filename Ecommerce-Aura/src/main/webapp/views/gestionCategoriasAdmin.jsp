@@ -60,7 +60,6 @@
             <div class="header-right">
                 <a href="views/perfilUsuario.jsp" class="icon" title="Perfil"><img src="imgs/perfil.png" alt="Perfil"></a>
                 <a href="UsuarioServlet?accion=logout" class="icon" title="Cerrar sesión"><img src="imgs/salir.png" alt="Cerrar sesión"></a>
-                <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
             </div>
         </header>
 
@@ -127,7 +126,7 @@
                     <div class="form-crear">
                         <c:choose>
                             <c:when test="${not empty categoriaEditar}">
-                                <h3>✏️ Editar Categoría</h3>
+                                <h3>Editar Categoría</h3>
                                 <form action="CategoriaServlet" method="POST">
                                     <input type="hidden" name="accion" value="actualizar" />
                                     <input type="hidden" name="id" value="${categoriaEditar.id}" />
@@ -227,6 +226,5 @@
         <footer class="pie-pagina">
             <p>Aplicaciones Web</p>
         </footer>
-        <script src="assets/js/theme.js"></script>
-    </body>
+        </body>
 </html>
