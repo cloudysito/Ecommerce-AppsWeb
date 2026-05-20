@@ -91,6 +91,7 @@ public class UsuarioBO implements IUsuarioBO {
         }
         
         usuario.setRol("Cliente");
+        usuario.setActivo(true);
         return usuarioDAO.insertar(usuario);
     }
     

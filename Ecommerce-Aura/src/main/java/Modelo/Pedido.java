@@ -12,7 +12,8 @@ public class Pedido {
     private double total;
     private String estado;
     private List<DetallePedido> productos;
-    private String metodoPago;      
+    private String metodoPago;   
+    private String direccionEnvio;
 
     public Pedido() {
     }
@@ -23,6 +24,14 @@ public class Pedido {
         this.productos = productos;
         this.fecha = new Date(); 
         this.estado = "Pendiente"; 
+    }
+
+    public String getDireccionEnvio() {
+        return direccionEnvio;
+    }
+
+    public void setDireccionEnvio(String direccionEnvio) {
+        this.direccionEnvio = direccionEnvio;
     }
 
     public ObjectId getId() {
