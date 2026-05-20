@@ -41,6 +41,14 @@ public class AdminFilter implements Filter {
         String accion = httpRequest.getParameter("accion");
         String uri = httpRequest.getRequestURI();
 
+        if (uri.contains("ResenaServlet") && "GET".equals(httpRequest.getMethod())) {
+            HttpSession session2 = httpRequest.getSession(false);
+            if (session2 != null && "Admin".equals(session2.getAttribute("rol"))) {
+                chain.doFilter(request, response);
+                return;
+            }
+        }
+
         if (uri.contains("UsuarioServlet")
                 && ("login".equals(accion) || "logout".equals(accion) || "registrar".equals(accion))) {
             chain.doFilter(request, response);
