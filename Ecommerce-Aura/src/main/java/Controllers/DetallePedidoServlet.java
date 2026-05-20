@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import Config.EmailService;
 import modelo.CarritoItem;
 import modelo.DetallePedido;
 import modelo.Pedido;
@@ -143,6 +144,10 @@ public class DetallePedidoServlet extends HttpServlet {
         session.setAttribute("ultimaCompraFecha", pedido.getFecha());
         session.setAttribute("ultimaCompraMetodoPago", metodoPago);
         session.setAttribute("ultimaCompraDireccion", ((modelo.Usuario) session.getAttribute("usuarioActivo")).getDireccion());
+
+        modelo.Usuario usuario = (modelo.Usuario) session.getAttribute("usuarioActivo");
+        EmailService.enviarConfirmacionAsync(usuario, pedido, session);
+
         response.sendRedirect(request.getContextPath() + "/views/confirmacionCompra.jsp");
     }
 
