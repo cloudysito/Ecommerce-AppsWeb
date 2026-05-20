@@ -16,4 +16,6 @@ public interface IResenaDAO {
     ObjectId agregarResena(Resena resena);
     boolean eliminarResena(ObjectId id);
     List<Resena>obtenerTodasLasResenas();
+    void crearResena(Resena resena);
+    List<Resena> obtenerResenasPorProducto(ObjectId productoId);
 }

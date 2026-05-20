@@ -125,7 +125,7 @@
                                                             <input type="hidden" name="id" value="${p.id}">
                                                             <button class="btn-agregar" type="submit">Agregar al carrito</button>
                                                         </form>
-                                                            <button class="btn-resenas" onclick="window.location.href = '${pageContext.request.contextPath}/views/crearReseña.jsp?id=${p.id}'">Dejar reseña</button>
+                                                            <button class="btn-resenas" onclick="window.location.href = '${pageContext.request.contextPath}/views/crearResena.jsp?productoId=${p.id}&nombreProducto=${p.nombre}'">Dejar reseña</button>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <a href="${pageContext.request.contextPath}/views/login.jsp" class="btn-bloqueado" style="text-decoration: none; text-align: center; display: inline-block;"> 

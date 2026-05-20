@@ -1,7 +1,9 @@
 package controllers;
 
 import BOs.ProductoBO;
+import BOs.ResenaBO;
 import BOs.interfaces.IProductoBO;
+import BOs.interfaces.IResenaBO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import modelo.Resena;
 
 @WebServlet(name = "ProductoServlet", urlPatterns = {"/ProductoServlet"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 10)
@@ -24,11 +27,13 @@ public class ProductoServlet extends HttpServlet {
 
     private IProductoBO productoBO;
     private static final String UPLOAD_DIR = "uploads";
+    private IResenaBO resenaBO;
 
     @Override
     public void init() throws ServletException {
         this.productoBO = new ProductoBO();
         crearProductosDePrueba();
+        this.resenaBO = new ResenaBO();
     }
 
     private void crearProductosDePrueba() {
@@ -36,7 +41,7 @@ public class ProductoServlet extends HttpServlet {
             List<Producto> productosExistentes = productoBO.listarProductos();
             if (productosExistentes.isEmpty()) {
                 Producto p1 = new Producto(
-                        "Laptop Gaming Pro 15\"",
+                        "Laptop Gaming Pro 15",
                         1299.99,
                         "Laptop de alto rendimiento con procesador Intel i7, 16GB RAM, RTX 3060, SSD 512GB. Ideal para gaming y diseño.",
                         "",
@@ -98,7 +103,7 @@ public class ProductoServlet extends HttpServlet {
             request.getRequestDispatcher("/views/gestionCatalogo.jsp").forward(request, response);
             return;
         }
-        
+
         if ("cargarEditar".equals(accion)) {
             String id = request.getParameter("id");
             Producto producto = productoBO.buscarProductoPorId(new org.bson.types.ObjectId(id));
@@ -106,14 +111,14 @@ public class ProductoServlet extends HttpServlet {
             request.getRequestDispatcher("/views/editarProducto.jsp").forward(request, response);
             return;
         }
-        
+
         if ("eliminar".equals(accion)) {
             String id = request.getParameter("id");
             productoBO.eliminarProducto(new org.bson.types.ObjectId(id));
             response.sendRedirect(request.getContextPath() + "/ProductoServlet?accion=listarAdmin");
             return;
         }
-        
+
         if ("detalles".equals(accion)) {
             try {
                 String idStr = request.getParameter("id");
@@ -121,6 +126,12 @@ public class ProductoServlet extends HttpServlet {
                     org.bson.types.ObjectId id = new org.bson.types.ObjectId(idStr);
                     Producto producto = productoBO.buscarProductoPorId(id);
                     request.setAttribute("producto", producto);
+                    try {
+                        List<Resena> resenas = resenaBO.obtenerResenasPorProducto(id);
+                        request.setAttribute("resenas", resenas);
+                    } catch (Exception e) {
+                        request.setAttribute("resenas", new ArrayList<>());
+                    }
                     request.getRequestDispatcher("views/detallesProducto.jsp").forward(request, response);
                 }
             } catch (Exception e) {
@@ -135,7 +146,7 @@ public class ProductoServlet extends HttpServlet {
             Double precio = (precioStr != null && !precioStr.isEmpty()) ? Double.parseDouble(precioStr) : null;
             List<Producto> lista = productoBO.listarProductosFiltrados(nombre, categoria, tipoPrecio, precio);
             request.setAttribute("productos", lista);
-            
+
             String adminParam = request.getParameter("admin");
             if (adminParam != null && ("1".equals(adminParam) || "true".equalsIgnoreCase(adminParam))) {
                 request.getRequestDispatcher("/views/gestionCatalogo.jsp").forward(request, response);
@@ -211,10 +222,10 @@ public class ProductoServlet extends HttpServlet {
                 filePart.write(uploadFilePath + File.separator + fileName);
                 rutaFinalImagen = UPLOAD_DIR + "/" + fileName;
             }
-            
+
             Producto nuevo = new Producto(nombre, precio, descripcion, rutaFinalImagen, stock, categoria, caracteristicas);
             productoBO.registrarProducto(nuevo);
-            
+
             response.sendRedirect(request.getContextPath() + "/ProductoServlet?accion=listarAdmin");
         }
     }

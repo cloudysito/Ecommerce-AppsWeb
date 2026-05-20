@@ -15,7 +15,7 @@ import PersistenciaDAO.ResenaDAO;
  *
  * @author USER
  */
-public class ResenaBO implements IResenaBO{
+public class ResenaBO implements IResenaBO {
 
     private final IResenaDAO resenaDAO;
 
@@ -51,6 +51,30 @@ public class ResenaBO implements IResenaBO{
             resenaDAO.eliminarResena(id);
         } catch (Exception e) {
             throw new Exception("ocurrio un error al intententar eliminar una resena");
+        }
+    }
+
+    @Override
+    public void crearResena(Resena resena) throws Exception {
+        if (resena == null) {
+            throw new Exception("La reseña no puede ser nula.");
+        }
+        if (resena.getComentario() == null || resena.getComentario().isBlank()) {
+            throw new Exception("El comentario no puede estar vacío.");
+        }
+        try {
+            resenaDAO.crearResena(resena);
+        } catch (Exception e) {
+            throw new Exception("Error al crear la reseña: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Resena> obtenerResenasPorProducto(ObjectId productoId) throws Exception {
+        try {
+            return resenaDAO.obtenerResenasPorProducto(productoId);
+        } catch (Exception e) {
+            throw new Exception("Error al obtener reseñas: " + e.getMessage());
         }
     }
 

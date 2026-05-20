@@ -18,7 +18,8 @@ import PersistenciaDAOInterfaces.IResenaDAO;
  *
  * @author garfi
  */
-public class ResenaDAO implements IResenaDAO{
+public class ResenaDAO implements IResenaDAO {
+
     private final MongoCollection<Resena> coleccion;
 
     public ResenaDAO() {
@@ -49,6 +50,15 @@ public class ResenaDAO implements IResenaDAO{
             throw new MongoException("error al obtener todas las resenas" + e);
         }
     }
-    
-    
+
+    @Override
+    public void crearResena(Resena resena) {
+        coleccion.insertOne(resena);
+    }
+
+    @Override
+    public List<Resena> obtenerResenasPorProducto(ObjectId productoId) {
+        return coleccion.find(eq("productoId", productoId)).into(new ArrayList<>());
+    }
+
 }
