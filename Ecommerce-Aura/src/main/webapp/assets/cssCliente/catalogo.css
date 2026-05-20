@@ -217,3 +217,83 @@
 .btn-resena:hover {
     background-color: var(--card-hover);
 }
+
+@media (max-width: 768px) {
+    .catalogo-wrapper {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    /* Filtros */
+    .filtros-container {
+        padding: 16px;
+    }
+
+    .filtros-grid {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .input-con-icono {
+        width: 100%;
+    }
+
+    .controles-precio {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .btn-aplicar {
+        width: 100%;
+    }
+
+    /* Tabla como tarjetas */
+    .tabla-pedidos-container {
+        overflow-x: auto;
+    }
+
+    .tabla-catalogo {
+        table-layout: auto;
+    }
+
+    .tabla-catalogo thead {
+        display: none;
+    }
+
+    .tabla-catalogo tbody tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 16px;
+        padding: 12px;
+    }
+
+    .tabla-catalogo td {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+        border: none;
+        width: 100%;
+    }
+
+    .img-catalogo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .acciones-catalogo {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .btn-agregar,
+    .btn-resena,
+    .btn-bloqueado {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        justify-content: center;
+    }
+}

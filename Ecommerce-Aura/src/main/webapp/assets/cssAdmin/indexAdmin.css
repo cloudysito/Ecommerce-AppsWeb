@@ -72,10 +72,6 @@
 }
 
 @media (max-width: 576px) {
-    .menu-lateral {
-        display: none;
-    }
-
     .pagination-container {
         flex-direction: column;
         gap: 15px;

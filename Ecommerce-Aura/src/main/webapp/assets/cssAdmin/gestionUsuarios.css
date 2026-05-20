@@ -101,3 +101,26 @@
 .btn-eliminar-usuario:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .tabla-usuarios thead {
+        display: none;
+    }
+
+    .tabla-usuarios tbody tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 12px;
+        padding: 12px;
+    }
+
+    .tabla-usuarios td {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+        border: none;
+        font-size: 13px;
+    }
+}
