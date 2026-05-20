@@ -6,6 +6,7 @@ package BOs.interfaces;
 
 import java.util.List;
 import modelo.Resena;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -14,4 +15,6 @@ import modelo.Resena;
 public interface IResenaBO {
     List<Resena> obtenerTodasLasResenas() throws Exception;
     void eliminarResena(String idResenaTexto) throws Exception ;
+    void crearResena(Resena resena) throws Exception;
+    List<Resena> obtenerResenasPorProducto(ObjectId productoId) throws Exception;
 }

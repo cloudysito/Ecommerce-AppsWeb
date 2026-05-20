@@ -46,7 +46,7 @@
                             <h1>${producto.nombre}</h1>
 
                             <div class="calificacion-estrellas">
-                                ⭐⭐⭐⭐☆ <span>(Consultar reseñas abajo)</span>
+                                <span>(Consultar reseñas abajo)</span>
                             </div>
 
                             <div class="precio-detalle">$${producto.precio}</div>

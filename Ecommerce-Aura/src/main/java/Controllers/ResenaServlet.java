@@ -25,13 +25,12 @@ import modelo.Resena;
 public class ResenaServlet extends HttpServlet {
 
     private IResenaBO resenaBO;
+
     @Override
-     public void init() throws ServletException{
+    public void init() throws ServletException {
         this.resenaBO = new ResenaBO();
     }
-    
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,7 +38,7 @@ public class ResenaServlet extends HttpServlet {
             List<Resena> listaResenas = resenaBO.obtenerTodasLasResenas();
             request.setAttribute("listaResenas", listaResenas);
             request.getRequestDispatcher("views/indexAdmin.jsp").forward(request, response);
-        
+
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("views/indexAdmin.jsp").forward(request, response);
@@ -58,7 +57,7 @@ public class ResenaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
-        if("eliminar".equals(accion)){
+        if ("eliminar".equals(accion)) {
             String idResena = request.getParameter("idResena");
             try {
                 resenaBO.eliminarResena(idResena);
@@ -67,7 +66,36 @@ public class ResenaServlet extends HttpServlet {
                 request.setAttribute("error", e.getMessage());
                 doGet(request, response);
             }
-        }else{
+        } else if ("crear".equals(accion)) {
+            jakarta.servlet.http.HttpSession session = request.getSession(false);
+            if (session == null || session.getAttribute("usuarioActivo") == null) {
+                response.sendRedirect(request.getContextPath() + "/views/login.jsp");
+                return;
+            }
+
+            modelo.Usuario usuario = (modelo.Usuario) session.getAttribute("usuarioActivo");
+            String productoIdStr = request.getParameter("productoId");
+            String comentario = request.getParameter("comentario");
+            String calificacionStr = request.getParameter("puntuacion");
+
+            if (productoIdStr == null || comentario == null || comentario.isBlank() || calificacionStr == null) {
+                request.setAttribute("mensajeError", "Todos los campos son obligatorios.");
+                request.getRequestDispatcher("/views/crearResena.jsp").forward(request, response);
+                return;
+            }
+
+            org.bson.types.ObjectId productoId = new org.bson.types.ObjectId(productoIdStr);
+            double calificacion = Double.parseDouble(calificacionStr);
+            modelo.Resena resena = new modelo.Resena(productoId, usuario.getNombreCompleto(), calificacion, comentario);
+
+            try {
+                resenaBO.crearResena(resena);
+                response.sendRedirect(request.getContextPath() + "/ProductoServlet?accion=detalles&id=" + productoIdStr);
+            } catch (Exception e) {
+                request.setAttribute("mensajeError", "Error al guardar la reseña: " + e.getMessage());
+                request.getRequestDispatcher("/views/crearResena.jsp").forward(request, response);
+            }
+        } else {
             response.sendRedirect(request.getContextPath() + "/ResenaServlet");
         }
     }
