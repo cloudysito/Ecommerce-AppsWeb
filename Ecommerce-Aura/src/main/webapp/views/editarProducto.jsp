@@ -23,6 +23,12 @@
                     <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon">
                         <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil">
                     </a>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/CategoriaServlet?accion=listarAdmin" class="menu-item">
+                                <img src="${pageContext.request.contextPath}/imgs/catalogo.png" alt="Categorías" class="menu-icon">
+                                <span>Gestionar Categorías</span>
+                            </a>
+                        </li>
                     <a href="${pageContext.request.contextPath}/UsuarioServlet?accion=logout" class="icon">
                         <img src="${pageContext.request.contextPath}/imgs/salir.png" alt="Salir">
                     </a>

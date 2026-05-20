@@ -16,7 +16,7 @@
         <header class="barra-superior">
             <div class="header-left">
                 <img src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo" class="logo-img">
-                <span class="logo-text">Ecommerce Aura - Panel Admin</span>
+                <span class="logo-text">Ecommerce</span>
             </div>
             <div class="header-right">
                 <a href="${pageContext.request.contextPath}/views/perfilUsuario.jsp" class="icon" title="Perfil"><img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Perfil"></a>
@@ -86,22 +86,46 @@
                     </c:if>
 
                     <div class="form-crear">
-                        <h3>Agregar Nueva Categoría</h3>
-                        <form action="${pageContext.request.contextPath}/CategoriaServlet" method="POST">
-                            <input type="hidden" name="accion" value="crear" />
+                        <c:choose>
+                            <c:when test="${not empty categoriaEditar}">
+                                <h3>Editar Categoría</h3>
+                                <form action="${pageContext.request.contextPath}/CategoriaServlet" method="POST">
+                                    <input type="hidden" name="accion" value="actualizar" />
+                                    <input type="hidden" name="id" value="${categoriaEditar.id}" />
 
-                            <div class="form-group">
-                                <label for="nombre">Nombre de la Categoría:</label>
-                                <input type="text" id="nombre" name="nombre" required placeholder="Ej. Electrónica, Ropa, etc." />
-                            </div>
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre de la Categoría:</label>
+                                        <input type="text" id="nombre" name="nombre" required placeholder="Ej. Electrónica, Ropa, etc." value="${categoriaEditar.nombre}" />
+                                    </div>
 
-                            <div class="form-group">
-                                <label for="descripcion">Descripción:</label>
-                                <textarea id="descripcion" name="descripcion" rows="3" placeholder="Breve descripción del tipo de productos..."></textarea>
-                            </div>
+                                    <div class="form-group">
+                                        <label for="descripcion">Descripción:</label>
+                                        <textarea id="descripcion" name="descripcion" rows="3" placeholder="Breve descripción del tipo de productos...">${categoriaEditar.descripcion}</textarea>
+                                    </div>
 
-                            <button type="submit" class="btn-guardar">Guardar Categoría</button>
-                        </form>
+                                    <button type="submit" class="btn-guardar">Actualizar Categoría</button>
+                                    <a href="${pageContext.request.contextPath}/CategoriaServlet?accion=listarAdmin" class="btn-cancelar" style="display:inline-block; margin-left:10px; text-decoration:none;">Cancelar edición</a>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <h3>Agregar Nueva Categoría</h3>
+                                <form action="${pageContext.request.contextPath}/CategoriaServlet" method="POST">
+                                    <input type="hidden" name="accion" value="crear" />
+
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre de la Categoría:</label>
+                                        <input type="text" id="nombre" name="nombre" required placeholder="Ej. Electrónica, Ropa, etc." />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="descripcion">Descripción:</label>
+                                        <textarea id="descripcion" name="descripcion" rows="3" placeholder="Breve descripción del tipo de productos..."></textarea>
+                                    </div>
+
+                                    <button type="submit" class="btn-guardar">Guardar Categoría</button>
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
 
                     <div class="tabla-container">
@@ -123,6 +147,13 @@
                                                 <td style="font-weight: bold;">${cat.nombre}</td>
                                                 <td>${cat.descripcion}</td>
                                                 <td>
+                                                    <c:if test="${not empty cat.id}">
+                                                        <form action="${pageContext.request.contextPath}/CategoriaServlet" method="GET" style="display:inline-block; margin-right:8px;">
+                                                            <input type="hidden" name="accion" value="cargarEditar" />
+                                                            <input type="hidden" name="id" value="${cat.id}" />
+                                                            <button type="submit" class="btn-guardar" title="Modificar Categoría">Modificar</button>
+                                                        </form>
+                                                    </c:if>
                                                     <c:if test="${not empty cat.id}">
                                                         <form action="${pageContext.request.contextPath}/CategoriaServlet" method="POST" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas eliminar esta categoría?');">
                                                             <input type="hidden" name="accion" value="eliminar" />

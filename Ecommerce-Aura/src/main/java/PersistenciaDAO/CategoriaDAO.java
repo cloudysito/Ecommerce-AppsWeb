@@ -8,8 +8,10 @@ import Config.MongoClientProvider;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.UpdateResult;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import modelo.Categoria;
 import modelo.Producto;
 import PersistenciaDAOInterfaces.ICategoriaDAO;
@@ -44,12 +46,33 @@ public class CategoriaDAO implements ICategoriaDAO {
 
             for (String nombreCategoria : categoriasDeProductos) {
                 if (nombreCategoria != null && !nombreCategoria.trim().isEmpty()) {
-                    categorias.add(new Categoria(null, nombreCategoria.trim(), ""));
+                    Categoria categoria = new Categoria(new ObjectId(), nombreCategoria.trim(), "");
+                    coleccion.insertOne(categoria);
+                    categorias.add(categoria);
                 }
             }
         }
 
         return categorias;
+    }
+
+    @Override
+    public Optional<Categoria> consultarPorId(ObjectId id) throws Exception {
+        if (id == null) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(coleccion.find(Filters.eq("_id", id)).first());
+    }
+
+    @Override
+    public void actualizar(Categoria categoria) throws Exception {
+        if (categoria == null || categoria.getId() == null) {
+            throw new Exception("La categoría y su ID son obligatorios para actualizar.");
+        }
+        UpdateResult result = coleccion.replaceOne(Filters.eq("_id", categoria.getId()), categoria);
+        if (result.getMatchedCount() == 0) {
+            throw new Exception("No se encontró la categoría para actualizar.");
+        }
     }
 
     @Override
