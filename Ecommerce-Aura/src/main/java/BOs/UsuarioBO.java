@@ -10,6 +10,7 @@ import PersistenciaDAOInterfaces.IUsuarioDAO;
 import PersistenciaDAO.UsuarioDAO;
 import java.util.List;
 import org.bson.types.ObjectId;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -21,15 +22,15 @@ public class UsuarioBO implements IUsuarioBO {
 
     public UsuarioBO() {
     }
-    
-    public void crearAdmin(){
+
+    public void crearAdmin() {
         try {
             Usuario admin = usuarioDAO.autentificar("admin@gmail.com", "mitens", "Admin");
-            
-            if(admin == null){
+
+            if (admin == null) {
                 Usuario adminViejo = usuarioDAO.autentificar("admin@gmail.com", "mitens", "admin");
-                
-                if(adminViejo != null){
+
+                if (adminViejo != null) {
                     adminViejo.setRol("Admin");
                     usuarioDAO.actualizar(adminViejo);
                     System.out.println("admin actualizado correctamente con el rol correcto");
@@ -39,7 +40,7 @@ public class UsuarioBO implements IUsuarioBO {
                     nuevoAdmin.setCorreo("admin@gmail.com");
                     nuevoAdmin.setContrasenia("mitens");
                     nuevoAdmin.setRol("Admin");
-                    
+
                     usuarioDAO.registrarUsuario(nuevoAdmin, "Admin");
                     System.out.println("admin creado correctamente");
                 }
@@ -50,7 +51,7 @@ public class UsuarioBO implements IUsuarioBO {
             System.out.println("error al crear/actualizar al admin: " + e.getMessage());
         }
     }
-    
+
     @Override
     public Usuario iniciarSesion(String correo, String password) throws Exception {
         if (correo == null || correo.trim().isEmpty()) {
@@ -59,10 +60,10 @@ public class UsuarioBO implements IUsuarioBO {
         if (password == null || password.trim().isEmpty()) {
             throw new Exception("La contraseña es obligatoria.");
         }
-        
+
         Usuario usuarioEncontrado = usuarioDAO.encontrarPorCorreo(correo);
-        
-        if (usuarioEncontrado == null || !usuarioEncontrado.getContrasenia().equals(password)) {
+
+        if (usuarioEncontrado == null || !BCrypt.checkpw(password, usuarioEncontrado.getContrasenia())) {
             throw new Exception("Credenciales incorrectas.");
         }
 
@@ -72,7 +73,7 @@ public class UsuarioBO implements IUsuarioBO {
 
         return usuarioEncontrado;
     }
-    
+
     @Override
     public Usuario registrarUsuario(Usuario usuario) throws Exception {
         if (usuario.getNombreCompleto() == null || usuario.getNombreCompleto().trim().isEmpty()) {
@@ -84,25 +85,27 @@ public class UsuarioBO implements IUsuarioBO {
         if (usuario.getContrasenia() == null || usuario.getContrasenia().trim().isEmpty()) {
             throw new Exception("Debes ingresar una contraseña.");
         }
-        
+
         Usuario existente = usuarioDAO.encontrarPorCorreo(usuario.getCorreo());
         if (existente != null) {
             throw new Exception("Este correo ya está registrado.");
         }
-        
+        String hashedPassword = BCrypt.hashpw(usuario.getContrasenia(), BCrypt.gensalt());
+        usuario.setContrasenia(hashedPassword);
+
         usuario.setRol("Cliente");
         usuario.setActivo(true);
         return usuarioDAO.insertar(usuario);
     }
-    
+
     @Override
     public Usuario actualizarPerfil(Usuario usuario) throws Exception {
         if (usuario.getNombreCompleto() == null || usuario.getNombreCompleto().trim().isEmpty()) {
             throw new Exception("El nombre es obligatorio y no puede estar vacio.");
         }
-        
+
         boolean exito = usuarioDAO.actualizar(usuario);
-        
+
         if (!exito) {
             throw new Exception("No se pudo actualizar el perfil.");
         }
@@ -113,7 +116,7 @@ public class UsuarioBO implements IUsuarioBO {
     public List<Usuario> consultarTodos() throws Exception {
         try {
             return usuarioDAO.encontrarTodos();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("No hay usuarios en la base de datos: " + e.getMessage());
         }
     }
