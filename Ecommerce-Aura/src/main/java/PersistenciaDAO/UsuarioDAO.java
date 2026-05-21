@@ -155,10 +155,10 @@ public class UsuarioDAO implements IUsuarioDAO {
                     Updates.set("activo", true)
             );
             if (resultado.getModifiedCount() > 0) {
-                System.out.println("✅ Migración completada: " + resultado.getModifiedCount() + " usuario(s) actualizado(s) con campo 'activo'");
+                System.out.println("Migración completada: " + resultado.getModifiedCount() + " usuario(s) actualizado(s) con campo 'activo'");
             }
         } catch (Exception e) {
-            System.err.println("⚠️ Error durante la migración del campo 'activo': " + e.getMessage());
+            System.err.println("Error durante la migración del campo 'activo': " + e.getMessage());
         }
     }
 

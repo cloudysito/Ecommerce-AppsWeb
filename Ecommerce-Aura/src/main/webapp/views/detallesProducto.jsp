@@ -92,12 +92,7 @@
                             </div>
 
                             <div class="detalles-tecnicos">
-                                <h3>Características principales:</h3>
-                                <ul>
-                                    <c:forEach var="caracteristica" items="${producto.caracteristicas}">
-                                        <li>${caracteristica}</li>
-                                    </c:forEach>
-                                </ul>
+                                
                             </div>
                         </div>
                     </div>
