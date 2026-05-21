@@ -102,7 +102,7 @@
                         </div>
                     </div>
 
-                    <div class="seccion-resenas" style="margin-top: 30px; padding: 20px; background: white; border-radius: 8px;">
+                    <div class="seccion-resenas" style="margin-top: 30px; padding: 20px; background: var(--card-bg); border-radius: 8px;">
                         <h3>Reseñas de clientes</h3>
                         <c:choose>
                             <c:when test="${not empty resenas}">

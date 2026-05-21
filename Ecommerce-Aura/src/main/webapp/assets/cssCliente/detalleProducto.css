@@ -180,3 +180,16 @@
     position: absolute;
     left: 0;
 }
+
+.seccion-resenas {
+    background-color: var(--card-bg) !important;
+}
+
+.seccion-resenas h3 {
+    color: var(--text);
+}
+
+.resena-item strong,
+.resena-item p {
+    color: var(--text);
+}
