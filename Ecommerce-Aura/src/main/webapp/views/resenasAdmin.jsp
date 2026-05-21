@@ -69,7 +69,7 @@
                                     <td>
                                         <span class="estrellas">
                                             <% for (int i = 1; i <= 5; i++) {%>
-                                            <span class="estrella <%= (i <= estrellas) ? "llena" : "vacia"%>">★</span>
+                                            <span class="estrella <%= (i <= estrellas) ? "llena" : "vacia"%>"></span>
                                             <% }%>
                                         </span>
                                         <span class="calificacion-num"><%= String.format("%.1f", resena.getCalificacion())%></span>

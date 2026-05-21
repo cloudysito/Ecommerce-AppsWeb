@@ -3,26 +3,22 @@
     max-width: 800px;
     margin: 0 auto;
 }
-
 .producto-resena {
     margin-bottom: 40px;
     padding-bottom: 30px;
     border-bottom: 1px solid #e0e0e0;
 }
-
 .producto-resena h2 {
     font-size: 16px;
-    color: #333;
+    color: var(--text);
     margin-bottom: 20px;
     font-weight: 600;
 }
-
 .producto-info {
     display: flex;
     gap: 20px;
     align-items: flex-start;
 }
-
 .producto-imagen {
     width: 80px;
     height: 80px;
@@ -30,62 +26,52 @@
     border-radius: 4px;
     object-fit: cover;
 }
-
 .producto-detalles h3 {
     font-size: 15px;
-    color: #333;
+    color: var(--text);
     margin-bottom: 5px;
     font-weight: 600;
 }
-
 .categoria {
-    color: #999;
+    color: var(--muted);
     font-size: 13px;
     margin: 0;
 }
-
 .calificacion-general {
     margin-bottom: 40px;
     padding-bottom: 30px;
     border-bottom: 1px solid #e0e0e0;
 }
-
 .calificacion-general h2 {
     font-size: 16px;
-    color: #333;
+    color: var(--text);
     margin-bottom: 20px;
     font-weight: 600;
 }
-
 .puntuacion-container {
     position: relative;
 }
-
 .puntuacion-container label {
     display: block;
     font-size: 14px;
-    color: #333;
+    color: var(--text);
     margin-bottom: 15px;
     font-weight: 500;
 }
-
 .escala-puntuacion {
     display: flex;
     align-items: center;
     gap: 15px;
     margin-bottom: 10px;
 }
-
 .label-escala {
     font-size: 12px;
-    color: #999;
+    color: var(--muted);
     min-width: 70px;
 }
-
 .label-escala:last-child {
     text-align: right;
 }
-
 .slider {
     flex: 1;
     height: 6px;
@@ -95,7 +81,6 @@
     -webkit-appearance: none;
     appearance: none;
 }
-
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -105,7 +90,6 @@
     background: #007bff;
     cursor: pointer;
 }
-
 .slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
@@ -114,7 +98,6 @@
     cursor: pointer;
     border: none;
 }
-
 .valor-puntuacion {
     display: inline-block;
     color: #007bff;
@@ -122,19 +105,15 @@
     font-weight: 600;
     margin-left: auto;
 }
-
-/* Sección Tu Experiencia */
 .experiencia {
     margin-bottom: 30px;
 }
-
 .experiencia h2 {
     font-size: 16px;
-    color: #333;
+    color: var(--text);
     margin-bottom: 15px;
     font-weight: 600;
 }
-
 .experiencia textarea {
     width: 100%;
     padding: 12px;
@@ -142,22 +121,19 @@
     border-radius: 4px;
     font-family: Arial, sans-serif;
     font-size: 14px;
-    color: #333;
+    color: var(--text);
+    background-color: var(--card-bg);
     resize: vertical;
 }
-
 .experiencia textarea::placeholder {
     color: #bbb;
 }
-
-/* Botones de acción */
 .botones-accion {
     display: flex;
     gap: 15px;
     justify-content: flex-end;
     margin-top: 30px;
 }
-
 .boton-cancelar,
 .boton-enviar {
     padding: 10px 24px;
@@ -167,13 +143,11 @@
     font-weight: 500;
     cursor: pointer;
 }
-
 .boton-cancelar {
     background-color: transparent;
-    color: #666;
+    color: var(--muted);
     border: 1px solid #ddd;
 }
-
 .boton-enviar {
     background-color: #007bff;
     color: white;
