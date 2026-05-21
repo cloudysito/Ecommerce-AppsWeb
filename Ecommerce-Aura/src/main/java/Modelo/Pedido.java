@@ -1,12 +1,15 @@
 package modelo;
 
 import org.bson.types.ObjectId;
+import org.bson.codecs.pojo.annotations.BsonId;
 import java.util.Date;
 import java.util.List;
 
 public class Pedido {
 
+    @BsonId
     private ObjectId id;
+    private ObjectId usuarioId;
     private String nombreCliente;
     private Date fecha;
     private double total;
@@ -40,6 +43,14 @@ public class Pedido {
 
     public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    public ObjectId getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(ObjectId usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public String getNombreCliente() {

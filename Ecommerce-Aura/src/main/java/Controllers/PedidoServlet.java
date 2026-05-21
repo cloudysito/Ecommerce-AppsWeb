@@ -1,7 +1,11 @@
 package controllers;
 
 import BOs.PedidoBO;
+import BOs.CarritoBO;
+import BOs.ProductoBO;
 import BOs.interfaces.IPedidoBO;
+import BOs.interfaces.ICarritoBO;
+import BOs.interfaces.IProductoBO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import modelo.Pedido;
 import modelo.DetallePedido;
 import modelo.CarritoItem;
+import modelo.Producto;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
@@ -22,10 +27,14 @@ import java.util.List;
 public class PedidoServlet extends HttpServlet {
 
     private IPedidoBO pedidoBO;
+    private ICarritoBO carritoBO;
+    private IProductoBO productoBO;
 
     @Override
     public void init() throws ServletException {
         pedidoBO = new PedidoBO();
+        carritoBO = new CarritoBO();
+        productoBO = new ProductoBO();
     }
 
     @Override
@@ -41,9 +50,15 @@ public class PedidoServlet extends HttpServlet {
 
             modelo.Usuario usuario = (modelo.Usuario) session.getAttribute("usuarioActivo");
             List<Pedido> todos = pedidoBO.listarPedidos();
-            List<Pedido> misPedidos = todos.stream()
-                    .filter(p -> p.getNombreCliente().equals(usuario.getNombreCompleto()))
-                    .collect(java.util.stream.Collectors.toList());
+            List<Pedido> misPedidos = new ArrayList<>();
+            for (Pedido p : todos) {
+                if (p.getUsuarioId() != null && usuario.getId() != null && p.getUsuarioId().equals(usuario.getId())) {
+                    misPedidos.add(p);
+                } else if (p.getNombreCliente() != null && p.getNombreCliente().equals(usuario.getNombreCompleto())) {
+                    // fallback to name match for older records
+                    misPedidos.add(p);
+                }
+            }
 
             request.setAttribute("misPedidos", misPedidos);
             request.getRequestDispatcher("/views/gestionPedidos.jsp").forward(request, response);
@@ -74,13 +89,23 @@ public class PedidoServlet extends HttpServlet {
             session.setAttribute("checkoutTelefono", telefono);
             session.setAttribute("checkoutDireccion", direccionCompleta);
             session.setAttribute("checkoutMetodoPago", metodoPago);
-            
+            session.removeAttribute("ultimaCompraPedidoId");
+            session.removeAttribute("ultimaCompraTotal");
+            session.removeAttribute("ultimaCompraFecha");
+            session.removeAttribute("ultimaCompraMetodoPago");
+            session.removeAttribute("ultimaCompraDireccion");
+
             response.sendRedirect(request.getContextPath() + "/views/confirmacionCompra.jsp");
             return;
         }
 
         if ("confirmarPedido".equals(accion)) {
             List<CarritoItem> carrito = (List<CarritoItem>) session.getAttribute("carrito");
+            String usuarioId = null;
+            if (session.getAttribute("usuarioActivo") != null) {
+                usuarioId = ((modelo.Usuario) session.getAttribute("usuarioActivo")).getId().toHexString();
+            }
+
             if (carrito == null || carrito.isEmpty()) {
                 response.sendRedirect(request.getContextPath() + "/views/carritoCompras.jsp");
                 return;
@@ -92,12 +117,31 @@ public class PedidoServlet extends HttpServlet {
                 double subtotal = 0.0;
 
                 for (CarritoItem item : carrito) {
+                    Producto productoActual = productoBO.buscarProductoPorId(item.getProducto().getId());
+                    if (productoActual == null) {
+                        request.setAttribute("error", "Uno de los productos ya no está disponible.");
+                        request.getRequestDispatcher("/views/confirmacionCompra.jsp").forward(request, response);
+                        return;
+                    }
+
+                    if (item.getCantidad() <= 0) {
+                        request.setAttribute("error", "La cantidad de uno de los productos no es válida.");
+                        request.getRequestDispatcher("/views/confirmacionCompra.jsp").forward(request, response);
+                        return;
+                    }
+
+                    if (item.getCantidad() > productoActual.getStock()) {
+                        request.setAttribute("error", "No hay stock suficiente para " + productoActual.getNombre() + ".");
+                        request.getRequestDispatcher("/views/confirmacionCompra.jsp").forward(request, response);
+                        return;
+                    }
+
                     DetallePedido detalle = new DetallePedido();
                     detalle.setPedidoId(idNuevoPedido);
-                    detalle.setNombreProducto(item.getProducto().getNombre());
+                    detalle.setNombreProducto(productoActual.getNombre());
                     detalle.setCantidad(item.getCantidad());
-                    detalle.setPrecioUnitario(item.getProducto().getPrecio());
-                    detalle.setSubtotal(item.getCantidad() * item.getProducto().getPrecio());
+                    detalle.setPrecioUnitario(productoActual.getPrecio());
+                    detalle.setSubtotal(item.getCantidad() * productoActual.getPrecio());
                     
                     listaDetalles.add(detalle);
                     subtotal += detalle.getSubtotal();
@@ -107,11 +151,30 @@ public class PedidoServlet extends HttpServlet {
                 double impuestos = subtotal * 0.038;
                 double totalFinal = subtotal + envio + impuestos;
 
+                modelo.Usuario usuarioActivo = (modelo.Usuario) session.getAttribute("usuarioActivo");
+                String nombreCliente = (String) session.getAttribute("checkoutNombre");
+                if (nombreCliente == null || nombreCliente.trim().isEmpty()) {
+                    nombreCliente = (usuarioActivo != null) ? usuarioActivo.getNombreCompleto() : "Cliente";
+                }
+
+                String direccionEnvio = (String) session.getAttribute("checkoutDireccion");
+                if (direccionEnvio == null || direccionEnvio.trim().isEmpty()) {
+                    direccionEnvio = (usuarioActivo != null) ? usuarioActivo.getDireccion() : "No disponible";
+                }
+
+                String metodoPagoPedido = (String) session.getAttribute("checkoutMetodoPago");
+                if (metodoPagoPedido == null || metodoPagoPedido.trim().isEmpty()) {
+                    metodoPagoPedido = "contraEntrega";
+                }
+
                 Pedido nuevoPedido = new Pedido();
                 nuevoPedido.setId(idNuevoPedido);
-                nuevoPedido.setNombreCliente((String) session.getAttribute("checkoutNombre"));
-                nuevoPedido.setDireccionEnvio((String) session.getAttribute("checkoutDireccion"));
-                nuevoPedido.setMetodoPago((String) session.getAttribute("checkoutMetodoPago"));
+                if (usuarioActivo != null && usuarioActivo.getId() != null) {
+                    nuevoPedido.setUsuarioId(usuarioActivo.getId());
+                }
+                nuevoPedido.setNombreCliente(nombreCliente);
+                nuevoPedido.setDireccionEnvio(direccionEnvio);
+                nuevoPedido.setMetodoPago(metodoPagoPedido);
                 nuevoPedido.setEstado("Pendiente");
                 nuevoPedido.setFecha(new Date());
                 nuevoPedido.setTotal(totalFinal);
@@ -119,14 +182,30 @@ public class PedidoServlet extends HttpServlet {
 
                 pedidoBO.crearPedido(nuevoPedido);
 
+                for (CarritoItem item : carrito) {
+                    Producto productoActual = productoBO.buscarProductoPorId(item.getProducto().getId());
+                    if (productoActual != null) {
+                        productoBO.actualizarStock(productoActual.getId(), productoActual.getStock() - item.getCantidad());
+                    }
+                }
+
                 session.removeAttribute("carrito");
                 session.removeAttribute("checkoutNombre");
                 session.removeAttribute("checkoutTelefono");
                 session.removeAttribute("checkoutDireccion");
                 session.removeAttribute("checkoutMetodoPago");
 
-                request.setAttribute("numeroPedido", idNuevoPedido.toHexString());
-                request.getRequestDispatcher("/views/exitoCompra.jsp").forward(request, response);
+                if (usuarioId != null) {
+                    carritoBO.eliminar(usuarioId);
+                }
+
+                session.setAttribute("ultimaCompraPedidoId", idNuevoPedido.toHexString());
+                session.setAttribute("ultimaCompraTotal", totalFinal);
+                session.setAttribute("ultimaCompraFecha", nuevoPedido.getFecha());
+                session.setAttribute("ultimaCompraMetodoPago", metodoPagoPedido);
+                session.setAttribute("ultimaCompraDireccion", direccionEnvio);
+
+                response.sendRedirect(request.getContextPath() + "/views/confirmacionCompra.jsp?finalizada=1");
 
             } catch (Exception e) {
                 request.setAttribute("error", "Error al procesar: " + e.getMessage());

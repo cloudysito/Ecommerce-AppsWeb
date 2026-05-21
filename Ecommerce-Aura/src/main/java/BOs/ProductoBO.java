@@ -21,7 +21,33 @@ public class ProductoBO implements IProductoBO {
         if (this.productoDAO == null) {
             this.productoDAO = new ProductoDAO(); 
         }
-        return productoDAO.obtenerProductos();
+        List<Producto> productos = productoDAO.obtenerProductos();
+
+        for (Producto p : productos) {
+            if (p.getImagenProducto() == null || p.getImagenProducto().trim().isEmpty()) {
+                String nombre = p.getNombre() != null ? p.getNombre().toLowerCase() : "";
+                String categoria = p.getCategoria() != null ? p.getCategoria().toLowerCase() : "";
+                String imagen = "catalogo.png"; // default
+
+                if (nombre.contains("laptop") || nombre.contains("notebook") || categoria.contains("computo") || categoria.contains("laptops")) {
+                    imagen = "laptop.png";
+                } else if (nombre.contains("audif") || nombre.contains("auricular") || categoria.contains("audio")) {
+                    imagen = "audifonos.png";
+                } else if (nombre.contains("silla") || categoria.contains("muebles")) {
+                    imagen = "silla.png";
+                } else if (nombre.contains("reloj") || nombre.contains("watch") || categoria.contains("accesorios")) {
+                    imagen = "reloj.png";
+                }
+
+                p.setImagenProducto(imagen);
+                try {
+                    productoDAO.actualizar(p);
+                } catch (Exception ignored) {
+                }
+            }
+        }
+
+        return productos;
     }
 
     @Override

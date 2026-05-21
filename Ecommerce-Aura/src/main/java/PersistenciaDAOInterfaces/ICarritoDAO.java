@@ -14,4 +14,5 @@ import modelo.CarritoItem;
 public interface ICarritoDAO {
     void guardarCarrito(String usuarioId, List<CarritoItem> items);
     List<CarritoItem> obtenerCarrito(String usuarioId);
+    void eliminarCarrito(String usuarioId);
 }

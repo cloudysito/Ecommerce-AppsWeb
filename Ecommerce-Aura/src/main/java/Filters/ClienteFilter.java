@@ -1,7 +1,5 @@
 package filters;
 
-import Config.JwtUtil;
-import io.jsonwebtoken.Claims;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -22,7 +20,8 @@ import java.io.IOException;
     "/views/procesoCompra.jsp",
     "/views/confirmacionCompra.jsp",
     "/views/perfilUsuario.jsp",
-    "/UsuarioServlet"
+    "/UsuarioServlet",
+    "/PedidoServlet"
 })
 
 public class ClienteFilter implements Filter {
@@ -30,45 +29,36 @@ public class ClienteFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
-    
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
+
         HttpSession session = httpRequest.getSession(false);
-
         boolean isLoggedIn = (session != null && session.getAttribute("usuarioActivo") != null);
-        String token = isLoggedIn ? (String) session.getAttribute("jwtToken") : null;
-
-        // Validar JWT
-        Claims claims = null;
-        if (token != null) {
-            claims = JwtUtil.validarToken(token);
-        }
 
         String uri = httpRequest.getRequestURI();
         String accion = httpRequest.getParameter("accion");
 
-        // Si es el servlet, solo bloquear la acción editarPerfil
-        if (uri.contains("UsuarioServlet")) {
-            if ("editarPerfil".equals(accion)) {
-                if (isLoggedIn && claims != null) {
-                    chain.doFilter(request, response);
-                } else {
-                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/login.jsp");
-                }
-            } else {
-                chain.doFilter(request, response);
-            }
+        if (uri.endsWith("login.jsp") || uri.endsWith("registro.jsp") || uri.contains("UsuarioServlet")) {
+            chain.doFilter(request, response);
             return;
         }
 
-        // Para las JSPs protegidas, exigir sesión activa y JWT válido
-        if (isLoggedIn && claims != null) {
+        if (uri.contains("PedidoServlet") && ("procesarPago".equals(accion) || "confirmarPedido".equals(accion))) {
+            if (isLoggedIn) {
+                chain.doFilter(request, response);
+                return;
+            }
+        }
+
+        if (isLoggedIn) {
             chain.doFilter(request, response);
         } else {
+            System.out.println("DEBUG: Acceso denegado a " + uri + ". Sesion: " + isLoggedIn);
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/login.jsp");
         }
     }

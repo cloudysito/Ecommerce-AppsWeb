@@ -36,7 +36,7 @@ public class PedidoDAO implements IPedidoDAO {
 
     @Override
     public Pedido obtenerPedidoPorId(ObjectId id) {
-        return col.find(eq("id", id)).first();
+        return col.find(eq("_id", id)).first();
     }
 
     @Override

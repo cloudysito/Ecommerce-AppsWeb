@@ -14,4 +14,5 @@ import modelo.CarritoItem;
 public interface ICarritoBO {
     void persistir(String usuarioId, List<CarritoItem> carrito);
     List<CarritoItem> recuperar(String usuarioId);
+    void eliminar(String usuarioId);
 }

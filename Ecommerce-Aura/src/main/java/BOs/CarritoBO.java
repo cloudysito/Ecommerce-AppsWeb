@@ -33,5 +33,12 @@ public class CarritoBO implements ICarritoBO {
         if (usuarioId == null) return null;
         return carritoDAO.obtenerCarrito(usuarioId);
     }
-    
+
+    @Override
+    public void eliminar(String usuarioId) {
+        if (usuarioId != null) {
+            carritoDAO.eliminarCarrito(usuarioId);
+        }
+    }
+
 }

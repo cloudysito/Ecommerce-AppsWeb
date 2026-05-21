@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package PersistenciaDAO;
 
 import PersistenciaDAOInterfaces.ICarritoDAO;
@@ -11,32 +7,59 @@ import com.mongodb.client.model.ReplaceOptions;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.CarritoItem;
+import modelo.Producto;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
-/**
- *
- * @author emiim
- */
 public class CarritoDAO implements ICarritoDAO {
+
     private final MongoCollection<Document> coleccion;
-    
+
     public CarritoDAO() {
         this.coleccion = Config.MongoClientProvider.INSTANCE.database().getCollection("carritos");
     }
-    
+
     @Override
     public void guardarCarrito(String usuarioId, List<CarritoItem> items) {
-        Document doc = new Document("usuarioID", usuarioId).append("items", items);
-        coleccion.replaceOne(Filters.eq("usuarioId", usuarioId), doc, new ReplaceOptions().upsert(true));
+        List<Document> itemsDoc = new ArrayList<>();
+        for (CarritoItem item : items) {
+            Document prodDoc = new Document("_id", item.getProducto().getId())
+                    .append("nombre", item.getProducto().getNombre())
+                    .append("precio", item.getProducto().getPrecio());
+            itemsDoc.add(new Document("producto", prodDoc).append("cantidad", item.getCantidad()));
+        }
+        Document doc = new Document("usuarioID", usuarioId).append("items", itemsDoc);
+        coleccion.replaceOne(Filters.eq("usuarioID", usuarioId), doc, new ReplaceOptions().upsert(true));
     }
 
     @Override
     public List<CarritoItem> obtenerCarrito(String usuarioId) {
         Document doc = coleccion.find(Filters.eq("usuarioID", usuarioId)).first();
+        List<CarritoItem> carrito = new ArrayList<>();
+
         if (doc != null) {
-            return (List<CarritoItem>) doc.get("items");
+            List<Document> itemsDoc = doc.getList("items", Document.class);
+            if (itemsDoc != null) {
+                for (Document d : itemsDoc) {
+                    Document prodDoc = (Document) d.get("producto");
+                    if (prodDoc != null) {
+                        Producto p = new Producto();
+                        p.setId((ObjectId) prodDoc.get("_id"));
+                        p.setNombre(prodDoc.getString("nombre"));
+                        p.setPrecio(prodDoc.getDouble("precio") != null ? prodDoc.getDouble("precio") : 0.0);
+
+                        carrito.add(new CarritoItem(p, d.getInteger("cantidad")));
+                    }
+                }
+            }
         }
-        return new ArrayList<>();
+        return carrito;
     }
-    
+
+    @Override
+    public void eliminarCarrito(String usuarioId) {
+        if (usuarioId != null) {
+            coleccion.deleteOne(Filters.eq("usuarioID", usuarioId));
+        }
+    }
 }
