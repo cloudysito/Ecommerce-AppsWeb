@@ -55,7 +55,6 @@ public class PedidoServlet extends HttpServlet {
                 if (p.getUsuarioId() != null && usuario.getId() != null && p.getUsuarioId().equals(usuario.getId())) {
                     misPedidos.add(p);
                 } else if (p.getNombreCliente() != null && p.getNombreCliente().equals(usuario.getNombreCompleto())) {
-                    // fallback to name match for older records
                     misPedidos.add(p);
                 }
             }

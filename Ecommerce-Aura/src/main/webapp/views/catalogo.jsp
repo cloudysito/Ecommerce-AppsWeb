@@ -77,7 +77,7 @@
                             </div>
                         </form>
                     </div>
-
+                                        
                     <div class="tabla-pedidos-container"> 
                         <table class="tabla-pedidos tabla-catalogo">
                             <thead>
