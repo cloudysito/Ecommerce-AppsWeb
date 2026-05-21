@@ -168,7 +168,7 @@ public class ProductoServlet extends HttpServlet {
             String stockStr = request.getParameter("stock");
             String categoria = request.getParameter("categoria");
             String imagenActual = request.getParameter("imagenActual");
-            List<String> caracteristicas = new ArrayList<>(); // Puedes poblarlo dinámicamente después
+            List<String> caracteristicas = new ArrayList<>(); 
 
             double precio = (precioStr != null) ? Double.parseDouble(precioStr) : 0;
             int stock = (stockStr != null) ? Integer.parseInt(stockStr) : 0;

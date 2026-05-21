@@ -104,6 +104,5 @@ public class AdminFilter implements Filter {
 
     @Override
     public void destroy() {
-        // Se ejecuta cuando el filtro se destruye. Lo dejamos vacío.
     }
 }
