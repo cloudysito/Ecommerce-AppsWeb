@@ -75,6 +75,3 @@ Plataforma de comercio electrónico desarrollada como proyecto final para la asi
 
 ## 📝 Documentación
 Este proyecto ha sido versionado utilizando **Git**.
-
----
-*Desarrollado para la materia de Aplicaciones Web - Plan 2023.*
