@@ -67,7 +67,7 @@ public class AdminFilter implements Filter {
         }
 
         if (uri.contains("PedidoServlet") && "misPedidos".equals(accion)) {
-            if (isLoggedIn) {
+            if (isAdmin) {
                 chain.doFilter(request, response);
                 return;
             }
